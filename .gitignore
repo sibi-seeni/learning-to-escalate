@@ -1,0 +1,20 @@
+# data and generated artifacts (rebuild with scripts/get_data.sh + scripts/run_week1.sh)
+data/
+models/
+board/models/
+docs/
+*.joblib
+*.onnx
+
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+
+# OS / editors
+.DS_Store
+.vscode/
+.idea/

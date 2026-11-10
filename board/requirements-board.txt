@@ -1,0 +1,5 @@
+# Arduino UNO Q, Linux side (Debian 13, aarch64). All have prebuilt aarch64 wheels, no compiling.
+numpy
+scikit-learn
+onnxruntime
+lightgbm

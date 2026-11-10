@@ -1,0 +1,36 @@
+{
+  "sanity_whole_trace": {
+    "precision": 0.7414860681114551,
+    "recall": 0.5764139590854392,
+    "f1": 0.6486120514556534,
+    "auroc": 0.7469188012148301,
+    "auprc": 0.7731476237957755
+  },
+  "paper": {
+    "precision": 0.778,
+    "recall": 0.554,
+    "f1": 0.647,
+    "auroc": 0.734,
+    "auprc": 0.754
+  },
+  "prefix_test_all": {
+    "precision": 0.6105494505494505,
+    "recall": 0.7914529914529914,
+    "f1": 0.6893300248138958,
+    "auroc": 0.9052074641677924,
+    "auprc": 0.8065194535199588
+  },
+  "prefix_test_state_changing": {
+    "precision": 0.6927747419550698,
+    "recall": 0.8310269482884195,
+    "f1": 0.7556291390728477,
+    "auroc": 0.8952305978626695,
+    "auprc": 0.8652314911225606
+  },
+  "prefix_errors": {
+    "decision_points": 9796,
+    "monitor_errors": 1252,
+    "dangerous": 366,
+    "costly": 886
+  }
+}
