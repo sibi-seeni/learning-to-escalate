@@ -1,0 +1,54 @@
+{
+  "host": "Signer",
+  "machine": "aarch64",
+  "system": "Linux-6.16.7-g0dd6551ae96b-aarch64-with-glibc2.41",
+  "python": "3.13.5",
+  "cpus": 4,
+  "ram_total_mb": 3669.9375,
+  "packages": {
+    "numpy": "2.5.4",
+    "sklearn": "1.9.1",
+    "onnxruntime": "1.31.1",
+    "lightgbm": "4.7.0"
+  },
+  "checks": {
+    "tiny_gru": {
+      "matches_laptop": true,
+      "max_abs_diff": 0.0,
+      "size_kb": 98.1,
+      "median_ms": 0.296,
+      "p95_ms": 0.363
+    },
+    "tiny_gru_int8": {
+      "matches_laptop": true,
+      "max_abs_diff": 0.0008782148361206055,
+      "size_kb": 98.6,
+      "median_ms": 0.311,
+      "p95_ms": 0.428
+    },
+    "tiny_lstm": {
+      "matches_laptop": true,
+      "max_abs_diff": 0.0,
+      "size_kb": 130.6,
+      "median_ms": 0.445,
+      "p95_ms": 0.53
+    },
+    "tiny_lstm_int8": {
+      "matches_laptop": true,
+      "max_abs_diff": 0.0004968047142028809,
+      "size_kb": 35.4,
+      "median_ms": 0.312,
+      "p95_ms": 0.365
+    },
+    "tiny_lgbm": {
+      "matches_laptop": true,
+      "median_ms": 0.408,
+      "p95_ms": 0.555
+    },
+    "sklearn_lr_6feat": {
+      "median_ms": 1.0,
+      "p95_ms": 1.239
+    }
+  },
+  "peak_rss_mb": 159.2
+}

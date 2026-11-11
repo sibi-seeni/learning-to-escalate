@@ -1,0 +1,54 @@
+{
+  "host": "Sibis-MacBook-Air.local",
+  "machine": "arm64",
+  "system": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "python": "3.13.7",
+  "cpus": 10,
+  "ram_total_mb": null,
+  "packages": {
+    "numpy": "2.5.4",
+    "sklearn": "1.9.1",
+    "onnxruntime": "1.31.1",
+    "lightgbm": "4.7.0"
+  },
+  "checks": {
+    "tiny_gru": {
+      "matches_laptop": true,
+      "max_abs_diff": 0.0,
+      "size_kb": 98.1,
+      "median_ms": 0.021,
+      "p95_ms": 0.022
+    },
+    "tiny_gru_int8": {
+      "matches_laptop": true,
+      "max_abs_diff": 0.0,
+      "size_kb": 98.6,
+      "median_ms": 0.021,
+      "p95_ms": 0.022
+    },
+    "tiny_lstm": {
+      "matches_laptop": true,
+      "max_abs_diff": 0.0,
+      "size_kb": 130.6,
+      "median_ms": 0.02,
+      "p95_ms": 0.021
+    },
+    "tiny_lstm_int8": {
+      "matches_laptop": true,
+      "max_abs_diff": 0.0001399219036102295,
+      "size_kb": 35.4,
+      "median_ms": 0.018,
+      "p95_ms": 0.018
+    },
+    "tiny_lgbm": {
+      "matches_laptop": true,
+      "median_ms": 0.011,
+      "p95_ms": 0.012
+    },
+    "sklearn_lr_6feat": {
+      "median_ms": 0.031,
+      "p95_ms": 0.034
+    }
+  },
+  "peak_rss_mb": 195.2
+}
