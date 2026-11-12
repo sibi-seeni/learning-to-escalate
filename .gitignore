@@ -1,10 +1,12 @@
 # data and generated artifacts (rebuild with scripts/get_data.sh + scripts/run_week1.sh)
-data/
+data/*
+!data/README.md
 models/
 board/models/
-docs/
 *.joblib
 *.onnx
+docs/blueprint.html
+docs/Arduino.md
 
 # python
 __pycache__/

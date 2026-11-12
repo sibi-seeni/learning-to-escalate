@@ -7,3 +7,6 @@ lightgbm>=4.3
 onnx>=1.16
 onnxruntime>=1.18
 pytest>=8.0
+matplotlib>=3.8
+jupyter>=1.0
+gradio>=5.0
