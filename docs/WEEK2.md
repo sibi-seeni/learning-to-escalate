@@ -17,8 +17,9 @@
 - Unseen tools cost little (mean errors 30 → 51 from 100% to 25% coverage). Unseen domains cost much more:
   172 to 970 errors. On email, medical and web most of them are confident false alarms, and calibration error
   rises 10–15×.
-- A transformer alone doesn't fix that. Adding domain-neutral tool roles cuts unseen-domain errors by 17%
-  (353 → 294), and seed-to-seed swings are large, so domain-shift results are now averaged over 3 seeds.
+- A transformer alone doesn't fix that, and neither does MiniLM (429 errors). Adding domain-neutral tool roles
+  cuts unseen-domain errors by 17% (353 → 294), so **the main monitor is now the transformer on hashed text +
+  tool roles**. Seed-to-seed swings are large, so domain-shift results are averaged over several seeds.
 
 ## 1. Step features
 
@@ -185,10 +186,18 @@ held-out domains, mean ± standard deviation over seeds:
   seed. Single-run domain-shift numbers can't be trusted, so every domain-shift result from here on is a
   mean over 3 seeds with its spread.
 
-The bigger test is a pretrained text encoder (MiniLM), which understands that "submit this form to an
-outside site" and "forward this to an outside address" mean similar things. `compare_shift` runs
-`transformer:minilm` and `transformer:minilm-roles-noid` (and the mpnet "better monitor") once their
-embeddings exist (`python -m l2e.encoders embed minilm`).
+**MiniLM didn't win.** A pretrained sentence encoder should understand that "submit this form to an outside
+site" and "forward this to an outside address" mean similar things. With MiniLM text features the transformer
+averaged 429 ± 107 errors on unseen domains (425 ± 55 with roles), against 294 for hashed text + roles, and
+98 vs 67 on the task-disjoint test. It trades one kind of error for another: on held-out web it removes most
+false alarms (confident false alarms 160 → 21) but almost doubles missed attacks (174 → 329), and on coding
+and banking it raises far more false alarms. AUROC stays near 0.99 for every monitor, so they all still
+rank calls well. What breaks on a new domain is where the 0.5 line falls, which is the deferrer's job.
+
+**Decision: the main monitor is the transformer on hashed text + tool roles** (`config.MAIN_ARCH`,
+`config.MAIN_FEATURES`). It has the fewest unseen-domain errors, needs no 22 MB sentence encoder on the board,
+and is what the app, the board bundle and the deferrer's out-of-fold labels now use. It was confirmed with 10
+seeds against the same model without roles (`bash scripts/finalize_monitor.sh`).
 
 ## 8. Deviations from the plan
 
@@ -230,6 +239,7 @@ bash scripts/run_week2.sh                 # ~1 hour on a laptop CPU, most of it 
 | ONNX + int8 | `python -m l2e.export_onnx` (and `--arch transformer`) | `reports/week2/02_export_*.md` |
 | out-of-fold labels | `python -m l2e.oof` | `reports/week2/03_errors_lstm_hash.md` |
 | domain shift | `python -m l2e.compare_shift` | `reports/week2/04_domain_shift.md` |
+| fix the main monitor | `bash scripts/finalize_monitor.sh` | `01_monitor_hash-roles.md`, `03_errors_transformer_hash-roles.md` |
 | tests | `python -m pytest -q` | 22 tests |
 
 **Board timing.** After `export_onnx`, copy `board/` to the UNO Q as in week 1, then:

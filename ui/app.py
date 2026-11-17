@@ -5,9 +5,9 @@ Pick a held-out agent trace and step through it. At each tool call the app shows
 trust/defer decision. Deferred calls wait for a reviewer to approve or reject.
 
 Prototype status (week 2):
-  monitor  = the compact neural monitor chosen by l2e.train_monitor (models/monitor_best_hash.json),
-             temperature-calibrated. Falls back to the week 1 logistic regression if it isn't trained yet.
-             Pick another with L2E_MONITOR=lr or L2E_MONITOR=monitor_transformer_hash.pt
+  monitor  = the main monitor (config.MAIN_MONITOR: transformer on hashed text + tool roles), calibrated.
+             Falls back to the week 1 logistic regression if it isn't trained yet.
+             Pick another with L2E_MONITOR=lr or L2E_MONITOR=monitor_lstm_hash.pt
   deferrer = PLACEHOLDER rule: defer when the monitor score is between 0.3 and 0.7.
              Week 3 swaps in the learned error-aware deferrer.
 
@@ -38,13 +38,13 @@ TRACES = {r["id"]: r for r in load_anon("taskdisjoint", "test")}
 def load_monitor():
     """-> (name, function trace -> calibrated P(hijacked) for every step)."""
     choice = os.environ.get("L2E_MONITOR", "")
-    best = config.MODELS / "monitor_best_hash.json"
-    if choice != "lr" and (choice or best.exists()):
+    main = config.MODELS / config.MAIN_MONITOR
+    if choice != "lr" and (choice or main.exists()):
         from l2e.monitor import load, make_featurizer, score_trace
-        path = config.MODELS / (choice or json.loads(best.read_text())["path"])
+        path = config.MODELS / (choice or config.MAIN_MONITOR)
         model, ck = load(path)
         feat = make_featurizer(ck["encoder"], ck["featurizer"])
-        name = f"{ck['arch'].upper()} on {ck['encoder']} features, calibrated (T = {ck['temperature']:.2f})"
+        name = f"{ck['arch']} on {ck['encoder']} features, calibrated (T = {ck['temperature']:.2f})"
         return name, lambda tr: [float(p) for p in score_trace(model, ck, tr["steps"], feat)]
     lr = joblib.load(config.MODELS / "lr_prefix_monitor.joblib")
     return ("six-feature logistic regression (week 1 baseline)",

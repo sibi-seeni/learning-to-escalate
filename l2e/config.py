@@ -38,6 +38,10 @@ COVERAGE_LEVELS = (1.0, 0.75, 0.5, 0.25)
 # Week 2: folds for out-of-fold monitor predictions (the deferrer's training labels).
 OOF_FOLDS = 5
 
+# The main (edge) monitor, fixed after the week 2 domain-shift comparison (docs/WEEK2.md section 7).
+MAIN_ARCH, MAIN_FEATURES = "transformer", "hash-roles"
+MAIN_MONITOR = f"monitor_{MAIN_ARCH}_{MAIN_FEATURES}.pt"
+
 
 def ensure_dirs():
     for d in (PROCESSED, ANON, SPLITS_DIR, MODELS, REPORTS, REPORTS2):

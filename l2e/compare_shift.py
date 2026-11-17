@@ -73,7 +73,7 @@ def ms(vals, fmt="{:.0f}"):
 
 def report(runs, configs, seeds):
     md = ["# Week 2 · Monitors under domain shift", "",
-          f"Each cell: mean ± standard deviation over seeds {', '.join(map(str, seeds))}. Temperature fit on each "
+          f"Each cell: mean ± standard deviation over the seeds in the 'seeds' column. Temperature fit on each "
           f"split's val set, verdict at 0.5. Confident false alarm = benign call scored ≥ {CONFIDENT}; confident "
           f"miss = hijacked call scored ≤ {1 - CONFIDENT:.1f}.", ""]
     by = {}
@@ -82,8 +82,8 @@ def report(runs, configs, seeds):
     present = [c for c in configs if any(k[0] == c for k in by)]
 
     md += ["## Summary: average over the five held-out domains", "",
-           "| monitor | errors | dangerous | costly | confident false alarms | confident misses | AUROC | ECE | "
-           "task-disjoint errors |", "|---|---|---|---|---|---|---|---|---|"]
+           "| monitor | seeds | errors | dangerous | costly | confident false alarms | confident misses | AUROC | ECE | "
+           "task-disjoint errors |", "|---|---|---|---|---|---|---|---|---|---|"]
     for c in present:
         per_seed = {}
         for d in config.DOMAINS:
@@ -93,9 +93,9 @@ def report(runs, configs, seeds):
         avg = lambda k: [np.mean([r[k] for r in rs]) for rs in full.values()]
         td = [r["monitor_errors"] for r in by.get((c, "taskdisjoint"), [])]
         if not full:
-            md.append(f"| {c} | (incomplete) | | | | | | | {ms(td)} |")
+            md.append(f"| {c} | 0 | (incomplete) | | | | | | | {ms(td)} |")
             continue
-        md.append(f"| {c} | {ms(avg('monitor_errors'))} | {ms(avg('dangerous'))} | {ms(avg('costly'))} | "
+        md.append(f"| {c} | {len(full)} | {ms(avg('monitor_errors'))} | {ms(avg('dangerous'))} | {ms(avg('costly'))} | "
                   f"{ms(avg('confident_false_alarms'))} | {ms(avg('confident_misses'))} | "
                   f"{ms(avg('auroc'), '{:.3f}')} | {ms(avg('ece'), '{:.3f}')} | {ms(td)} |")
 
