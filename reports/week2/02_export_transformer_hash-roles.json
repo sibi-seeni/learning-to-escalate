@@ -1,0 +1,51 @@
+{
+  "size_kb": {
+    "float": 447.3,
+    "int8": 161.5
+  },
+  "accuracy": {
+    "torch": {
+      "auroc": 0.9997,
+      "auprc": 0.9987,
+      "f1": 0.9844,
+      "precision": 0.9819,
+      "recall": 0.9869,
+      "ece": 0.0029
+    },
+    "float": {
+      "auroc": 0.9997,
+      "auprc": 0.9987,
+      "f1": 0.9844,
+      "precision": 0.9819,
+      "recall": 0.9869,
+      "ece": 0.0029
+    },
+    "int8": {
+      "auroc": 0.9997,
+      "auprc": 0.9986,
+      "f1": 0.9841,
+      "precision": 0.9824,
+      "recall": 0.9858,
+      "ece": 0.0028
+    }
+  },
+  "max_abs_diff": {
+    "float": 5.662441253662109e-07,
+    "int8": 0.11230617761611938
+  },
+  "int8_verdict_flips": 3,
+  "latency_ms_median_p95": {
+    "featurize": [
+      0.1746,
+      0.184
+    ],
+    "model (float)": [
+      0.0835,
+      0.0889
+    ],
+    "model (int8)": [
+      0.0856,
+      0.0908
+    ]
+  }
+}

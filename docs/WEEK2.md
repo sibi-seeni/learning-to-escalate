@@ -6,8 +6,9 @@
 
 - A 70k-parameter LSTM over the trace prefix, with no pretrained text model, reaches test AUROC 0.9995 and
   F1 0.979. It makes 74 errors on 9,796 decision points, against 1,252 for the six-feature logistic regression.
-- The GRU and the tiny causal transformer score within 0.001 of it. The LSTM is the edge monitor because it
-  quantizes to int8 (the GRU can't, in ONNX Runtime) and it is the smallest of the two that do.
+- The GRU and the tiny causal transformer score within 0.001 of it. The LSTM was picked first because it
+  quantizes to int8 (the GRU can't, in ONNX Runtime) and is the smaller of the two that do. Sections 2–6
+  report the LSTM; section 7 explains the switch to the final main monitor.
 - int8 shrinks it from 276 KB to 77 KB and changes 3 of 9,796 verdicts. On the laptop one decision takes
   about 0.3 ms, and most of that is building the features, not running the model.
 - Hiding the agent's thoughts raises test errors from 74 to 191 but AUROC stays at 0.996, so most of the
@@ -17,9 +18,16 @@
 - Unseen tools cost little (mean errors 30 → 51 from 100% to 25% coverage). Unseen domains cost much more:
   172 to 970 errors. On email, medical and web most of them are confident false alarms, and calibration error
   rises 10–15×.
-- A transformer alone doesn't fix that, and neither does MiniLM (429 errors). Adding domain-neutral tool roles
-  cuts unseen-domain errors by 17% (353 → 294), so **the main monitor is now the transformer on hashed text +
-  tool roles**. Seed-to-seed swings are large, so domain-shift results are averaged over several seeds.
+- No monitor change fixes that. Over 10 seeds, the transformer averages 341 errors on unseen domains with
+  hashed text and 349 with tool roles added; MiniLM text is worse (429, 3 seeds). A 3-seed run first made the
+  roles look 17% better, which turned out to be luck.
+- How a monitor does on an unseen domain depends mostly on the random seed: on held-out web the same model
+  made 373 to 1,308 errors. Every monitor still ranks calls well (AUROC ≈ 0.99); what is unreliable is where
+  its 0.5 line falls on a new domain. That is the gap the deferrer is meant to cover.
+- **Final main monitor: a 107k-parameter causal transformer on hashed text + tool roles** (tied with the no-roles
+  version, and already built into the app, board bundle and deferrer labels). 55 test errors, int8 161 KB with
+  3 verdicts changed, about 0.26 ms per decision on the laptop, and 418 out-of-fold errors (316 dangerous) for
+  the deferrer.
 
 ## 1. Step features
 
@@ -56,7 +64,7 @@ logistic regression gets the same temperature scaling.
 On state-changing calls only, all three neural monitors reach AUROC 0.999 and F1 0.98 (the LR: 0.895, 0.756).
 Training takes 20–50 s each on a laptop CPU.
 
-**Choosing the edge monitor.** Validation AUPRC is 0.9981 (LSTM), 0.9984 (GRU) and 0.9982 (transformer),
+**Choosing the first edge monitor** (replaced in section 7)**.** Validation AUPRC is 0.9981 (LSTM), 0.9984 (GRU) and 0.9982 (transformer),
 which is a tie. The rule is: best validation AUPRC among the int8-quantizable models (LSTM, transformer), with
 gaps under 0.001 going to the smaller one. That picks the LSTM.
 
@@ -167,62 +175,87 @@ usually came with an attack. So we tested two things: a transformer instead of t
 data out, moves money, runs code, deletes, changes trust; `l2e/tool_roles.py`). With roles, web's `fill_form`
 looks like email's `send_email`. A third variant also drops the memorized tool id (`-noid`).
 
-Every configuration was trained on all five leave-one-domain-out splits with 3 seeds
-(`python -m l2e.compare_shift`, full tables in `reports/week2/04_domain_shift.md`). Average over the five
-held-out domains, mean ± standard deviation over seeds:
+Every configuration was trained on all five leave-one-domain-out splits (`python -m l2e.compare_shift`, full
+tables in `reports/week2/04_domain_shift.md`). The two closest candidates got 10 seeds each, the rest 3.
+Average over the five held-out domains, mean ± standard deviation over seeds:
 
-| monitor | errors | dangerous | costly | confident false alarms (≥ 0.9) | task-disjoint errors |
-|---|---|---|---|---|---|
-| LSTM, hashed text | 347 ± 87 | 130 ± 13 | 217 ± 99 | 86 ± 54 | 69 ± 2 |
-| transformer, hashed text | 353 ± 75 | 111 ± 22 | 242 ± 71 | 85 ± 24 | 74 ± 5 |
-| transformer + tool roles | **294 ± 44** | 114 ± 26 | 180 ± 68 | 70 ± 34 | 67 ± 14 |
-| transformer + tool roles, no tool id | 325 ± 30 | 120 ± 3 | 205 ± 27 | 76 ± 11 | 76 ± 8 |
+| monitor | seeds | errors | dangerous | costly | confident false alarms (≥ 0.9) | task-disjoint errors |
+|---|---|---|---|---|---|---|
+| LSTM, hashed text | 3 | 347 ± 87 | 130 ± 13 | 217 ± 99 | 86 ± 54 | 69 ± 2 |
+| transformer, hashed text | 10 | 341 ± 60 | 110 ± 15 | 231 ± 66 | 84 ± 27 | 67 ± 7 |
+| transformer + tool roles | 10 | 349 ± 74 | 111 ± 20 | 238 ± 87 | 91 ± 33 | 72 ± 11 |
+| transformer + tool roles, no tool id | 3 | 325 ± 30 | 120 ± 3 | 205 ± 27 | 76 ± 11 | 76 ± 8 |
+| transformer + MiniLM | 3 | 429 ± 107 | 156 ± 35 | 273 ± 140 | 101 ± 65 | 98 ± 37 |
+| transformer + MiniLM + tool roles | 3 | 425 ± 55 | 167 ± 13 | 259 ± 55 | 105 ± 36 | 109 ± 41 |
 
-- **Swapping the LSTM for a transformer changes nothing** on its own (347 vs 353).
-- **Tool roles help a little**: 17% fewer errors on unseen domains, and the most on web (592 → 498).
-  They don't cost anything in-domain.
-- **Dropping the tool id doesn't help further.** It mostly makes runs more consistent.
-- **Seed-to-seed swings are huge.** On held-out web the same LSTM made 407 to 1,054 errors depending on the
-  seed. Single-run domain-shift numbers can't be trusted, so every domain-shift result from here on is a
-  mean over 3 seeds with its spread.
+- **Architecture doesn't matter here.** LSTM and transformer are within noise (347 vs 341).
+- **Tool roles don't help either.** With 3 seeds they looked 17% better (294 vs 353); with 10 seeds the two
+  are tied (349 vs 341). The early gap was luck, which is why the closest candidates got 10 seeds.
+- **MiniLM is worse overall.** A pretrained sentence encoder should understand that "submit this form to an
+  outside site" and "forward this to an outside address" mean similar things. It trades one kind of error for
+  another instead: on held-out web it removes most false alarms (confident false alarms 179 → 21) but about
+  doubles missed attacks (156 → 329), and on coding and banking it raises far more false alarms.
+- **Seed-to-seed swings dominate.** On held-out web the transformer with tool roles made 377 to 930 errors
+  across seeds, and without roles 373 to 1,308. On email, 153 to 881. Only the random starting point
+  changed. Any domain-shift result here needs several seeds and its spread.
 
-**MiniLM didn't win.** A pretrained sentence encoder should understand that "submit this form to an outside
-site" and "forward this to an outside address" mean similar things. With MiniLM text features the transformer
-averaged 429 ± 107 errors on unseen domains (425 ± 55 with roles), against 294 for hashed text + roles, and
-98 vs 67 on the task-disjoint test. It trades one kind of error for another: on held-out web it removes most
-false alarms (confident false alarms 160 → 21) but almost doubles missed attacks (174 → 329), and on coding
-and banking it raises far more false alarms. AUROC stays near 0.99 for every monitor, so they all still
-rank calls well. What breaks on a new domain is where the 0.5 line falls, which is the deferrer's job.
+**What this means.** AUROC stays near 0.99 for every monitor and seed, so they all still rank calls well. What
+breaks on a new domain is where the 0.5 line falls, and that is close to random from run to run. No change to
+the monitor fixes it, which is the case for a second model that predicts when the monitor is wrong.
 
 **Decision: the main monitor is the transformer on hashed text + tool roles** (`config.MAIN_ARCH`,
-`config.MAIN_FEATURES`). It has the fewest unseen-domain errors, needs no 22 MB sentence encoder on the board,
-and is what the app, the board bundle and the deferrer's out-of-fold labels now use. It was confirmed with 10
-seeds against the same model without roles (`bash scripts/finalize_monitor.sh`).
+`config.MAIN_FEATURES`). It is tied with the no-roles version. It was kept because it was already trained,
+exported and labeled for the deferrer, and because the roles give the deferrer a domain-neutral description of
+each tool. It needs no sentence encoder on the board. Built by `bash scripts/finalize_monitor.sh`:
+
+| | main monitor (transformer + hashed text + tool roles) |
+|---|---|
+| parameters | 107,153 |
+| task-disjoint test | AUROC 0.9997, F1 0.984, 55 errors (23 dangerous, 32 costly) |
+| int8 | 447 KB → 161 KB, AUROC unchanged, 3 of 9,796 verdicts changed |
+| laptop latency per decision | 0.18 ms features + 0.09 ms model |
+| out-of-fold errors for the deferrer | 237–464 per split; 418 on task-disjoint, 316 of them dangerous |
+
+Its held-out error counts (`reports/week2/03_errors_transformer_hash-roles.md`), single run:
+
+| held-out split | decision points | errors | dangerous |
+|---|---|---|---|
+| Task-disjoint test | 9,796 | 55 | 23 |
+| Tool coverage 100% / 75% / 50% / 25% (mean of 3 seeds) | 2,767 | 24 / 32 / 35 / 35 | 14 / 16 / 17 / 15 |
+| Leave out banking | 11,634 | 160 | 67 |
+| Leave out coding | 14,817 | 262 | 198 |
+| Leave out email | 14,986 | 394 | 50 |
+| Leave out medical | 14,795 | 416 | 28 |
+| Leave out web | 14,792 | 975 | 81 |
+
+The out-of-fold labels in `data/processed/oof/transformer_hash-roles/` are the deferrer's training data. The
+LSTM files in section 5 are kept for comparison.
 
 ## 8. Deviations from the plan
 
 1. **Event stream instead of one vector per step.** A tool result is its own event, so a recurrent monitor
    can update step by step on the board and never needs the current call's result.
-2. **LSTM, not GRU, as the edge monitor**, because ONNX Runtime can't quantize GRU (week 1). The GRU stays in the
+2. **No GRU as the edge monitor**, because ONNX Runtime can't quantize GRU (week 1). The GRU stays in the
    comparison.
 3. **Hidden-thoughts ablation added** (section 3).
-4. **MiniLM and mpnet are written but not yet run.** They need a one-time Hugging Face download:
-   `WITH_ENCODERS=1 bash scripts/run_week2.sh`. The MiniLM ONNX export was checked on a randomly initialized
-   model of the same shape (int8 cosine 0.9999; 88 MB float, 22 MB int8).
+4. **MiniLM was tested and not adopted** (section 7). The mpnet "better monitor" is written but not run, since
+   the deferrer comes first. The MiniLM ONNX export was checked on a randomly initialized model of the same
+   shape (int8 cosine 0.9999; 88 MB float, 22 MB int8).
 5. **The stronger "better monitor"** is a 4-layer causal transformer (width 256) on mpnet embeddings, not
    DriftNet's bidirectional trunk, because it has to decide before each call like ours. It also waits on the
    encoder run.
-6. **Tool roles and a seeded domain-shift comparison added** (section 7).
+6. **Domain-shift comparison over several seeds, and tool roles** (section 7). The roles didn't measurably help.
+7. **Main monitor: transformer on hashed text + tool roles**, not the LSTM (section 7).
 
 ## 9. Next
 
-- **This week, on the Mac and the board:** run the board timing for the LSTM and transformer bundles and fill the edge table; run
-  the MiniLM and mpnet versions.
-- **Week 3:** train the LightGBM deferrer on the out-of-fold errors, compare it with calibrated confidence at
+- **Board timing (when back with the UNO Q, late November):** `time_monitor.py` for the main monitor's bundle
+  (`monitor_bundle_transformer_hash-roles.json`), and fill the edge table. The board is in the US until then.
+- **Week 3:** train the LightGBM deferrer on the main monitor's out-of-fold errors, compare it with calibrated confidence at
   equal review budgets (1–5% attack prevalence), and look hardest at leave-one-domain-out, where section 6
   shows confidence is least trustworthy.
-- With only 74 in-distribution test errors, results at low budgets will be noisy. Report counts next to rates,
-  and pool across folds where possible.
+- With only 55 in-distribution test errors, results at low budgets will be noisy. Report counts and bootstrap
+  intervals next to rates, pool across folds where possible, and use several seeds for anything under domain shift.
 
 ## Reproducing these results
 
@@ -248,6 +281,4 @@ bash scripts/run_week2.sh                 # ~1 hour on a laptop CPU, most of it 
 python ~/l2e-board/time_monitor.py --bundle models/monitor_bundle_lstm_hash.json
 python ~/l2e-board/time_monitor.py --bundle models/monitor_bundle_transformer_hash.json
 ```
-
-The numbers above were produced on Linux with PyTorch 2.15. A rerun on the Mac should land within noise of
-them, but not bit-for-bit.
+---
