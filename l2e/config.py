@@ -11,6 +11,7 @@ ANON = PROCESSED / "anon"            # anonymized + masked trajectories
 SPLITS_DIR = PROCESSED / "splits"     # tool-coverage and leave-one-domain-out id lists
 MODELS = ROOT / "models"
 REPORTS = ROOT / "reports" / "week1"
+REPORTS2 = ROOT / "reports" / "week2"
 
 # Pin the dataset version so results are reproducible.
 AGENTDRIFT_URL = "https://github.com/Asif-0209/AgentDrift.git"
@@ -34,7 +35,10 @@ TOOL_HOLDOUT_FRAC = 0.2
 TOOL_HOLDOUT_SEEDS = (0, 1, 2)
 COVERAGE_LEVELS = (1.0, 0.75, 0.5, 0.25)
 
+# Week 2: folds for out-of-fold monitor predictions (the deferrer's training labels).
+OOF_FOLDS = 5
+
 
 def ensure_dirs():
-    for d in (PROCESSED, ANON, SPLITS_DIR, MODELS, REPORTS):
+    for d in (PROCESSED, ANON, SPLITS_DIR, MODELS, REPORTS, REPORTS2):
         d.mkdir(parents=True, exist_ok=True)

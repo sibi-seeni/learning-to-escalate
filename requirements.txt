@@ -1,4 +1,4 @@
-# Laptop environment (Python 3.10+). Week 2 will add torch.
+# Laptop environment (Python 3.10+).
 numpy>=1.26
 pandas>=2.1
 scikit-learn>=1.4
@@ -10,3 +10,9 @@ pytest>=8.0
 matplotlib>=3.8
 jupyter>=1.0
 gradio>=5.0
+torch>=2.2
+# Week 2 sentence-encoder versions only (MiniLM / mpnet), not needed for the hashed-text monitor:
+sentence-transformers>=5.0
+transformers>=4.41
+huggingface_hub>=0.23
+tokenizers>=0.15

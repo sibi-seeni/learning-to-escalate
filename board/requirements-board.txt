@@ -3,3 +3,5 @@ numpy
 scikit-learn
 onnxruntime
 lightgbm
+# week 2, only for the MiniLM monitor:
+# tokenizers
