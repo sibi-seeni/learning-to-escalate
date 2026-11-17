@@ -17,6 +17,8 @@
 - Unseen tools cost little (mean errors 30 → 51 from 100% to 25% coverage). Unseen domains cost much more:
   172 to 970 errors. On email, medical and web most of them are confident false alarms, and calibration error
   rises 10–15×.
+- A transformer alone doesn't fix that. Adding domain-neutral tool roles cuts unseen-domain errors by 17%
+  (353 → 294), and seed-to-seed swings are large, so domain-shift results are now averaged over 3 seeds.
 
 ## 1. Step features
 
@@ -154,7 +156,41 @@ new domain would remove a third to more than half of them, but there are no labe
 *least* confident calls to a human, so it will likely miss these. That is the case where a learned deferrer,
 with novelty signals like `tool_seen`, has room to help.
 
-## 7. Deviations from the plan
+## 7. Can a different model fix domain shift?
+
+The leave-out-web false alarms point at the inputs, not the architecture. They are mostly web-only tools the
+monitor never saw (`read_webpage`, `fill_form`, `extract_links`, `extract_table`), and 99% of them have an
+external URL earlier in the trace. Outside links are normal on the web but in the other four domains they
+usually came with an attack. So we tested two things: a transformer instead of the LSTM, and **tool roles**,
+8 domain-neutral flags for what each tool does (reads private data, reads untrusted content, writes, sends
+data out, moves money, runs code, deletes, changes trust; `l2e/tool_roles.py`). With roles, web's `fill_form`
+looks like email's `send_email`. A third variant also drops the memorized tool id (`-noid`).
+
+Every configuration was trained on all five leave-one-domain-out splits with 3 seeds
+(`python -m l2e.compare_shift`, full tables in `reports/week2/04_domain_shift.md`). Average over the five
+held-out domains, mean ± standard deviation over seeds:
+
+| monitor | errors | dangerous | costly | confident false alarms (≥ 0.9) | task-disjoint errors |
+|---|---|---|---|---|---|
+| LSTM, hashed text | 347 ± 87 | 130 ± 13 | 217 ± 99 | 86 ± 54 | 69 ± 2 |
+| transformer, hashed text | 353 ± 75 | 111 ± 22 | 242 ± 71 | 85 ± 24 | 74 ± 5 |
+| transformer + tool roles | **294 ± 44** | 114 ± 26 | 180 ± 68 | 70 ± 34 | 67 ± 14 |
+| transformer + tool roles, no tool id | 325 ± 30 | 120 ± 3 | 205 ± 27 | 76 ± 11 | 76 ± 8 |
+
+- **Swapping the LSTM for a transformer changes nothing** on its own (347 vs 353).
+- **Tool roles help a little**: 17% fewer errors on unseen domains, and the most on web (592 → 498).
+  They don't cost anything in-domain.
+- **Dropping the tool id doesn't help further.** It mostly makes runs more consistent.
+- **Seed-to-seed swings are huge.** On held-out web the same LSTM made 407 to 1,054 errors depending on the
+  seed. Single-run domain-shift numbers can't be trusted, so every domain-shift result from here on is a
+  mean over 3 seeds with its spread.
+
+The bigger test is a pretrained text encoder (MiniLM), which understands that "submit this form to an
+outside site" and "forward this to an outside address" mean similar things. `compare_shift` runs
+`transformer:minilm` and `transformer:minilm-roles-noid` (and the mpnet "better monitor") once their
+embeddings exist (`python -m l2e.encoders embed minilm`).
+
+## 8. Deviations from the plan
 
 1. **Event stream instead of one vector per step.** A tool result is its own event, so a recurrent monitor
    can update step by step on the board and never needs the current call's result.
@@ -167,8 +203,9 @@ with novelty signals like `tool_seen`, has room to help.
 5. **The stronger "better monitor"** is a 4-layer causal transformer (width 256) on mpnet embeddings, not
    DriftNet's bidirectional trunk, because it has to decide before each call like ours. It also waits on the
    encoder run.
+6. **Tool roles and a seeded domain-shift comparison added** (section 7).
 
-## 8. Next
+## 9. Next
 
 - **This week, on the Mac and the board:** run the board timing for the LSTM and transformer bundles and fill the edge table; run
   the MiniLM and mpnet versions.
@@ -192,7 +229,8 @@ bash scripts/run_week2.sh                 # ~1 hour on a laptop CPU, most of it 
 | hidden thoughts | `python -m l2e.train_monitor --encoder hash-nothought` | `reports/week2/01_monitor_hash-nothought.md` |
 | ONNX + int8 | `python -m l2e.export_onnx` (and `--arch transformer`) | `reports/week2/02_export_*.md` |
 | out-of-fold labels | `python -m l2e.oof` | `reports/week2/03_errors_lstm_hash.md` |
-| tests | `python -m pytest -q` | 20 tests |
+| domain shift | `python -m l2e.compare_shift` | `reports/week2/04_domain_shift.md` |
+| tests | `python -m pytest -q` | 22 tests |
 
 **Board timing.** After `export_onnx`, copy `board/` to the UNO Q as in week 1, then:
 

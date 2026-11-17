@@ -14,8 +14,14 @@ Each event is described by:
   text         "hash": hashed bag of words and word pairs, HASH_DIM numbers, no pretrained model
                "minilm" / "mpnet": a sentence embedding, looked up from a cache (l2e/encoders.py)
 
-Feature-set names: the encoder name, plus "-nothought" to hide every agent thought (ablation: does the
-monitor still work if a deployment doesn't expose the agent's reasoning?). E.g. "hash", "hash-nothought".
+  roles        8 numbers, only with "-roles": what the event's tool does (l2e/tool_roles.py), e.g. sends data
+               out or moves money. Meant to carry over to new domains, where tool names are new.
+
+Feature-set names: the encoder name plus options, joined by "-":
+  nothought  hide every agent thought (does the monitor still work without the agent's reasoning?)
+  roles      add the tool-role features
+  noid       drop the memorized tool id (every tool becomes "unknown"), so the model must rely on roles and text
+E.g. "hash", "hash-nothought", "hash-roles", "minilm-roles-noid".
 
 This file needs only numpy and the standard library, so the board can import a copy of it as is.
 The laptop-only helper default_cfg() pulls the tool lists and keywords from the rest of l2e.
@@ -34,18 +40,50 @@ STRUCT = ["is_call", "is_obs", "position", "state_changing", "sink", "n_args", "
 TOKEN_RE = re.compile(r"<[a-z_]+>|[a-z0-9]+")
 
 
-def default_cfg(feature_set="hash"):
-    """Everything the featurizer needs, as plain JSON (saved next to every exported model)."""
-    from .features import KEYWORDS
-    from .tools import SINK_VERBS, STATE_CHANGING
-    return {"hash_dim": HASH_DIM, "state_changing": sorted(STATE_CHANGING), "sink_verbs": list(SINK_VERBS),
-            "keywords": list(KEYWORDS), "thoughts": not feature_set.endswith("-nothought")}
+OPTIONS = ("nothought", "roles", "noid")
+ROLE_NAMES = ["reads_private", "reads_untrusted", "writes", "sends_out", "moves_money", "runs_code", "deletes",
+              "changes_trust"]  # same order as l2e/tool_roles.py
+# Fallback for tools that aren't in the role table: keywords in the tool's name.
+ROLE_KEYWORDS = {
+    "reads_private": ("get_", "list_", "check_", "search_patients", "history", "record"),
+    "reads_untrusted": ("read", "search", "fetch", "browse", "web", "page", "inbox", "thread", "attachment", "download",
+                        "extract", "scrape", "log", "docs"),
+    "writes": ("write", "create", "update", "edit", "set_", "save", "add_", "move", "record_", "commit", "upload"),
+    "sends_out": ("send", "forward", "reply", "submit", "post", "share", "upload", "push", "message", "email", "form",
+                  "publish", "export"),
+    "moves_money": ("transfer", "pay", "withdraw", "deposit", "loan", "purchase", "buy", "refund", "wire", "claim"),
+    "runs_code": ("execute", "run", "install", "shell", "eval", "script", "command"),
+    "deletes": ("delete", "remove", "cancel", "drop", "purge", "close"),
+    "changes_trust": ("contact", "beneficiar", "login", "auth", "permission", "filter", "grant", "freeze", "token",
+                      "password", "key"),
+}
 
 
 def split_feature_set(feature_set):
-    """'hash-nothought' -> ('hash', False)"""
-    enc, _, rest = feature_set.partition("-")
-    return enc, rest != "nothought"
+    """'minilm-roles-noid' -> ('minilm', {'nothought': False, 'roles': True, 'noid': True})"""
+    enc, *opts = feature_set.split("-")
+    bad = set(opts) - set(OPTIONS)
+    if bad:
+        raise ValueError(f"unknown feature-set option(s) {bad}; known: {OPTIONS}")
+    return enc, {o: o in opts for o in OPTIONS}
+
+
+def default_cfg(feature_set="hash"):
+    """Everything the featurizer needs, as plain JSON (saved next to every exported model)."""
+    from .features import KEYWORDS
+    from .tool_roles import ROLE_NAMES as TR_NAMES, TOOL_ROLES
+    from .tools import SINK_VERBS, STATE_CHANGING
+    assert TR_NAMES == ROLE_NAMES
+    _, opt = split_feature_set(feature_set)
+    return {"hash_dim": HASH_DIM, "state_changing": sorted(STATE_CHANGING), "sink_verbs": list(SINK_VERBS),
+            "keywords": list(KEYWORDS), "thoughts": not opt["nothought"], "roles": opt["roles"],
+            "tool_roles": TOOL_ROLES if opt["roles"] else {}}
+
+
+def roles_from_name(tool):
+    """Roles for a tool that isn't in the table, guessed from its name."""
+    t = tool.lower()
+    return [r for r in ROLE_NAMES if any(k in t for k in ROLE_KEYWORDS[r])]
 
 
 def call_text(step, thoughts=True):
@@ -89,9 +127,18 @@ class Featurizer:
         self.sinks = tuple(self.cfg["sink_verbs"])
         self.keywords = self.cfg["keywords"]
         self.thoughts = self.cfg.get("thoughts", True)
+        self.roles = self.cfg.get("roles", False)
+        self.tool_roles = self.cfg.get("tool_roles", {})
+        self.n_struct = len(STRUCT) + (len(ROLE_NAMES) if self.roles else 0)
         self.text_lookup = text_lookup
         self.text_dim = self.cfg["hash_dim"] if text_lookup is None else text_dim
-        self.dim = len(STRUCT) + self.text_dim
+        self.dim = self.n_struct + self.text_dim
+
+    def role_vec(self, tool):
+        rs = self.tool_roles.get(tool)
+        if rs is None:
+            rs = roles_from_name(tool)
+        return [float(r in rs) for r in ROLE_NAMES]
 
     def struct(self, kind, k, step, text):
         call = kind == "call"
@@ -121,7 +168,9 @@ class Featurizer:
         tools, calls = [], []
         for i, (kind, k, s, text) in enumerate(ev):
             X[i, :len(STRUCT)] = self.struct(kind, k, s, text)
-            X[i, len(STRUCT):] = self.text_vec(text)
+            if self.roles:  # on a result event: the roles of the tool that produced it
+                X[i, len(STRUCT):self.n_struct] = self.role_vec(s["tool"])
+            X[i, self.n_struct:] = self.text_vec(text)
             tools.append(s["tool"])
             if kind == "call":
                 calls.append(i)

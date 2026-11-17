@@ -7,6 +7,7 @@ Run:  python -m l2e.train_monitor                       (hashed text; lstm, gru,
       python -m l2e.train_monitor --encoder minilm      (after `python -m l2e.encoders embed minilm`)
       python -m l2e.train_monitor --encoder mpnet --archs transformer_big    ("better monitor", laptop only)
       python -m l2e.train_monitor --encoder hash-nothought   (ablation: agent thoughts hidden)
+      python -m l2e.train_monitor --encoder hash-roles-noid --archs transformer   (tool roles, no tool ids)
       python -m l2e.train_monitor --quick               (3 epochs, smoke test)
 Out:  models/monitor_<arch>_<encoder>.pt, models/monitor_best_<encoder>.json,
       data/processed/preds/monitor_<arch>_<encoder>.csv, reports/week2/01_monitor_<encoder>.md and .json

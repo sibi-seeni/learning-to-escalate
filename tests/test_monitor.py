@@ -75,3 +75,23 @@ def test_temperature_recovers_scale():
     T = fit_temperature(2.0 * z, y)  # over-confident by 2x
     assert 1.8 < T < 2.2
     assert ece(sigmoid(2 * z / T), y) < ece(sigmoid(2 * z), y)
+
+
+def test_roles_cover_every_tool_and_fall_back_to_name():
+    from l2e.step_features import ROLE_NAMES, roles_from_name, split_feature_set
+    from l2e.tool_roles import TOOL_ROLES
+    f = Featurizer(default_cfg("hash-roles"))
+    assert f.dim == len(ROLE_NAMES) + 14 + 512
+    assert f.role_vec("fill_form") == f.role_vec("send_email")  # web form and email both "send data out"
+    assert "moves_money" in roles_from_name("wire_payment") and "sends_out" in roles_from_name("upload_to_drive")
+    assert len(TOOL_ROLES) == 103
+    with pytest.raises(ValueError):
+        split_feature_set("hash-typo")
+
+
+def test_roles_are_on_both_call_and_result_events():
+    f = Featurizer(default_cfg("hash-roles"))
+    _, X, _ = f.events(TRAJ["steps"])
+    sends = 14 + 3  # sends_out column
+    assert X[2, sends] == 1 and X[3, sends] == 1  # forward_email call and its result
+    assert X[0, sends] == 0

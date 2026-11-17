@@ -150,7 +150,12 @@ class EventData:
         return out
 
     def vocab_for(self, train_ids):
-        """Tools visible in any training prefix (= the tools of the training decision points)."""
+        """Tools visible in any training prefix (= the tools of the training decision points).
+
+        With the "noid" option the vocabulary is empty: every tool is "unknown" and the model has to go by
+        the tool's roles and text."""
+        if split_feature_set(self.encoder)[1]["noid"]:
+            return {}
         return build_vocab(self.dps.loc[list(train_ids), "tool"])
 
 

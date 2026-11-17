@@ -23,7 +23,7 @@ brew install libomp            # macOS only, needed by LightGBM
 pip install -r requirements.txt
 bash scripts/get_data.sh       # downloads AgentDrift into data/raw/ (pinned commit)
 bash scripts/run_week1.sh      # anonymize -> leakage check -> decision points -> baseline -> splits -> tests
-bash scripts/run_week2.sh      # neural monitors -> ONNX + int8 -> out-of-fold error labels -> tests (~1 hour)
+bash scripts/run_week2.sh      # neural monitors -> ONNX + int8 -> out-of-fold labels -> domain-shift comparison
 ```
 
 `WITH_ENCODERS=1 bash scripts/run_week2.sh` also builds the MiniLM and mpnet versions (downloads the models

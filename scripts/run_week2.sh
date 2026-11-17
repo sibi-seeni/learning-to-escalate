@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Week 2: compact neural monitor. Run scripts/run_week1.sh first. Each step writes a report to reports/week2/.
-# Times are for a laptop CPU; the out-of-fold step trains 6 models per split on 9 splits.
+# The out-of-fold step trains 6 models per split on 9 splits; compare_shift trains up to 7 configs x 6 splits x 3 seeds.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -20,4 +20,8 @@ if [ "${WITH_ENCODERS:-0}" = "1" ]; then
   python -m l2e.encoders embed mpnet                                 # DriftNet's encoder (laptop only)
   python -m l2e.train_monitor --encoder mpnet --archs transformer_big  # the "better monitor" baseline
 fi
+
+# 6. Domain shift: which monitor holds up on a domain it never saw? 3 seeds per config and split.
+#    Uses the MiniLM / mpnet configs only if their embeddings exist. Resumable: reruns skip finished runs.
+python -m l2e.compare_shift
 echo "Week 2 pipeline done. Reports are in reports/week2/"
