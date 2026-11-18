@@ -6,6 +6,7 @@ board/models/
 *.joblib
 *.onnx
 docs/blueprint.html
+docs/d2_report.html
 docs/Arduino.md
 
 # python
