@@ -22,6 +22,7 @@ The reviewer is assumed perfect, so "caught" means the error is fixed (an upper 
 
 Run:  python -m l2e.deferrer                                   (task-disjoint + leave-out-web)
       python -m l2e.deferrer --splits taskdisjoint lodo_banking lodo_coding lodo_email lodo_medical lodo_web
+      python -m l2e.deferrer --plot-only                      (redraw the figure from the saved report)
 Out:  models/deferrer/<monitor>_<split>.txt (LightGBM), .trees.json (the same trees for l2e/trees.py, which the app
       and the board use: no LightGBM next to PyTorch), .json (features, app threshold, parity check),
       reports/week3/01_deferrer_v1.md and .json, results/figures/06_deferral_curves.png
@@ -198,6 +199,17 @@ def write_report(results):
     return "\n".join(md)
 
 
+def label_positions(ends, gap=7.0):
+    """Direct labels at the line ends, pushed apart vertically (in % points) so they never overlap.
+    ends: {name: (x, y)} -> {name: (x, y, label_y)}; the higher line keeps its height, the rest move down."""
+    out, last = {}, None
+    for name, (x, y) in sorted(ends.items(), key=lambda kv: -kv[1][1]):
+        ly = y if last is None else min(y, last - gap)
+        out[name] = (x, y, ly)
+        last = ly
+    return out
+
+
 def plot(results, path):
     import matplotlib
     matplotlib.use("Agg")
@@ -214,13 +226,16 @@ def plot(results, path):
     for ax, split in zip(axes[0], splits):
         r = results[split]
         E = r["counts"]["errors"]
+        ends = {}
         for p in ("oracle", "random", "confidence", "learned"):
             xs = [x["budget"] * 100 for x in r["curves"][p]]
             ys = [100 * x["errors_caught"] / E for x in r["curves"][p]]
             ax.plot(xs, ys, marker="o" if p in ("learned", "confidence") else None, ms=4, **style[p])
             if p in ("learned", "confidence"):
-                ax.annotate(style[p]["label"], (xs[-1], ys[-1]), xytext=(4, 0), textcoords="offset points",
-                            va="center", fontsize=8.5, color="#3d3d3a")
+                ends[p] = (xs[-1], ys[-1])
+        for p, (x, y, ly) in label_positions(ends).items():
+            ax.annotate(style[p]["label"], (x, y), xytext=(x + 0.8, ly), textcoords="data", va="center",
+                        fontsize=8.5, color="#3d3d3a")
         ax.set_title(f"{SPLIT_NAMES.get(split, split)}\n{E} monitor errors", fontsize=10, color="#1a1a19", loc="left")
         ax.set_xlabel("review budget (% of all calls sent to a human)", fontsize=9, color="#3d3d3a")
         ax.set_ylim(0, 102)
@@ -244,8 +259,14 @@ def plot(results, path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--splits", nargs="+", default=["taskdisjoint", "lodo_web"])
+    ap.add_argument("--plot-only", action="store_true", help="redraw the figure from the saved report, no training")
     args = ap.parse_args()
     config.ensure_dirs()
+    if args.plot_only:
+        results = json.loads((config.REPORTS3 / "01_deferrer_v1.json").read_text())
+        plot(results, config.FIGURES / "06_deferral_curves.png")
+        print("redrew", config.FIGURES / "06_deferral_curves.png")
+        return
     dps = pd.read_csv(config.PROCESSED / "decision_points.csv")
     results = {}
     for split in args.splits:

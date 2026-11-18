@@ -69,3 +69,13 @@ def test_numpy_trees_match_lightgbm_in_a_separate_process():
         pytest.skip("lightgbm not installed")
     r = subprocess.run([sys.executable, "-c", PARITY], capture_output=True, text=True, timeout=120)
     assert r.returncode == 0, r.stderr[-2000:]
+
+
+def test_line_end_labels_never_overlap():
+    from l2e.deferrer import label_positions
+    pos = label_positions({"learned": (30, 100.0), "confidence": (30, 100.0)})  # both lines end at 100%
+    assert abs(pos["learned"][2] - pos["confidence"][2]) >= 7
+    pos = label_positions({"learned": (30, 90.0), "confidence": (30, 96.0)})
+    assert pos["confidence"][2] == 96.0 and pos["learned"][2] == pytest.approx(89.0)
+    pos = label_positions({"learned": (30, 40.0), "confidence": (30, 80.0)})  # far apart: left where they are
+    assert pos["learned"][2] == 40.0 and pos["confidence"][2] == 80.0
