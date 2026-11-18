@@ -31,14 +31,17 @@ python -m l2e.deferrer           # learned deferrer v1 vs. confidence at equal r
 `WITH_ENCODERS=1 bash scripts/run_week2.sh` also builds the MiniLM and mpnet versions (downloads the models
 from Hugging Face once).
 
-## Run the notebook
+## Run the notebooks
 
 ```bash
-jupyter notebook notebooks/setup.ipynb       # then Run All, about 30 seconds
+jupyter notebook notebooks/setup.ipynb       # week 1: environment, data, exploration, leakage (about 30 s)
+jupyter notebook notebooks/train_eval.ipynb  # train + evaluate the monitor and the deferrer (about 1 min)
 ```
 
-It checks the environment, loads the dataset, explores it, and reproduces the week 1 checks. Figures are
-saved to `results/figures/`.
+`setup.ipynb` checks the environment, loads the dataset, explores it, and reproduces the week 1 checks.
+`train_eval.ipynb` trains the main monitor, evaluates it against the baseline (metrics, confusion matrix, a
+sample run), checks the int8 board model, plots the domain-shift results, and trains the deferrer. It needs
+`run_week1.sh` and `finalize_monitor.sh` first. Figures are saved to `results/figures/`.
 
 ## Run the interface (prototype)
 
@@ -50,6 +53,37 @@ Pick a held-out trace and step through it. The page shows what the monitor can s
 and whether the call is trusted or deferred. Reviewers can approve or reject deferred calls. The monitor is
 the main monitor from week 2 (a small transformer on hashed text + tool roles, calibrated); `L2E_MONITOR=lr python ui/app.py`
 switches back to the week 1 baseline. The deferrer is the learned deferrer v1 (`python -m l2e.deferrer`); without it the app falls back to a placeholder rule.
+
+## Current results (Deliverable 2)
+
+Task-disjoint test set: 9,796 decision points (tool calls), 1,755 of them hijacked.
+
+| monitor | parameters | AUROC | F1 | errors | missed attacks |
+|---|---|---|---|---|---|
+| six-feature logistic regression (week 1 baseline) | 7 | 0.905 | 0.689 | 1,252 | 366 |
+| main monitor: causal transformer, hashed text + tool roles | 107k | 0.9997 | 0.984 | 55 | 23 |
+
+- The main monitor is 161 KB in int8 (3 of 9,796 verdicts change) and takes about 0.3 ms per decision on a laptop.
+- On a domain it never trained on, it makes 160 to 975 errors depending on the domain, and the number
+  swings a lot between training seeds (on web: 373 to 1,308). It still ranks calls well (AUROC ≈ 0.99); what
+  breaks is where its 0.5 line falls.
+- Learned deferrer v1, at a 5% review budget: on the task-disjoint test it catches 49 of 55 errors (sending
+  the least confident calls catches 50). On the unseen web domain it catches 38 of 81 missed attacks against 21 for
+  confidence, but fewer errors overall (172 vs 307 of 975), because it focuses on missed attacks.
+
+Details: `docs/WEEK2.md`, `reports/week2/`, `reports/week3/01_deferrer_v1.md`, `results/figures/`.
+
+## Known issues
+
+- **LightGBM + PyTorch on macOS:** using both in one Python process can crash (segfault). The deferrer is
+  trained in its own process (`python -m l2e.deferrer`); the app and board run its trees with numpy.
+- **Board timing for the trained models is not done yet** (the board is away until late November). Week 1 measured
+  stand-in models on it; `board/time_monitor.py` is ready.
+- **Deferrer v1 is a first version:** one seed, the dataset's natural attack rate (about 18% of calls), no
+  confidence intervals, and a perfect reviewer is assumed. Week 3 adds 1–5% prevalence, several seeds, intervals
+  and a text-novelty signal.
+- Results on unseen domains vary a lot between training seeds, so single runs there should not be trusted.
+- MiniLM and mpnet need a one-time Hugging Face download; MiniLM was tested and not adopted.
 
 ## Dataset
 
@@ -63,22 +97,24 @@ companies are synthetic, and we anonymize them anyway, because they leak the lab
 
 ```
 data/            raw and processed data (generated, not committed; see data/README.md)
-notebooks/       setup.ipynb: environment check, data loading, exploration
+notebooks/       setup.ipynb (week 1), train_eval.ipynb (train + evaluate monitor and deferrer)
 l2e/             source code: anonymizer, decision points, features, baseline, splits,
-                 step featurizer, neural monitors, calibration, ONNX export, out-of-fold labels
-ui/              Gradio trace replay console (prototype)
+                 step featurizer, neural monitors, calibration, ONNX export, out-of-fold labels,
+                 domain-shift comparison, learned deferrer, numpy tree runner
+ui/              Gradio trace replay console: monitor + learned deferrer + reviewer buttons
 board/           Arduino UNO Q: environment check, monitor timing, results
 results/         figures from the notebook
-reports/         short reports written by each pipeline step (week1/, week2/)
-docs/            WEEK1.md and WEEK2.md checkpoints, blueprint report, figures
-scripts/         get_data.sh, run_week1.sh, run_week2.sh
+reports/         short reports written by each pipeline step (week1/, week2/, week3/)
+docs/            WEEK1.md and WEEK2.md checkpoints, D1.2 and D2 reports, figures and interface screenshots
+scripts/         get_data.sh, run_week1.sh, run_week2.sh, finalize_monitor.sh
 tests/           pytest
 ```
 
 ## Status
 
 - Week 1 (done): data pipeline, anonymization, leakage check, decision points, baseline monitor, shift splits, board setup
-- Week 2 (done on the laptop; board timing to run): compact neural monitor (LSTM / tiny transformer), int8
-  export, out-of-fold error labels on every shift split, hidden-thoughts ablation. See `docs/WEEK2.md`.
-- Week 3: learned deferrer and shift experiments
+- Week 2 (done on the laptop; board timing to run): compact neural monitor, int8 export, out-of-fold error
+  labels on every shift split, hidden-thoughts ablation, domain-shift comparison over 10 seeds. See `docs/WEEK2.md`.
+- Deliverable 2 (Nov 18): learned deferrer v1 and the app wired to it, training/evaluation notebook.
+- Week 3: stronger deferrer (novelty signals, 1–5% prevalence, seeds and intervals), shift experiments
 - Week 4: on-board demo, final report
