@@ -21,3 +21,4 @@ venv/
 .vscode/
 .idea/
 Claude outputs/
+_to_delete/

@@ -12,6 +12,8 @@ SPLITS_DIR = PROCESSED / "splits"     # tool-coverage and leave-one-domain-out i
 MODELS = ROOT / "models"
 REPORTS = ROOT / "reports" / "week1"
 REPORTS2 = ROOT / "reports" / "week2"
+REPORTS3 = ROOT / "reports" / "week3"
+FIGURES = ROOT / "results" / "figures"
 
 # Pin the dataset version so results are reproducible.
 AGENTDRIFT_URL = "https://github.com/Asif-0209/AgentDrift.git"
@@ -44,5 +46,5 @@ MAIN_MONITOR = f"monitor_{MAIN_ARCH}_{MAIN_FEATURES}.pt"
 
 
 def ensure_dirs():
-    for d in (PROCESSED, ANON, SPLITS_DIR, MODELS, REPORTS, REPORTS2):
+    for d in (PROCESSED, ANON, SPLITS_DIR, MODELS, REPORTS, REPORTS2, REPORTS3, FIGURES):
         d.mkdir(parents=True, exist_ok=True)

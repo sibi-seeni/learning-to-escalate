@@ -25,6 +25,7 @@ bash scripts/get_data.sh       # downloads AgentDrift into data/raw/ (pinned com
 bash scripts/run_week1.sh      # anonymize -> leakage check -> decision points -> baseline -> splits -> tests
 bash scripts/run_week2.sh      # neural monitors -> ONNX + int8 -> out-of-fold labels -> domain-shift comparison
 bash scripts/finalize_monitor.sh  # main monitor (transformer + tool roles): 10 seeds, export, out-of-fold labels
+python -m l2e.deferrer           # learned deferrer v1 vs. confidence at equal review budgets
 ```
 
 `WITH_ENCODERS=1 bash scripts/run_week2.sh` also builds the MiniLM and mpnet versions (downloads the models
@@ -48,7 +49,7 @@ python ui/app.py               # open http://127.0.0.1:7860  (needs run_week1.sh
 Pick a held-out trace and step through it. The page shows what the monitor can see, its score and verdict,
 and whether the call is trusted or deferred. Reviewers can approve or reject deferred calls. The monitor is
 the main monitor from week 2 (a small transformer on hashed text + tool roles, calibrated); `L2E_MONITOR=lr python ui/app.py`
-switches back to the week 1 baseline. The deferrer is still a placeholder rule until week 3.
+switches back to the week 1 baseline. The deferrer is the learned deferrer v1 (`python -m l2e.deferrer`); without it the app falls back to a placeholder rule.
 
 ## Dataset
 
