@@ -10,19 +10,19 @@
         "seed": 42,
         "epochs": 11,
         "best_stop_fold_auprc": 0.45427378317536693,
-        "sec": 13.2
+        "sec": 17.1
       },
       {
         "seed": 43,
         "epochs": 8,
         "best_stop_fold_auprc": 0.48981106328301777,
-        "sec": 9.7
+        "sec": 12.9
       },
       {
         "seed": 44,
         "epochs": 15,
         "best_stop_fold_auprc": 0.4657651355686899,
-        "sec": 16.1
+        "sec": 21.4
       }
     ]
   },
@@ -37,19 +37,19 @@
         "seed": 42,
         "epochs": 23,
         "best_stop_fold_auprc": 0.29961549718677455,
-        "sec": 17.2
+        "sec": 15.9
       },
       {
         "seed": 43,
         "epochs": 16,
         "best_stop_fold_auprc": 0.28362759615116667,
-        "sec": 9.0
+        "sec": 11.8
       },
       {
         "seed": 44,
         "epochs": 21,
         "best_stop_fold_auprc": 0.25242848453440114,
-        "sec": 10.5
+        "sec": 14.8
       }
     ]
   },
@@ -64,19 +64,19 @@
         "seed": 42,
         "epochs": 14,
         "best_stop_fold_auprc": 0.4940251477843725,
-        "sec": 10.8
+        "sec": 15.5
       },
       {
         "seed": 43,
         "epochs": 11,
         "best_stop_fold_auprc": 0.5116730800254126,
-        "sec": 8.9
+        "sec": 12.6
       },
       {
         "seed": 44,
         "epochs": 14,
         "best_stop_fold_auprc": 0.5103458449269619,
-        "sec": 10.8
+        "sec": 15.0
       }
     ]
   },
@@ -91,19 +91,19 @@
         "seed": 42,
         "epochs": 8,
         "best_stop_fold_auprc": 0.27385022782124707,
-        "sec": 7.0
+        "sec": 10.1
       },
       {
         "seed": 43,
         "epochs": 13,
         "best_stop_fold_auprc": 0.3961096354228308,
-        "sec": 10.7
+        "sec": 14.8
       },
       {
         "seed": 44,
         "epochs": 14,
         "best_stop_fold_auprc": 0.3836806366405675,
-        "sec": 11.2
+        "sec": 15.6
       }
     ]
   },
@@ -118,19 +118,19 @@
         "seed": 42,
         "epochs": 13,
         "best_stop_fold_auprc": 0.34273362815031005,
-        "sec": 11.3
+        "sec": 16.2
       },
       {
         "seed": 43,
         "epochs": 16,
         "best_stop_fold_auprc": 0.37340540764924884,
-        "sec": 13.9
+        "sec": 18.9
       },
       {
         "seed": 44,
         "epochs": 12,
         "best_stop_fold_auprc": 0.38785457938772033,
-        "sec": 12.7
+        "sec": 14.9
       }
     ]
   },
@@ -145,19 +145,19 @@
         "seed": 42,
         "epochs": 6,
         "best_stop_fold_auprc": 0.3790627456139363,
-        "sec": 6.6
+        "sec": 8.5
       },
       {
         "seed": 43,
         "epochs": 8,
         "best_stop_fold_auprc": 0.3931119739746582,
-        "sec": 8.8
+        "sec": 10.7
       },
       {
         "seed": 44,
         "epochs": 6,
         "best_stop_fold_auprc": 0.39498012980552455,
-        "sec": 7.0
+        "sec": 8.9
       }
     ]
   },
@@ -172,19 +172,19 @@
         "seed": 42,
         "epochs": 11,
         "best_stop_fold_auprc": 0.3364117107352153,
-        "sec": 10.5
+        "sec": 13.8
       },
       {
         "seed": 43,
         "epochs": 12,
         "best_stop_fold_auprc": 0.41278306235034323,
-        "sec": 10.9
+        "sec": 14.4
       },
       {
         "seed": 44,
         "epochs": 13,
         "best_stop_fold_auprc": 0.3246961453430705,
-        "sec": 11.6
+        "sec": 15.8
       }
     ]
   },
@@ -199,19 +199,19 @@
         "seed": 42,
         "epochs": 14,
         "best_stop_fold_auprc": 0.45966490636397556,
-        "sec": 11.4
+        "sec": 15.6
       },
       {
         "seed": 43,
         "epochs": 11,
         "best_stop_fold_auprc": 0.4107566617961378,
-        "sec": 9.9
+        "sec": 13.3
       },
       {
         "seed": 44,
         "epochs": 10,
         "best_stop_fold_auprc": 0.43773547878774727,
-        "sec": 8.9
+        "sec": 12.0
       }
     ]
   },
@@ -226,19 +226,19 @@
         "seed": 42,
         "epochs": 10,
         "best_stop_fold_auprc": 0.3141861366723601,
-        "sec": 9.5
+        "sec": 12.5
       },
       {
         "seed": 43,
         "epochs": 10,
         "best_stop_fold_auprc": 0.2906744074757258,
-        "sec": 10.0
+        "sec": 12.8
       },
       {
         "seed": 44,
         "epochs": 11,
         "best_stop_fold_auprc": 0.368428156360898,
-        "sec": 10.2
+        "sec": 13.5
       }
     ]
   },
@@ -253,19 +253,19 @@
         "seed": 42,
         "epochs": 8,
         "best_stop_fold_auprc": 0.3764453579972545,
-        "sec": 7.2
+        "sec": 10.5
       },
       {
         "seed": 43,
         "epochs": 7,
         "best_stop_fold_auprc": 0.3710857068093568,
-        "sec": 7.3
+        "sec": 9.2
       },
       {
         "seed": 44,
         "epochs": 12,
         "best_stop_fold_auprc": 0.37515215667295426,
-        "sec": 9.9
+        "sec": 14.3
       }
     ]
   },
@@ -280,19 +280,19 @@
         "seed": 42,
         "epochs": 11,
         "best_stop_fold_auprc": 0.5107783266207441,
-        "sec": 10.1
+        "sec": 13.7
       },
       {
         "seed": 43,
         "epochs": 16,
         "best_stop_fold_auprc": 0.4988207187014482,
-        "sec": 14.0
+        "sec": 18.9
       },
       {
         "seed": 44,
         "epochs": 9,
         "best_stop_fold_auprc": 0.5022906850132545,
-        "sec": 9.3
+        "sec": 11.4
       }
     ]
   },
@@ -307,19 +307,19 @@
         "seed": 42,
         "epochs": 8,
         "best_stop_fold_auprc": 0.40379549553129107,
-        "sec": 7.6
+        "sec": 10.6
       },
       {
         "seed": 43,
         "epochs": 8,
         "best_stop_fold_auprc": 0.4008222508400913,
-        "sec": 7.9
+        "sec": 10.1
       },
       {
         "seed": 44,
         "epochs": 13,
         "best_stop_fold_auprc": 0.39922768046183943,
-        "sec": 11.4
+        "sec": 15.1
       }
     ]
   },
@@ -334,19 +334,19 @@
         "seed": 42,
         "epochs": 17,
         "best_stop_fold_auprc": 0.4013549209205701,
-        "sec": 15.2
+        "sec": 19.2
       },
       {
         "seed": 43,
         "epochs": 12,
         "best_stop_fold_auprc": 0.3787878337278269,
-        "sec": 11.5
+        "sec": 14.7
       },
       {
         "seed": 44,
         "epochs": 12,
         "best_stop_fold_auprc": 0.4374967236021865,
-        "sec": 11.3
+        "sec": 14.6
       }
     ]
   },
@@ -361,19 +361,559 @@
         "seed": 42,
         "epochs": 9,
         "best_stop_fold_auprc": 0.3275512734034116,
-        "sec": 8.2
+        "sec": 11.3
       },
       {
         "seed": 43,
         "epochs": 11,
         "best_stop_fold_auprc": 0.38418040637150536,
-        "sec": 10.3
+        "sec": 13.0
       },
       {
         "seed": 44,
         "epochs": 11,
         "best_stop_fold_auprc": 0.391861002700895,
+        "sec": 13.2
+      }
+    ]
+  },
+  "transformer_hash-roles_s1/lodo_banking": {
+    "monitor": "transformer_hash-roles_s1",
+    "monitor_seed": 1,
+    "fold_by": "task",
+    "split": "lodo_banking",
+    "quick": false,
+    "runs": [
+      {
+        "seed": 42,
+        "epochs": 15,
+        "best_stop_fold_auprc": 0.49445794007266886,
+        "sec": 18.3
+      },
+      {
+        "seed": 43,
+        "epochs": 15,
+        "best_stop_fold_auprc": 0.47817460679259594,
+        "sec": 18.0
+      },
+      {
+        "seed": 44,
+        "epochs": 15,
+        "best_stop_fold_auprc": 0.49252315546173053,
+        "sec": 18.2
+      }
+    ]
+  },
+  "transformer_hash-roles_s1_domfold/lodo_banking": {
+    "monitor": "transformer_hash-roles_s1_domfold",
+    "monitor_seed": 1,
+    "fold_by": "domain",
+    "split": "lodo_banking",
+    "quick": false,
+    "runs": [
+      {
+        "seed": 42,
+        "epochs": 15,
+        "best_stop_fold_auprc": 0.4565447507678662,
+        "sec": 17.3
+      },
+      {
+        "seed": 43,
+        "epochs": 17,
+        "best_stop_fold_auprc": 0.39061397982576246,
+        "sec": 19.5
+      },
+      {
+        "seed": 44,
+        "epochs": 13,
+        "best_stop_fold_auprc": 0.432360258953444,
+        "sec": 15.2
+      }
+    ]
+  },
+  "transformer_hash-roles_s2/lodo_banking": {
+    "monitor": "transformer_hash-roles_s2",
+    "monitor_seed": 2,
+    "fold_by": "task",
+    "split": "lodo_banking",
+    "quick": false,
+    "runs": [
+      {
+        "seed": 42,
+        "epochs": 13,
+        "best_stop_fold_auprc": 0.5241465384933632,
+        "sec": 15.9
+      },
+      {
+        "seed": 43,
+        "epochs": 13,
+        "best_stop_fold_auprc": 0.49499862802409106,
+        "sec": 16.1
+      },
+      {
+        "seed": 44,
+        "epochs": 14,
+        "best_stop_fold_auprc": 0.4905623392469392,
+        "sec": 17.0
+      }
+    ]
+  },
+  "transformer_hash-roles_s2_domfold/lodo_banking": {
+    "monitor": "transformer_hash-roles_s2_domfold",
+    "monitor_seed": 2,
+    "fold_by": "domain",
+    "split": "lodo_banking",
+    "quick": false,
+    "runs": [
+      {
+        "seed": 42,
+        "epochs": 10,
+        "best_stop_fold_auprc": 0.4342749431183467,
+        "sec": 12.4
+      },
+      {
+        "seed": 43,
+        "epochs": 9,
+        "best_stop_fold_auprc": 0.4179779270653782,
+        "sec": 11.9
+      },
+      {
+        "seed": 44,
+        "epochs": 8,
+        "best_stop_fold_auprc": 0.40451396010142404,
         "sec": 10.6
+      }
+    ]
+  },
+  "transformer_hash-roles_s1/lodo_coding": {
+    "monitor": "transformer_hash-roles_s1",
+    "monitor_seed": 1,
+    "fold_by": "task",
+    "split": "lodo_coding",
+    "quick": false,
+    "runs": [
+      {
+        "seed": 42,
+        "epochs": 10,
+        "best_stop_fold_auprc": 0.4122556691801505,
+        "sec": 12.7
+      },
+      {
+        "seed": 43,
+        "epochs": 9,
+        "best_stop_fold_auprc": 0.37814023026270566,
+        "sec": 11.6
+      },
+      {
+        "seed": 44,
+        "epochs": 10,
+        "best_stop_fold_auprc": 0.407783061768132,
+        "sec": 13.1
+      }
+    ]
+  },
+  "transformer_hash-roles_s1_domfold/lodo_coding": {
+    "monitor": "transformer_hash-roles_s1_domfold",
+    "monitor_seed": 1,
+    "fold_by": "domain",
+    "split": "lodo_coding",
+    "quick": false,
+    "runs": [
+      {
+        "seed": 42,
+        "epochs": 10,
+        "best_stop_fold_auprc": 0.4279562823453382,
+        "sec": 12.4
+      },
+      {
+        "seed": 43,
+        "epochs": 8,
+        "best_stop_fold_auprc": 0.3465941999926969,
+        "sec": 10.3
+      },
+      {
+        "seed": 44,
+        "epochs": 10,
+        "best_stop_fold_auprc": 0.3644064610077979,
+        "sec": 12.2
+      }
+    ]
+  },
+  "transformer_hash-roles_s2/lodo_coding": {
+    "monitor": "transformer_hash-roles_s2",
+    "monitor_seed": 2,
+    "fold_by": "task",
+    "split": "lodo_coding",
+    "quick": false,
+    "runs": [
+      {
+        "seed": 42,
+        "epochs": 9,
+        "best_stop_fold_auprc": 0.4388294757150204,
+        "sec": 11.7
+      },
+      {
+        "seed": 43,
+        "epochs": 14,
+        "best_stop_fold_auprc": 0.4339307235418459,
+        "sec": 16.4
+      },
+      {
+        "seed": 44,
+        "epochs": 13,
+        "best_stop_fold_auprc": 0.46048533700383226,
+        "sec": 15.7
+      }
+    ]
+  },
+  "transformer_hash-roles_s2_domfold/lodo_coding": {
+    "monitor": "transformer_hash-roles_s2_domfold",
+    "monitor_seed": 2,
+    "fold_by": "domain",
+    "split": "lodo_coding",
+    "quick": false,
+    "runs": [
+      {
+        "seed": 42,
+        "epochs": 10,
+        "best_stop_fold_auprc": 0.48982748226896744,
+        "sec": 12.0
+      },
+      {
+        "seed": 43,
+        "epochs": 13,
+        "best_stop_fold_auprc": 0.41095445877851045,
+        "sec": 14.6
+      },
+      {
+        "seed": 44,
+        "epochs": 10,
+        "best_stop_fold_auprc": 0.4167017768427116,
+        "sec": 12.0
+      }
+    ]
+  },
+  "transformer_hash-roles_s1/lodo_email": {
+    "monitor": "transformer_hash-roles_s1",
+    "monitor_seed": 1,
+    "fold_by": "task",
+    "split": "lodo_email",
+    "quick": false,
+    "runs": [
+      {
+        "seed": 42,
+        "epochs": 10,
+        "best_stop_fold_auprc": 0.2247590019037599,
+        "sec": 12.7
+      },
+      {
+        "seed": 43,
+        "epochs": 10,
+        "best_stop_fold_auprc": 0.2498372415563387,
+        "sec": 12.8
+      },
+      {
+        "seed": 44,
+        "epochs": 12,
+        "best_stop_fold_auprc": 0.2890384304255641,
+        "sec": 14.5
+      }
+    ]
+  },
+  "transformer_hash-roles_s1_domfold/lodo_email": {
+    "monitor": "transformer_hash-roles_s1_domfold",
+    "monitor_seed": 1,
+    "fold_by": "domain",
+    "split": "lodo_email",
+    "quick": false,
+    "runs": [
+      {
+        "seed": 42,
+        "epochs": 6,
+        "best_stop_fold_auprc": 0.3871647533528787,
+        "sec": 8.5
+      },
+      {
+        "seed": 43,
+        "epochs": 7,
+        "best_stop_fold_auprc": 0.3798760297546889,
+        "sec": 9.1
+      },
+      {
+        "seed": 44,
+        "epochs": 7,
+        "best_stop_fold_auprc": 0.40716546297714784,
+        "sec": 9.6
+      }
+    ]
+  },
+  "transformer_hash-roles_s2/lodo_email": {
+    "monitor": "transformer_hash-roles_s2",
+    "monitor_seed": 2,
+    "fold_by": "task",
+    "split": "lodo_email",
+    "quick": false,
+    "runs": [
+      {
+        "seed": 42,
+        "epochs": 8,
+        "best_stop_fold_auprc": 0.25440192214158286,
+        "sec": 10.5
+      },
+      {
+        "seed": 43,
+        "epochs": 7,
+        "best_stop_fold_auprc": 0.2862937931438899,
+        "sec": 10.0
+      },
+      {
+        "seed": 44,
+        "epochs": 12,
+        "best_stop_fold_auprc": 0.24289845993358153,
+        "sec": 14.7
+      }
+    ]
+  },
+  "transformer_hash-roles_s2_domfold/lodo_email": {
+    "monitor": "transformer_hash-roles_s2_domfold",
+    "monitor_seed": 2,
+    "fold_by": "domain",
+    "split": "lodo_email",
+    "quick": false,
+    "runs": [
+      {
+        "seed": 42,
+        "epochs": 8,
+        "best_stop_fold_auprc": 0.42532581867015123,
+        "sec": 10.1
+      },
+      {
+        "seed": 43,
+        "epochs": 8,
+        "best_stop_fold_auprc": 0.41445927850619174,
+        "sec": 10.6
+      },
+      {
+        "seed": 44,
+        "epochs": 8,
+        "best_stop_fold_auprc": 0.4062235417206428,
+        "sec": 10.1
+      }
+    ]
+  },
+  "transformer_hash-roles_s1/lodo_medical": {
+    "monitor": "transformer_hash-roles_s1",
+    "monitor_seed": 1,
+    "fold_by": "task",
+    "split": "lodo_medical",
+    "quick": false,
+    "runs": [
+      {
+        "seed": 42,
+        "epochs": 15,
+        "best_stop_fold_auprc": 0.48089688179649837,
+        "sec": 17.2
+      },
+      {
+        "seed": 43,
+        "epochs": 9,
+        "best_stop_fold_auprc": 0.44909211951512223,
+        "sec": 11.8
+      },
+      {
+        "seed": 44,
+        "epochs": 11,
+        "best_stop_fold_auprc": 0.41444425761674475,
+        "sec": 13.6
+      }
+    ]
+  },
+  "transformer_hash-roles_s1_domfold/lodo_medical": {
+    "monitor": "transformer_hash-roles_s1_domfold",
+    "monitor_seed": 1,
+    "fold_by": "domain",
+    "split": "lodo_medical",
+    "quick": false,
+    "runs": [
+      {
+        "seed": 42,
+        "epochs": 11,
+        "best_stop_fold_auprc": 0.46481849264810016,
+        "sec": 13.2
+      },
+      {
+        "seed": 43,
+        "epochs": 9,
+        "best_stop_fold_auprc": 0.4315135344135499,
+        "sec": 11.5
+      },
+      {
+        "seed": 44,
+        "epochs": 6,
+        "best_stop_fold_auprc": 0.38912171797282474,
+        "sec": 8.4
+      }
+    ]
+  },
+  "transformer_hash-roles_s2/lodo_medical": {
+    "monitor": "transformer_hash-roles_s2",
+    "monitor_seed": 2,
+    "fold_by": "task",
+    "split": "lodo_medical",
+    "quick": false,
+    "runs": [
+      {
+        "seed": 42,
+        "epochs": 18,
+        "best_stop_fold_auprc": 0.44773124704641254,
+        "sec": 20.9
+      },
+      {
+        "seed": 43,
+        "epochs": 20,
+        "best_stop_fold_auprc": 0.3745054518622846,
+        "sec": 22.5
+      },
+      {
+        "seed": 44,
+        "epochs": 12,
+        "best_stop_fold_auprc": 0.37217463529912115,
+        "sec": 14.6
+      }
+    ]
+  },
+  "transformer_hash-roles_s2_domfold/lodo_medical": {
+    "monitor": "transformer_hash-roles_s2_domfold",
+    "monitor_seed": 2,
+    "fold_by": "domain",
+    "split": "lodo_medical",
+    "quick": false,
+    "runs": [
+      {
+        "seed": 42,
+        "epochs": 9,
+        "best_stop_fold_auprc": 0.5863339164750891,
+        "sec": 11.1
+      },
+      {
+        "seed": 43,
+        "epochs": 7,
+        "best_stop_fold_auprc": 0.564942674811918,
+        "sec": 9.5
+      },
+      {
+        "seed": 44,
+        "epochs": 11,
+        "best_stop_fold_auprc": 0.5714039199088216,
+        "sec": 13.4
+      }
+    ]
+  },
+  "transformer_hash-roles_s1/lodo_web": {
+    "monitor": "transformer_hash-roles_s1",
+    "monitor_seed": 1,
+    "fold_by": "task",
+    "split": "lodo_web",
+    "quick": false,
+    "runs": [
+      {
+        "seed": 42,
+        "epochs": 16,
+        "best_stop_fold_auprc": 0.3827880308206478,
+        "sec": 18.5
+      },
+      {
+        "seed": 43,
+        "epochs": 12,
+        "best_stop_fold_auprc": 0.3341119508304484,
+        "sec": 14.6
+      },
+      {
+        "seed": 44,
+        "epochs": 10,
+        "best_stop_fold_auprc": 0.3247923577346454,
+        "sec": 12.6
+      }
+    ]
+  },
+  "transformer_hash-roles_s1_domfold/lodo_web": {
+    "monitor": "transformer_hash-roles_s1_domfold",
+    "monitor_seed": 1,
+    "fold_by": "domain",
+    "split": "lodo_web",
+    "quick": false,
+    "runs": [
+      {
+        "seed": 42,
+        "epochs": 8,
+        "best_stop_fold_auprc": 0.4203156621555593,
+        "sec": 10.4
+      },
+      {
+        "seed": 43,
+        "epochs": 11,
+        "best_stop_fold_auprc": 0.3889255146211933,
+        "sec": 13.0
+      },
+      {
+        "seed": 44,
+        "epochs": 7,
+        "best_stop_fold_auprc": 0.36349991984871555,
+        "sec": 9.6
+      }
+    ]
+  },
+  "transformer_hash-roles_s2/lodo_web": {
+    "monitor": "transformer_hash-roles_s2",
+    "monitor_seed": 2,
+    "fold_by": "task",
+    "split": "lodo_web",
+    "quick": false,
+    "runs": [
+      {
+        "seed": 42,
+        "epochs": 13,
+        "best_stop_fold_auprc": 0.3077599218675992,
+        "sec": 15.6
+      },
+      {
+        "seed": 43,
+        "epochs": 17,
+        "best_stop_fold_auprc": 0.288006187621506,
+        "sec": 19.7
+      },
+      {
+        "seed": 44,
+        "epochs": 13,
+        "best_stop_fold_auprc": 0.32077543498356237,
+        "sec": 15.4
+      }
+    ]
+  },
+  "transformer_hash-roles_s2_domfold/lodo_web": {
+    "monitor": "transformer_hash-roles_s2_domfold",
+    "monitor_seed": 2,
+    "fold_by": "domain",
+    "split": "lodo_web",
+    "quick": false,
+    "runs": [
+      {
+        "seed": 42,
+        "epochs": 10,
+        "best_stop_fold_auprc": 0.34229613383963875,
+        "sec": 12.1
+      },
+      {
+        "seed": 43,
+        "epochs": 9,
+        "best_stop_fold_auprc": 0.3901548700498277,
+        "sec": 11.3
+      },
+      {
+        "seed": 44,
+        "epochs": 7,
+        "best_stop_fold_auprc": 0.3559547430285336,
+        "sec": 9.2
       }
     ]
   }

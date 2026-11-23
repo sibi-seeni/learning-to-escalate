@@ -1,0 +1,147 @@
+{
+  "lodo_banking": {
+    "oof": {
+      "decision_points": 43081,
+      "monitor_errors": 1265,
+      "dangerous": 514,
+      "costly": 751,
+      "hijacked": 8098,
+      "auroc": 0.9929,
+      "tool_seen_rate": 0.0
+    },
+    "val": {
+      "decision_points": 8238,
+      "monitor_errors": 60,
+      "dangerous": 32,
+      "costly": 28,
+      "hijacked": 1528,
+      "auroc": 0.9996,
+      "tool_seen_rate": 1.0
+    },
+    "test": {
+      "decision_points": 11634,
+      "monitor_errors": 147,
+      "dangerous": 84,
+      "costly": 63,
+      "hijacked": 1170,
+      "auroc": 0.9954,
+      "tool_seen_rate": 0.0
+    }
+  },
+  "lodo_coding": {
+    "oof": {
+      "decision_points": 40955,
+      "monitor_errors": 1012,
+      "dangerous": 275,
+      "costly": 737,
+      "hijacked": 6985,
+      "auroc": 0.9954,
+      "tool_seen_rate": 0.0
+    },
+    "val": {
+      "decision_points": 7682,
+      "monitor_errors": 44,
+      "dangerous": 21,
+      "costly": 23,
+      "hijacked": 1275,
+      "auroc": 0.9994,
+      "tool_seen_rate": 1.0
+    },
+    "test": {
+      "decision_points": 14817,
+      "monitor_errors": 225,
+      "dangerous": 154,
+      "costly": 71,
+      "hijacked": 2808,
+      "auroc": 0.9965,
+      "tool_seen_rate": 0.0
+    }
+  },
+  "lodo_email": {
+    "oof": {
+      "decision_points": 40663,
+      "monitor_errors": 975,
+      "dangerous": 419,
+      "costly": 556,
+      "hijacked": 6788,
+      "auroc": 0.9935,
+      "tool_seen_rate": 0.0
+    },
+    "val": {
+      "decision_points": 7591,
+      "monitor_errors": 121,
+      "dangerous": 11,
+      "costly": 110,
+      "hijacked": 1293,
+      "auroc": 0.9993,
+      "tool_seen_rate": 1.0
+    },
+    "test": {
+      "decision_points": 14986,
+      "monitor_errors": 956,
+      "dangerous": 15,
+      "costly": 941,
+      "hijacked": 2862,
+      "auroc": 0.998,
+      "tool_seen_rate": 0.0
+    }
+  },
+  "lodo_medical": {
+    "oof": {
+      "decision_points": 40882,
+      "monitor_errors": 1297,
+      "dangerous": 342,
+      "costly": 955,
+      "hijacked": 6980,
+      "auroc": 0.993,
+      "tool_seen_rate": 0.0
+    },
+    "val": {
+      "decision_points": 7668,
+      "monitor_errors": 67,
+      "dangerous": 36,
+      "costly": 31,
+      "hijacked": 1240,
+      "auroc": 0.9991,
+      "tool_seen_rate": 1.0
+    },
+    "test": {
+      "decision_points": 14795,
+      "monitor_errors": 195,
+      "dangerous": 141,
+      "costly": 54,
+      "hijacked": 2758,
+      "auroc": 0.9979,
+      "tool_seen_rate": 0.0
+    }
+  },
+  "lodo_web": {
+    "oof": {
+      "decision_points": 40447,
+      "monitor_errors": 944,
+      "dangerous": 379,
+      "costly": 565,
+      "hijacked": 6937,
+      "auroc": 0.9939,
+      "tool_seen_rate": 0.0
+    },
+    "val": {
+      "decision_points": 7705,
+      "monitor_errors": 54,
+      "dangerous": 34,
+      "costly": 20,
+      "hijacked": 1252,
+      "auroc": 0.9991,
+      "tool_seen_rate": 1.0
+    },
+    "test": {
+      "decision_points": 14792,
+      "monitor_errors": 365,
+      "dangerous": 197,
+      "costly": 168,
+      "hijacked": 2751,
+      "auroc": 0.9926,
+      "tool_seen_rate": 0.0
+    }
+  }
+}

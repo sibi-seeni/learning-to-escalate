@@ -13,12 +13,12 @@ Raw and calibrated confidence rank calls identically (temperature scaling keeps 
 | Tool coverage 75% | 3 | 2767 | 388 | 32 | 16 |
 | Tool coverage 50% | 3 | 2767 | 388 | 35 | 17 |
 | Tool coverage 25% | 3 | 2767 | 388 | 35 | 15 |
-| Unseen domain: banking | 1 | 11634 | 1170 | 160 | 67 |
-| Unseen domain: coding | 1 | 14817 | 2808 | 262 | 198 |
-| Unseen domain: email | 1 | 14986 | 2862 | 394 | 50 |
-| Unseen domain: medical | 1 | 14795 | 2758 | 416 | 28 |
-| Unseen domain: web | 1 | 14792 | 2751 | 975 | 81 |
-| Unseen domains (mean) | 5 | 14205 | 2470 | 441 | 85 |
+| Unseen domain: banking | 3 | 11634 | 1170 | 146 | 82 |
+| Unseen domain: coding | 3 | 14817 | 2808 | 262 | 213 |
+| Unseen domain: email | 3 | 14986 | 2862 | 528 | 45 |
+| Unseen domain: medical | 3 | 14795 | 2758 | 270 | 103 |
+| Unseen domain: web | 3 | 14792 | 2751 | 622 | 161 |
+| Unseen domains (mean) | 15 | 14205 | 2470 | 366 | 121 |
 
 ## Attack rate 2%: missed attacks left per 1,000 calls
 
@@ -31,12 +31,12 @@ Review budget 2% (no deferral in the first column):
 | Tool coverage 75% | 0.70 [0.00, 2.09] | 0.34 [0.00, 1.52] | 0.63 [0.00, 2.04] | 0.30 [0.00, 1.04] | 0.46 [0.00, 1.60] | — | 0.47 [0.00, 2.03] | — | 0.00 [0.00, 0.00] |
 | Tool coverage 50% | 0.82 [0.00, 2.43] | 0.40 [0.00, 1.47] | 0.79 [0.00, 2.43] | 0.43 [0.00, 1.45] | 0.56 [0.00, 1.95] | — | 0.58 [0.00, 2.00] | — | 0.00 [0.00, 0.00] |
 | Tool coverage 25% | 0.79 [0.00, 1.91] | 0.38 [0.00, 1.29] | 0.73 [0.00, 1.87] | 0.48 [0.00, 1.44] | 0.53 [0.00, 1.44] | — | 0.57 [0.00, 1.72] | — | 0.00 [0.00, 0.00] |
-| Unseen domain: banking | 1.13 [0.50, 1.87] | 0.63 [0.12, 1.36] | 1.09 [0.50, 1.84] | 0.70 [0.25, 1.27] | 0.77 [0.25, 1.38] | 0.90 [0.37, 1.61] | 0.76 [0.25, 1.49] | 0.77 [0.25, 1.50] | 0.00 [0.00, 0.00] |
-| Unseen domain: coding | 1.41 [0.73, 2.43] | 0.75 [0.25, 1.47] | 1.29 [0.61, 2.29] | 0.68 [0.24, 1.36] | 0.97 [0.37, 1.84] | 0.94 [0.36, 1.82] | 0.94 [0.37, 1.82] | 0.96 [0.25, 1.72] | 0.00 [0.00, 0.00] |
-| Unseen domain: email | 0.36 [0.00, 0.99] | 0.25 [0.00, 0.84] | 0.35 [0.00, 0.99] | 0.20 [0.00, 0.73] | 0.30 [0.00, 0.86] | 0.34 [0.00, 0.98] | 0.32 [0.00, 0.98] | 0.35 [0.00, 0.99] | 0.00 [0.00, 0.00] |
-| Unseen domain: medical | 0.20 [0.00, 0.61] | 0.13 [0.00, 0.38] | 0.20 [0.00, 0.61] | 0.19 [0.00, 0.61] | 0.13 [0.00, 0.49] | 0.19 [0.00, 0.50] | 0.16 [0.00, 0.49] | 0.14 [0.00, 0.48] | 0.00 [0.00, 0.00] |
-| Unseen domain: web | 0.58 [0.13, 1.14] | 0.52 [0.13, 1.02] | 0.56 [0.12, 1.14] | 0.55 [0.12, 1.12] | 0.47 [0.12, 1.00] | 0.57 [0.12, 1.14] | 0.43 [0.12, 0.90] | 0.50 [0.12, 1.01] | 0.00 [0.00, 0.00] |
-| Unseen domains (mean) | 0.74 [0.47, 1.05] | 0.46 [0.25, 0.70] | 0.70 [0.45, 1.00] | 0.46 [0.27, 0.69] | 0.53 [0.30, 0.77] | 0.59 [0.35, 0.84] | 0.52 [0.32, 0.80] | 0.54 [0.30, 0.82] | 0.00 [0.00, 0.00] |
+| Unseen domain: banking | 1.37 [0.75, 2.25] | 0.63 [0.24, 1.36] | 1.32 [0.74, 2.12] | 0.66 [0.13, 1.25] | 0.73 [0.25, 1.36] | 0.89 [0.37, 1.64] | 0.88 [0.37, 1.61] | 0.83 [0.36, 1.62] | 0.00 [0.00, 0.00] |
+| Unseen domain: coding | 1.53 [0.62, 2.82] | 0.74 [0.13, 1.46] | 1.40 [0.61, 2.67] | 0.67 [0.12, 1.35] | 0.87 [0.25, 1.70] | 0.92 [0.25, 1.84] | 1.05 [0.37, 2.37] | 1.09 [0.25, 2.44] | 0.00 [0.00, 0.00] |
+| Unseen domain: email | 0.31 [0.00, 0.98] | 0.21 [0.00, 0.85] | 0.30 [0.00, 0.98] | 0.19 [0.00, 0.72] | 0.24 [0.00, 0.85] | 0.27 [0.00, 0.98] | 0.27 [0.00, 0.98] | 0.28 [0.00, 0.98] | 0.00 [0.00, 0.00] |
+| Unseen domain: medical | 0.74 [0.00, 1.84] | 0.39 [0.00, 1.23] | 0.74 [0.00, 1.73] | 0.28 [0.00, 0.74] | 0.37 [0.00, 1.11] | 0.47 [0.00, 1.23] | 0.54 [0.00, 1.36] | 0.47 [0.00, 1.35] | 0.00 [0.00, 0.00] |
+| Unseen domain: web | 1.14 [0.25, 2.29] | 0.91 [0.13, 2.01] | 1.08 [0.24, 2.16] | 0.72 [0.13, 1.39] | 0.88 [0.13, 1.77] | 1.02 [0.24, 2.23] | 0.89 [0.13, 1.79] | 0.96 [0.13, 2.01] | 0.00 [0.00, 0.00] |
+| Unseen domains (mean) | 1.02 [0.57, 1.68] | 0.58 [0.30, 0.91] | 0.97 [0.52, 1.55] | 0.51 [0.30, 0.81] | 0.62 [0.37, 0.94] | 0.71 [0.40, 1.16] | 0.73 [0.39, 1.24] | 0.73 [0.37, 1.33] | 0.00 [0.00, 0.00] |
 
 Review budget 5% (no deferral in the first column):
 
@@ -47,12 +47,12 @@ Review budget 5% (no deferral in the first column):
 | Tool coverage 75% | 0.70 [0.00, 2.09] | 0.18 [0.00, 1.00] | 0.63 [0.00, 2.04] | 0.10 [0.00, 0.53] | 0.25 [0.00, 1.04] | — | 0.34 [0.00, 1.52] | — | 0.00 [0.00, 0.00] |
 | Tool coverage 50% | 0.82 [0.00, 2.43] | 0.19 [0.00, 0.96] | 0.74 [0.00, 2.38] | 0.14 [0.00, 0.88] | 0.24 [0.00, 0.99] | — | 0.44 [0.00, 1.54] | — | 0.00 [0.00, 0.00] |
 | Tool coverage 25% | 0.79 [0.00, 1.91] | 0.27 [0.00, 0.98] | 0.67 [0.00, 1.87] | 0.21 [0.00, 0.94] | 0.32 [0.00, 1.40] | — | 0.47 [0.00, 1.44] | — | 0.00 [0.00, 0.00] |
-| Unseen domain: banking | 1.13 [0.50, 1.87] | 0.41 [0.12, 0.88] | 1.04 [0.49, 1.74] | 0.36 [0.12, 0.74] | 0.38 [0.00, 0.88] | 0.48 [0.00, 1.02] | 0.51 [0.12, 1.11] | 0.53 [0.12, 1.13] | 0.00 [0.00, 0.00] |
-| Unseen domain: coding | 1.41 [0.73, 2.43] | 0.40 [0.00, 0.86] | 1.19 [0.50, 2.25] | 0.31 [0.00, 0.74] | 0.50 [0.12, 1.02] | 0.44 [0.12, 0.87] | 0.68 [0.24, 1.37] | 0.57 [0.12, 1.22] | 0.00 [0.00, 0.00] |
-| Unseen domain: email | 0.36 [0.00, 0.99] | 0.20 [0.00, 0.73] | 0.35 [0.00, 0.99] | 0.16 [0.00, 0.61] | 0.28 [0.00, 0.86] | 0.29 [0.00, 0.86] | 0.29 [0.00, 0.97] | 0.33 [0.00, 0.99] | 0.00 [0.00, 0.00] |
-| Unseen domain: medical | 0.20 [0.00, 0.61] | 0.11 [0.00, 0.37] | 0.17 [0.00, 0.49] | 0.14 [0.00, 0.37] | 0.09 [0.00, 0.37] | 0.14 [0.00, 0.49] | 0.11 [0.00, 0.37] | 0.10 [0.00, 0.37] | 0.00 [0.00, 0.00] |
-| Unseen domain: web | 0.58 [0.13, 1.14] | 0.47 [0.12, 0.99] | 0.50 [0.12, 1.01] | 0.42 [0.00, 0.87] | 0.34 [0.00, 0.64] | 0.52 [0.12, 1.13] | 0.36 [0.00, 0.88] | 0.43 [0.12, 0.89] | 0.00 [0.00, 0.00] |
-| Unseen domains (mean) | 0.74 [0.47, 1.05] | 0.32 [0.15, 0.52] | 0.65 [0.40, 0.94] | 0.28 [0.15, 0.45] | 0.32 [0.15, 0.50] | 0.37 [0.20, 0.57] | 0.39 [0.20, 0.65] | 0.39 [0.22, 0.65] | 0.00 [0.00, 0.00] |
+| Unseen domain: banking | 1.37 [0.75, 2.25] | 0.35 [0.00, 0.75] | 1.25 [0.63, 2.01] | 0.36 [0.00, 0.86] | 0.30 [0.00, 0.75] | 0.47 [0.12, 1.11] | 0.61 [0.13, 1.34] | 0.57 [0.12, 1.24] | 0.00 [0.00, 0.00] |
+| Unseen domain: coding | 1.53 [0.62, 2.82] | 0.45 [0.00, 0.98] | 1.28 [0.49, 2.44] | 0.33 [0.00, 0.85] | 0.53 [0.12, 1.10] | 0.54 [0.00, 1.23] | 0.81 [0.12, 1.89] | 0.80 [0.12, 2.08] | 0.00 [0.00, 0.00] |
+| Unseen domain: email | 0.31 [0.00, 0.98] | 0.17 [0.00, 0.62] | 0.30 [0.00, 0.98] | 0.15 [0.00, 0.61] | 0.19 [0.00, 0.74] | 0.20 [0.00, 0.74] | 0.25 [0.00, 0.98] | 0.26 [0.00, 0.98] | 0.00 [0.00, 0.00] |
+| Unseen domain: medical | 0.74 [0.00, 1.84] | 0.23 [0.00, 0.86] | 0.68 [0.00, 1.60] | 0.17 [0.00, 0.49] | 0.21 [0.00, 0.86] | 0.25 [0.00, 0.98] | 0.40 [0.00, 1.23] | 0.34 [0.00, 1.11] | 0.00 [0.00, 0.00] |
+| Unseen domain: web | 1.14 [0.25, 2.29] | 0.65 [0.13, 1.37] | 1.01 [0.13, 2.12] | 0.52 [0.00, 1.11] | 0.63 [0.00, 1.50] | 0.74 [0.13, 1.76] | 0.69 [0.12, 1.64] | 0.75 [0.13, 1.74] | 0.00 [0.00, 0.00] |
+| Unseen domains (mean) | 1.02 [0.57, 1.68] | 0.37 [0.17, 0.67] | 0.90 [0.48, 1.50] | 0.31 [0.15, 0.50] | 0.37 [0.17, 0.67] | 0.44 [0.20, 0.79] | 0.55 [0.25, 1.00] | 0.54 [0.23, 1.07] | 0.00 [0.00, 0.00] |
 
 Learned policies vs. least confident at attack rate 2%: difference in missed attacks left per 1,000 calls (negative = the learned one leaves fewer), with the share of resamples where it is better.
 
@@ -73,36 +73,36 @@ Learned policies vs. least confident at attack rate 2%: difference in missed att
 | Tool coverage 25% | stronger monitor, least confident | 0.10 [-0.51, 0.87] | 9% | -0.06 [-0.52, 0.48] | 18% |
 | Tool coverage 25% | LightGBM deferrer (task folds) | 0.15 [-0.51, 0.95] | 6% | 0.05 [-0.44, 0.93] | 8% |
 | Tool coverage 25% | transformer deferrer (task folds) | 0.19 [-0.51, 0.98] | 5% | 0.20 [-0.49, 0.98] | 6% |
-| Unseen domain: banking | stronger monitor, least confident | 0.07 [-0.25, 0.37] | 18% | -0.05 [-0.26, 0.25] | 44% |
-| Unseen domain: banking | LightGBM deferrer (task folds) | 0.14 [-0.25, 0.50] | 13% | -0.03 [-0.37, 0.25] | 44% |
-| Unseen domain: banking | LightGBM deferrer (domain folds) | 0.27 [0.00, 0.62] | 0% | 0.07 [-0.13, 0.38] | 18% |
-| Unseen domain: banking | transformer deferrer (task folds) | 0.13 [-0.25, 0.50] | 18% | 0.10 [-0.25, 0.50] | 20% |
-| Unseen domain: banking | transformer deferrer (domain folds) | 0.14 [-0.12, 0.38] | 7% | 0.12 [-0.25, 0.50] | 15% |
-| Unseen domain: coding | stronger monitor, least confident | -0.07 [-0.49, 0.25] | 48% | -0.09 [-0.36, 0.12] | 56% |
-| Unseen domain: coding | LightGBM deferrer (task folds) | 0.22 [-0.13, 0.73] | 10% | 0.10 [-0.12, 0.37] | 6% |
-| Unseen domain: coding | LightGBM deferrer (domain folds) | 0.19 [-0.12, 0.62] | 7% | 0.04 [-0.13, 0.25] | 22% |
-| Unseen domain: coding | transformer deferrer (task folds) | 0.18 [-0.13, 0.62] | 13% | 0.28 [-0.12, 0.75] | 3% |
-| Unseen domain: coding | transformer deferrer (domain folds) | 0.20 [-0.24, 0.61] | 10% | 0.17 [-0.12, 0.50] | 6% |
-| Unseen domain: email | stronger monitor, least confident | -0.05 [-0.37, 0.12] | 39% | -0.04 [-0.37, 0.24] | 34% |
-| Unseen domain: email | LightGBM deferrer (task folds) | 0.05 [-0.12, 0.25] | 10% | 0.07 [-0.12, 0.36] | 4% |
-| Unseen domain: email | LightGBM deferrer (domain folds) | 0.09 [0.00, 0.37] | 2% | 0.08 [-0.12, 0.37] | 6% |
-| Unseen domain: email | transformer deferrer (task folds) | 0.07 [-0.12, 0.25] | 7% | 0.09 [-0.12, 0.37] | 10% |
-| Unseen domain: email | transformer deferrer (domain folds) | 0.09 [-0.12, 0.37] | 4% | 0.13 [0.00, 0.49] | 2% |
-| Unseen domain: medical | stronger monitor, least confident | 0.06 [-0.12, 0.25] | 4% | 0.03 [-0.12, 0.25] | 10% |
-| Unseen domain: medical | LightGBM deferrer (task folds) | 0.00 [-0.13, 0.13] | 16% | -0.01 [-0.24, 0.12] | 18% |
-| Unseen domain: medical | LightGBM deferrer (domain folds) | 0.07 [0.00, 0.25] | 0% | 0.03 [-0.12, 0.25] | 6% |
-| Unseen domain: medical | transformer deferrer (task folds) | 0.03 [-0.12, 0.25] | 8% | 0.01 [-0.13, 0.24] | 16% |
-| Unseen domain: medical | transformer deferrer (domain folds) | 0.02 [-0.12, 0.13] | 11% | -0.00 [-0.12, 0.12] | 16% |
-| Unseen domain: web | stronger monitor, least confident | 0.03 [-0.25, 0.25] | 25% | -0.05 [-0.38, 0.25] | 44% |
-| Unseen domain: web | LightGBM deferrer (task folds) | -0.05 [-0.25, 0.25] | 42% | -0.13 [-0.38, 0.12] | 64% |
-| Unseen domain: web | LightGBM deferrer (domain folds) | 0.05 [-0.13, 0.25] | 4% | 0.05 [-0.13, 0.25] | 6% |
-| Unseen domain: web | transformer deferrer (task folds) | -0.09 [-0.38, 0.13] | 54% | -0.10 [-0.38, 0.13] | 58% |
-| Unseen domain: web | transformer deferrer (domain folds) | -0.02 [-0.25, 0.25] | 26% | -0.04 [-0.26, 0.13] | 36% |
-| Unseen domains (mean) | stronger monitor, least confident | 0.01 [-0.12, 0.15] | 45% | -0.04 [-0.17, 0.07] | 74% |
-| Unseen domains (mean) | LightGBM deferrer (task folds) | 0.07 [-0.07, 0.20] | 17% | -0.00 [-0.12, 0.10] | 55% |
-| Unseen domains (mean) | LightGBM deferrer (domain folds) | 0.13 [0.02, 0.25] | 1% | 0.05 [-0.07, 0.17] | 15% |
-| Unseen domains (mean) | transformer deferrer (task folds) | 0.06 [-0.07, 0.20] | 17% | 0.07 [-0.05, 0.22] | 18% |
-| Unseen domains (mean) | transformer deferrer (domain folds) | 0.09 [-0.03, 0.20] | 6% | 0.07 [-0.05, 0.22] | 12% |
+| Unseen domain: banking | stronger monitor, least confident | 0.03 [-0.25, 0.37] | 24% | 0.02 [-0.25, 0.25] | 23% |
+| Unseen domain: banking | LightGBM deferrer (task folds) | 0.10 [-0.25, 0.38] | 12% | -0.04 [-0.25, 0.25] | 40% |
+| Unseen domain: banking | LightGBM deferrer (domain folds) | 0.26 [-0.13, 0.87] | 10% | 0.12 [-0.25, 0.62] | 14% |
+| Unseen domain: banking | transformer deferrer (task folds) | 0.25 [-0.25, 0.87] | 12% | 0.26 [-0.25, 0.99] | 10% |
+| Unseen domain: banking | transformer deferrer (domain folds) | 0.20 [-0.13, 0.87] | 10% | 0.23 [-0.25, 0.99] | 11% |
+| Unseen domain: coding | stronger monitor, least confident | -0.07 [-0.37, 0.25] | 50% | -0.12 [-0.49, 0.12] | 66% |
+| Unseen domain: coding | LightGBM deferrer (task folds) | 0.13 [-0.12, 0.62] | 14% | 0.08 [-0.12, 0.37] | 11% |
+| Unseen domain: coding | LightGBM deferrer (domain folds) | 0.18 [-0.25, 0.74] | 16% | 0.09 [-0.25, 0.73] | 21% |
+| Unseen domain: coding | transformer deferrer (task folds) | 0.31 [-0.25, 1.13] | 13% | 0.36 [-0.12, 1.22] | 6% |
+| Unseen domain: coding | transformer deferrer (domain folds) | 0.35 [-0.12, 1.23] | 8% | 0.35 [-0.12, 1.23] | 3% |
+| Unseen domain: email | stronger monitor, least confident | -0.01 [-0.36, 0.24] | 28% | -0.01 [-0.25, 0.24] | 24% |
+| Unseen domain: email | LightGBM deferrer (task folds) | 0.03 [-0.12, 0.24] | 8% | 0.02 [-0.12, 0.24] | 9% |
+| Unseen domain: email | LightGBM deferrer (domain folds) | 0.06 [-0.12, 0.36] | 4% | 0.04 [-0.12, 0.25] | 10% |
+| Unseen domain: email | transformer deferrer (task folds) | 0.07 [-0.12, 0.37] | 6% | 0.09 [-0.12, 0.37] | 3% |
+| Unseen domain: email | transformer deferrer (domain folds) | 0.08 [-0.12, 0.37] | 4% | 0.10 [0.00, 0.48] | 2% |
+| Unseen domain: medical | stronger monitor, least confident | -0.11 [-0.74, 0.25] | 52% | -0.06 [-0.49, 0.13] | 33% |
+| Unseen domain: medical | LightGBM deferrer (task folds) | -0.02 [-0.25, 0.25] | 33% | -0.01 [-0.24, 0.12] | 24% |
+| Unseen domain: medical | LightGBM deferrer (domain folds) | 0.08 [-0.12, 0.25] | 4% | 0.03 [-0.25, 0.25] | 16% |
+| Unseen domain: medical | transformer deferrer (task folds) | 0.15 [-0.13, 0.62] | 8% | 0.17 [-0.12, 0.61] | 6% |
+| Unseen domain: medical | transformer deferrer (domain folds) | 0.08 [-0.13, 0.49] | 10% | 0.11 [-0.12, 0.51] | 10% |
+| Unseen domain: web | stronger monitor, least confident | -0.19 [-0.74, 0.25] | 67% | -0.13 [-0.63, 0.25] | 60% |
+| Unseen domain: web | LightGBM deferrer (task folds) | -0.03 [-0.37, 0.26] | 39% | -0.02 [-0.38, 0.38] | 38% |
+| Unseen domain: web | LightGBM deferrer (domain folds) | 0.11 [-0.25, 0.50] | 14% | 0.09 [-0.25, 0.62] | 19% |
+| Unseen domain: web | transformer deferrer (task folds) | -0.02 [-0.38, 0.38] | 36% | 0.04 [-0.37, 0.51] | 34% |
+| Unseen domain: web | transformer deferrer (domain folds) | 0.05 [-0.25, 0.38] | 24% | 0.10 [-0.25, 0.75] | 24% |
+| Unseen domains (mean) | stronger monitor, least confident | -0.07 [-0.25, 0.10] | 78% | -0.06 [-0.20, 0.07] | 81% |
+| Unseen domains (mean) | LightGBM deferrer (task folds) | 0.04 [-0.07, 0.15] | 28% | 0.00 [-0.10, 0.12] | 50% |
+| Unseen domains (mean) | LightGBM deferrer (domain folds) | 0.14 [-0.05, 0.37] | 13% | 0.07 [-0.08, 0.30] | 22% |
+| Unseen domains (mean) | transformer deferrer (task folds) | 0.15 [-0.05, 0.49] | 12% | 0.18 [-0.05, 0.55] | 6% |
+| Unseen domains (mean) | transformer deferrer (domain folds) | 0.15 [-0.03, 0.45] | 6% | 0.18 [-0.05, 0.52] | 6% |
 
 ## Attack rate natural: missed attacks left per 1,000 calls
 
@@ -115,12 +115,12 @@ Review budget 2% (no deferral in the first column):
 | Tool coverage 75% | 5.67 [1.58, 13.46] | 3.06 [0.35, 8.54] | 5.05 [1.14, 12.76] | 3.15 [0.70, 7.85] | 4.11 [0.39, 11.54] | — | 3.94 [0.38, 11.46] | — | 0.00 [0.00, 0.00] |
 | Tool coverage 50% | 6.13 [1.54, 12.43] | 3.24 [0.00, 8.03] | 5.91 [1.54, 12.43] | 3.41 [0.76, 7.87] | 4.45 [0.77, 11.08] | — | 4.71 [0.40, 11.50] | — | 0.00 [0.00, 0.00] |
 | Tool coverage 25% | 5.43 [2.74, 8.45] | 2.83 [1.06, 5.03] | 5.00 [2.40, 7.69] | 3.38 [1.39, 5.78] | 3.74 [1.19, 6.64] | — | 3.97 [1.52, 7.02] | — | 0.00 [0.00, 0.00] |
-| Unseen domain: banking | 5.75 [4.28, 7.31] | 4.03 [2.83, 5.25] | 5.58 [4.12, 7.08] | 3.96 [2.88, 5.19] | 4.13 [2.93, 5.47] | 5.39 [3.86, 6.92] | 4.03 [2.66, 5.40] | 4.99 [3.58, 6.38] | 0.00 [0.00, 0.00] |
-| Unseen domain: coding | 13.26 [11.40, 15.38] | 8.44 [6.91, 10.23] | 12.20 [10.15, 14.24] | 6.78 [5.41, 8.48] | 9.53 [7.83, 11.44] | 11.60 [9.78, 13.50] | 9.23 [7.29, 11.16] | 9.12 [7.48, 11.15] | 0.00 [0.00, 0.00] |
-| Unseen domain: email | 3.40 [2.26, 4.71] | 2.45 [1.46, 3.66] | 3.33 [2.22, 4.66] | 1.82 [1.00, 2.81] | 2.83 [1.75, 4.04] | 3.21 [2.08, 4.56] | 2.97 [1.81, 4.20] | 3.24 [2.13, 4.60] | 0.00 [0.00, 0.00] |
-| Unseen domain: medical | 1.90 [1.28, 2.62] | 1.21 [0.74, 1.69] | 1.90 [1.28, 2.62] | 1.59 [1.01, 2.35] | 1.02 [0.54, 1.50] | 1.83 [1.21, 2.62] | 1.46 [0.88, 2.08] | 1.26 [0.74, 1.81] | 0.00 [0.00, 0.00] |
-| Unseen domain: web | 5.51 [4.45, 6.75] | 4.66 [3.77, 5.65] | 5.23 [4.18, 6.49] | 4.97 [3.89, 6.22] | 4.38 [3.39, 5.44] | 5.17 [4.18, 6.28] | 3.95 [2.91, 4.88] | 4.55 [3.64, 5.56] | 0.00 [0.00, 0.00] |
-| Unseen domains (mean) | 5.96 [5.41, 6.60] | 4.16 [3.66, 4.73] | 5.65 [5.09, 6.30] | 3.83 [3.27, 4.39] | 4.38 [3.81, 5.05] | 5.44 [4.86, 6.08] | 4.33 [3.82, 4.94] | 4.63 [4.09, 5.30] | 0.00 [0.00, 0.00] |
+| Unseen domain: banking | 6.99 [4.72, 9.45] | 4.21 [2.93, 5.73] | 6.72 [4.50, 9.03] | 4.04 [3.00, 5.50] | 4.28 [2.94, 5.67] | 5.88 [3.28, 9.33] | 4.76 [2.92, 6.80] | 5.14 [3.28, 7.69] | 0.00 [0.00, 0.00] |
+| Unseen domain: coding | 14.26 [9.25, 21.02] | 9.13 [5.91, 13.54] | 13.10 [8.07, 19.41] | 6.93 [5.29, 9.34] | 9.67 [6.65, 13.55] | 11.25 [6.91, 15.76] | 9.91 [5.91, 14.56] | 10.44 [6.47, 16.33] | 0.07 [0.00, 1.02] |
+| Unseen domain: email | 3.08 [0.53, 6.01] | 2.09 [0.47, 4.01] | 3.01 [0.53, 5.93] | 1.81 [0.81, 3.05] | 2.32 [0.53, 4.07] | 2.76 [0.40, 5.47] | 2.71 [0.53, 5.30] | 2.80 [0.53, 5.29] | 0.00 [0.00, 0.00] |
+| Unseen domain: medical | 6.96 [1.42, 10.94] | 3.89 [0.87, 6.48] | 6.79 [1.42, 10.53] | 2.53 [1.28, 3.85] | 3.29 [0.61, 5.90] | 6.10 [1.41, 10.00] | 5.01 [0.95, 8.17] | 4.85 [0.87, 8.05] | 0.00 [0.00, 0.00] |
+| Unseen domain: web | 10.91 [4.80, 15.60] | 8.78 [3.96, 12.60] | 10.28 [4.52, 14.84] | 6.66 [4.09, 8.93] | 8.25 [3.71, 11.83] | 9.98 [4.43, 15.11] | 8.42 [3.23, 12.85] | 9.09 [3.84, 13.35] | 0.00 [0.00, 0.00] |
+| Unseen domains (mean) | 8.44 [5.43, 11.70] | 5.62 [3.72, 7.62] | 7.98 [5.16, 11.07] | 4.39 [3.34, 5.34] | 5.56 [3.97, 7.12] | 7.19 [4.94, 10.34] | 6.16 [3.90, 8.83] | 6.46 [4.14, 9.34] | 0.01 [0.00, 0.20] |
 
 Review budget 5% (no deferral in the first column):
 
@@ -131,12 +131,12 @@ Review budget 5% (no deferral in the first column):
 | Tool coverage 75% | 5.67 [1.58, 13.46] | 1.95 [0.00, 5.39] | 4.98 [1.14, 12.76] | 1.39 [0.00, 4.25] | 2.10 [0.00, 6.74] | — | 3.10 [0.00, 9.63] | — | 0.00 [0.00, 0.00] |
 | Tool coverage 50% | 6.13 [1.54, 12.43] | 1.90 [0.00, 5.37] | 5.41 [1.17, 12.43] | 1.43 [0.00, 4.68] | 2.14 [0.00, 6.39] | — | 3.60 [0.39, 9.91] | — | 0.00 [0.00, 0.00] |
 | Tool coverage 25% | 5.43 [2.74, 8.45] | 1.78 [0.35, 3.81] | 4.65 [2.01, 7.69] | 1.46 [0.00, 3.47] | 2.05 [0.34, 4.30] | — | 3.26 [0.77, 6.34] | — | 0.00 [0.00, 0.00] |
-| Unseen domain: banking | 5.75 [4.28, 7.31] | 2.31 [1.37, 3.18] | 5.22 [3.77, 6.76] | 2.31 [1.46, 3.09] | 2.24 [1.13, 3.33] | 3.27 [2.07, 4.67] | 2.84 [1.72, 4.15] | 3.81 [2.39, 5.43] | 0.00 [0.00, 0.00] |
-| Unseen domain: coding | 13.26 [11.40, 15.38] | 4.17 [3.16, 5.27] | 11.08 [9.31, 13.02] | 3.39 [2.37, 4.39] | 6.00 [4.59, 7.63] | 6.30 [4.99, 7.81] | 6.79 [4.95, 9.03] | 5.86 [4.40, 7.59] | 0.00 [0.00, 0.00] |
-| Unseen domain: email | 3.40 [2.26, 4.71] | 1.78 [0.94, 2.79] | 3.33 [2.22, 4.66] | 1.55 [0.81, 2.60] | 2.38 [1.40, 3.51] | 2.39 [1.41, 3.55] | 2.69 [1.61, 3.92] | 2.89 [1.82, 4.26] | 0.00 [0.00, 0.00] |
-| Unseen domain: medical | 1.90 [1.28, 2.62] | 0.81 [0.34, 1.22] | 1.69 [1.08, 2.36] | 0.90 [0.47, 1.42] | 0.65 [0.27, 1.09] | 1.04 [0.54, 1.68] | 1.03 [0.54, 1.61] | 0.92 [0.47, 1.48] | 0.00 [0.00, 0.00] |
-| Unseen domain: web | 5.51 [4.45, 6.75] | 4.09 [3.25, 4.97] | 4.58 [3.59, 5.56] | 3.47 [2.64, 4.40] | 3.02 [2.11, 3.97] | 4.51 [3.60, 5.47] | 3.15 [2.37, 4.00] | 3.62 [2.76, 4.57] | 0.00 [0.00, 0.00] |
-| Unseen domains (mean) | 5.96 [5.41, 6.60] | 2.63 [2.25, 3.12] | 5.18 [4.64, 5.85] | 2.32 [1.90, 2.73] | 2.86 [2.39, 3.40] | 3.50 [3.02, 4.11] | 3.30 [2.84, 3.96] | 3.42 [2.97, 4.03] | 0.00 [0.00, 0.00] |
+| Unseen domain: banking | 6.99 [4.72, 9.45] | 2.39 [1.44, 3.56] | 6.27 [4.22, 8.42] | 2.42 [1.63, 3.36] | 2.24 [1.30, 3.46] | 3.54 [1.80, 6.24] | 3.55 [1.98, 5.48] | 3.70 [2.13, 5.72] | 0.00 [0.00, 0.00] |
+| Unseen domain: coding | 14.26 [9.25, 21.02] | 4.91 [3.23, 7.07] | 11.86 [7.21, 17.92] | 3.68 [2.55, 5.32] | 5.63 [4.07, 7.93] | 6.60 [3.77, 10.35] | 7.57 [4.30, 12.29] | 7.73 [4.30, 13.67] | 0.00 [0.00, 0.00] |
+| Unseen domain: email | 3.08 [0.53, 6.01] | 1.46 [0.34, 2.82] | 2.99 [0.53, 5.87] | 1.39 [0.60, 2.49] | 1.73 [0.40, 3.39] | 1.90 [0.27, 3.60] | 2.42 [0.47, 4.89] | 2.47 [0.53, 4.48] | 0.00 [0.00, 0.00] |
+| Unseen domain: medical | 6.96 [1.42, 10.94] | 2.04 [0.47, 3.75] | 6.31 [1.23, 10.13] | 1.30 [0.54, 2.14] | 1.79 [0.33, 3.87] | 2.84 [0.74, 4.74] | 3.69 [0.61, 7.23] | 3.51 [0.54, 6.33] | 0.00 [0.00, 0.00] |
+| Unseen domain: web | 10.91 [4.80, 15.60] | 6.48 [3.46, 9.06] | 9.55 [3.86, 14.17] | 4.74 [2.85, 6.35] | 6.10 [2.37, 9.11] | 7.56 [4.01, 11.86] | 6.54 [2.51, 9.56] | 7.24 [2.88, 11.84] | 0.00 [0.00, 0.00] |
+| Unseen domains (mean) | 8.44 [5.43, 11.70] | 3.46 [2.35, 4.49] | 7.40 [4.71, 10.33] | 2.71 [2.05, 3.39] | 3.50 [2.47, 4.36] | 4.49 [3.15, 6.73] | 4.75 [2.94, 6.99] | 4.93 [3.02, 7.57] | 0.00 [0.00, 0.00] |
 
 Learned policies vs. least confident at attack rate natural: difference in missed attacks left per 1,000 calls (negative = the learned one leaves fewer), with the share of resamples where it is better.
 
@@ -157,36 +157,36 @@ Learned policies vs. least confident at attack rate natural: difference in misse
 | Tool coverage 25% | stronger monitor, least confident | 0.55 [-1.08, 2.12] | 19% | -0.33 [-2.37, 1.08] | 41% |
 | Tool coverage 25% | LightGBM deferrer (task folds) | 0.91 [-0.79, 2.82] | 7% | 0.26 [-1.39, 2.17] | 35% |
 | Tool coverage 25% | transformer deferrer (task folds) | 1.14 [-0.79, 3.21] | 6% | 1.48 [-0.67, 4.33] | 8% |
-| Unseen domain: banking | stronger monitor, least confident | -0.07 [-0.77, 0.60] | 54% | -0.00 [-0.43, 0.44] | 46% |
-| Unseen domain: banking | LightGBM deferrer (task folds) | 0.10 [-0.70, 0.85] | 36% | -0.08 [-0.87, 0.69] | 55% |
-| Unseen domain: banking | LightGBM deferrer (domain folds) | 1.36 [0.69, 1.99] | 0% | 0.96 [0.09, 1.90] | 1% |
-| Unseen domain: banking | transformer deferrer (task folds) | -0.01 [-0.77, 0.77] | 46% | 0.53 [-0.26, 1.46] | 10% |
-| Unseen domain: banking | transformer deferrer (domain folds) | 0.96 [0.43, 1.63] | 0% | 1.50 [0.59, 2.58] | 0% |
-| Unseen domain: coding | stronger monitor, least confident | -1.66 [-2.55, -0.87] | 100% | -0.78 [-1.30, -0.20] | 100% |
-| Unseen domain: coding | LightGBM deferrer (task folds) | 1.10 [0.27, 2.04] | 0% | 1.83 [0.94, 2.96] | 0% |
-| Unseen domain: coding | LightGBM deferrer (domain folds) | 3.16 [2.17, 4.13] | 0% | 2.13 [1.34, 3.16] | 0% |
-| Unseen domain: coding | transformer deferrer (task folds) | 0.79 [-0.54, 1.96] | 18% | 2.62 [0.81, 4.39] | 0% |
-| Unseen domain: coding | transformer deferrer (domain folds) | 0.68 [-0.27, 1.62] | 6% | 1.69 [0.81, 2.97] | 0% |
-| Unseen domain: email | stronger monitor, least confident | -0.63 [-1.27, 0.00] | 97% | -0.23 [-0.87, 0.40] | 74% |
-| Unseen domain: email | LightGBM deferrer (task folds) | 0.38 [0.00, 0.87] | 2% | 0.60 [0.20, 1.01] | 0% |
-| Unseen domain: email | LightGBM deferrer (domain folds) | 0.76 [0.34, 1.19] | 0% | 0.60 [0.07, 1.12] | 1% |
-| Unseen domain: email | transformer deferrer (task folds) | 0.52 [0.00, 0.94] | 2% | 0.91 [0.40, 1.46] | 0% |
-| Unseen domain: email | transformer deferrer (domain folds) | 0.80 [0.40, 1.27] | 0% | 1.11 [0.66, 1.62] | 0% |
-| Unseen domain: medical | stronger monitor, least confident | 0.38 [-0.14, 0.87] | 4% | 0.08 [-0.27, 0.54] | 30% |
-| Unseen domain: medical | LightGBM deferrer (task folds) | -0.19 [-0.60, 0.20] | 78% | -0.17 [-0.48, 0.14] | 79% |
-| Unseen domain: medical | LightGBM deferrer (domain folds) | 0.62 [0.27, 1.02] | 0% | 0.22 [-0.13, 0.68] | 11% |
-| Unseen domain: medical | transformer deferrer (task folds) | 0.25 [-0.21, 0.75] | 10% | 0.21 [-0.21, 0.67] | 14% |
-| Unseen domain: medical | transformer deferrer (domain folds) | 0.05 [-0.27, 0.41] | 34% | 0.10 [-0.27, 0.54] | 28% |
-| Unseen domain: web | stronger monitor, least confident | 0.31 [-0.41, 1.01] | 16% | -0.62 [-1.28, 0.00] | 96% |
-| Unseen domain: web | LightGBM deferrer (task folds) | -0.28 [-0.88, 0.34] | 78% | -1.07 [-1.83, -0.34] | 100% |
-| Unseen domain: web | LightGBM deferrer (domain folds) | 0.51 [0.07, 0.95] | 1% | 0.43 [-0.14, 0.88] | 6% |
-| Unseen domain: web | transformer deferrer (task folds) | -0.71 [-1.29, 0.00] | 97% | -0.94 [-1.70, -0.27] | 100% |
-| Unseen domain: web | transformer deferrer (domain folds) | -0.11 [-0.66, 0.54] | 60% | -0.47 [-1.16, 0.14] | 94% |
-| Unseen domains (mean) | stronger monitor, least confident | -0.33 [-0.62, -0.05] | 98% | -0.31 [-0.61, -0.08] | 99% |
-| Unseen domains (mean) | LightGBM deferrer (task folds) | 0.22 [-0.08, 0.54] | 10% | 0.22 [-0.09, 0.54] | 9% |
-| Unseen domains (mean) | LightGBM deferrer (domain folds) | 1.28 [1.02, 1.55] | 0% | 0.87 [0.56, 1.19] | 0% |
-| Unseen domains (mean) | transformer deferrer (task folds) | 0.17 [-0.18, 0.52] | 16% | 0.67 [0.34, 1.06] | 0% |
-| Unseen domains (mean) | transformer deferrer (domain folds) | 0.48 [0.17, 0.76] | 0% | 0.79 [0.49, 1.09] | 0% |
+| Unseen domain: banking | stronger monitor, least confident | -0.17 [-1.22, 0.77] | 56% | 0.03 [-0.78, 0.96] | 43% |
+| Unseen domain: banking | LightGBM deferrer (task folds) | 0.07 [-0.69, 0.95] | 42% | -0.15 [-1.04, 0.68] | 59% |
+| Unseen domain: banking | LightGBM deferrer (domain folds) | 1.68 [-0.00, 4.13] | 2% | 1.15 [-0.77, 3.78] | 30% |
+| Unseen domain: banking | transformer deferrer (task folds) | 0.56 [-0.60, 1.79] | 15% | 1.16 [-0.17, 3.28] | 6% |
+| Unseen domain: banking | transformer deferrer (domain folds) | 0.94 [-0.09, 2.22] | 4% | 1.32 [-0.52, 3.33] | 18% |
+| Unseen domain: coding | stronger monitor, least confident | -2.20 [-4.95, -0.13] | 99% | -1.23 [-2.43, -0.40] | 100% |
+| Unseen domain: coding | LightGBM deferrer (task folds) | 0.55 [-0.61, 1.62] | 22% | 0.72 [-0.47, 2.62] | 19% |
+| Unseen domain: coding | LightGBM deferrer (domain folds) | 2.12 [0.47, 3.99] | 0% | 1.69 [-0.20, 3.66] | 6% |
+| Unseen domain: coding | transformer deferrer (task folds) | 0.78 [-0.53, 2.41] | 17% | 2.66 [0.27, 5.80] | 0% |
+| Unseen domain: coding | transformer deferrer (domain folds) | 1.31 [-0.20, 3.49] | 5% | 2.82 [0.47, 6.71] | 0% |
+| Unseen domain: email | stronger monitor, least confident | -0.28 [-1.54, 1.13] | 66% | -0.07 [-1.00, 0.86] | 55% |
+| Unseen domain: email | LightGBM deferrer (task folds) | 0.23 [-0.20, 0.73] | 10% | 0.27 [-0.33, 0.93] | 18% |
+| Unseen domain: email | LightGBM deferrer (domain folds) | 0.67 [-0.20, 1.75] | 13% | 0.44 [-0.20, 1.27] | 15% |
+| Unseen domain: email | transformer deferrer (task folds) | 0.62 [0.00, 1.76] | 0% | 0.96 [0.07, 2.43] | 0% |
+| Unseen domain: email | transformer deferrer (domain folds) | 0.72 [0.07, 1.68] | 0% | 1.01 [0.13, 2.08] | 0% |
+| Unseen domain: medical | stronger monitor, least confident | -1.36 [-3.18, 0.81] | 67% | -0.74 [-2.19, 0.47] | 74% |
+| Unseen domain: medical | LightGBM deferrer (task folds) | -0.59 [-1.70, 0.14] | 90% | -0.25 [-0.88, 0.27] | 78% |
+| Unseen domain: medical | LightGBM deferrer (domain folds) | 2.22 [0.34, 4.56] | 0% | 0.80 [-0.07, 2.32] | 4% |
+| Unseen domain: medical | transformer deferrer (task folds) | 1.12 [-0.07, 2.57] | 4% | 1.65 [-0.14, 4.80] | 4% |
+| Unseen domain: medical | transformer deferrer (domain folds) | 0.96 [-0.20, 2.35] | 15% | 1.46 [-0.20, 3.91] | 8% |
+| Unseen domain: web | stronger monitor, least confident | -2.12 [-4.65, 0.61] | 74% | -1.74 [-3.32, -0.13] | 98% |
+| Unseen domain: web | LightGBM deferrer (task folds) | -0.53 [-1.69, 0.47] | 83% | -0.38 [-1.59, 1.16] | 69% |
+| Unseen domain: web | LightGBM deferrer (domain folds) | 1.21 [0.14, 2.90] | 0% | 1.08 [-0.48, 3.57] | 17% |
+| Unseen domain: web | transformer deferrer (task folds) | -0.36 [-1.47, 0.68] | 67% | 0.06 [-1.46, 1.56] | 46% |
+| Unseen domain: web | transformer deferrer (domain folds) | 0.31 [-0.66, 1.35] | 35% | 0.76 [-0.96, 3.45] | 38% |
+| Unseen domains (mean) | stronger monitor, least confident | -1.23 [-2.71, -0.11] | 100% | -0.75 [-1.28, -0.17] | 100% |
+| Unseen domains (mean) | LightGBM deferrer (task folds) | -0.05 [-0.70, 0.45] | 44% | 0.04 [-0.35, 0.47] | 42% |
+| Unseen domains (mean) | LightGBM deferrer (domain folds) | 1.58 [0.72, 2.90] | 0% | 1.03 [-0.11, 2.46] | 9% |
+| Unseen domains (mean) | transformer deferrer (task folds) | 0.54 [-0.13, 1.46] | 8% | 1.30 [0.39, 2.84] | 0% |
+| Unseen domains (mean) | transformer deferrer (domain folds) | 0.85 [0.15, 1.89] | 0% | 1.47 [0.39, 3.36] | 0% |
 
 ## Attack rate 5%: missed attacks left per 1,000 calls
 
@@ -199,12 +199,12 @@ Review budget 2% (no deferral in the first column):
 | Tool coverage 75% | 1.95 [0.41, 4.75] | 0.91 [0.00, 2.91] | 1.78 [0.00, 4.67] | 0.91 [0.00, 2.45] | 1.27 [0.00, 3.90] | — | 1.31 [0.00, 4.22] | — | 0.00 [0.00, 0.00] |
 | Tool coverage 50% | 2.01 [0.00, 4.58] | 0.99 [0.00, 2.82] | 1.94 [0.00, 4.57] | 1.09 [0.00, 2.77] | 1.38 [0.00, 3.63] | — | 1.47 [0.00, 4.09] | — | 0.00 [0.00, 0.00] |
 | Tool coverage 25% | 1.94 [0.47, 3.58] | 0.97 [0.00, 2.26] | 1.75 [0.45, 3.33] | 1.18 [0.00, 2.48] | 1.29 [0.00, 2.88] | — | 1.40 [0.40, 2.92] | — | 0.00 [0.00, 0.00] |
-| Unseen domain: banking | 2.84 [1.96, 3.78] | 1.71 [0.90, 2.52] | 2.75 [1.84, 3.59] | 1.83 [1.22, 2.47] | 1.97 [1.24, 2.78] | 2.44 [1.56, 3.31] | 1.94 [1.31, 2.70] | 2.18 [1.34, 3.07] | 0.00 [0.00, 0.00] |
-| Unseen domain: coding | 3.47 [2.27, 4.56] | 1.92 [1.13, 2.72] | 3.18 [2.15, 4.24] | 1.68 [0.92, 2.42] | 2.43 [1.48, 3.51] | 2.48 [1.47, 3.38] | 2.34 [1.26, 3.26] | 2.35 [1.28, 3.28] | 0.00 [0.00, 0.00] |
-| Unseen domain: email | 0.84 [0.34, 1.76] | 0.61 [0.11, 1.34] | 0.83 [0.33, 1.69] | 0.46 [0.00, 1.12] | 0.70 [0.11, 1.54] | 0.81 [0.33, 1.65] | 0.74 [0.22, 1.65] | 0.80 [0.23, 1.65] | 0.00 [0.00, 0.00] |
-| Unseen domain: medical | 0.50 [0.11, 0.91] | 0.33 [0.00, 0.69] | 0.50 [0.11, 0.91] | 0.46 [0.11, 1.01] | 0.31 [0.00, 0.68] | 0.48 [0.11, 0.91] | 0.39 [0.00, 0.79] | 0.36 [0.00, 0.79] | 0.00 [0.00, 0.00] |
-| Unseen domain: web | 1.44 [0.70, 2.21] | 1.26 [0.57, 1.95] | 1.37 [0.58, 2.09] | 1.33 [0.69, 2.07] | 1.15 [0.45, 1.84] | 1.38 [0.69, 2.14] | 1.06 [0.46, 1.82] | 1.22 [0.57, 1.95] | 0.00 [0.00, 0.00] |
-| Unseen domains (mean) | 1.82 [1.42, 2.19] | 1.17 [0.91, 1.45] | 1.73 [1.38, 2.10] | 1.15 [0.88, 1.43] | 1.31 [1.03, 1.64] | 1.52 [1.18, 1.86] | 1.29 [1.02, 1.59] | 1.38 [1.09, 1.70] | 0.00 [0.00, 0.00] |
+| Unseen domain: banking | 3.48 [2.18, 4.72] | 1.83 [1.11, 2.58] | 3.35 [2.17, 4.65] | 1.77 [1.11, 2.53] | 1.96 [1.22, 2.83] | 2.54 [1.45, 3.85] | 2.31 [1.32, 3.43] | 2.30 [1.24, 3.44] | 0.00 [0.00, 0.00] |
+| Unseen domain: coding | 3.70 [2.04, 5.77] | 1.91 [1.12, 2.68] | 3.40 [1.82, 5.54] | 1.65 [0.81, 2.49] | 2.20 [1.25, 3.23] | 2.36 [1.25, 3.50] | 2.52 [1.26, 4.07] | 2.63 [1.36, 4.41] | 0.00 [0.00, 0.00] |
+| Unseen domain: email | 0.76 [0.11, 1.76] | 0.51 [0.00, 1.36] | 0.75 [0.11, 1.71] | 0.45 [0.00, 1.01] | 0.56 [0.11, 1.47] | 0.67 [0.00, 1.65] | 0.67 [0.11, 1.59] | 0.70 [0.11, 1.65] | 0.00 [0.00, 0.00] |
+| Unseen domain: medical | 1.87 [0.23, 3.52] | 0.99 [0.11, 2.16] | 1.85 [0.23, 3.49] | 0.70 [0.11, 1.36] | 0.89 [0.11, 2.03] | 1.23 [0.22, 2.50] | 1.35 [0.11, 2.78] | 1.22 [0.11, 2.58] | 0.00 [0.00, 0.00] |
+| Unseen domain: web | 2.87 [0.81, 4.90] | 2.29 [0.79, 3.97] | 2.71 [0.81, 4.58] | 1.81 [0.80, 3.09] | 2.18 [0.58, 3.78] | 2.58 [0.79, 4.62] | 2.23 [0.57, 3.88] | 2.41 [0.58, 4.16] | 0.00 [0.00, 0.00] |
+| Unseen domains (mean) | 2.54 [1.56, 3.67] | 1.51 [0.97, 2.03] | 2.41 [1.50, 3.48] | 1.28 [0.90, 1.59] | 1.56 [1.08, 2.07] | 1.87 [1.28, 2.77] | 1.82 [1.07, 2.75] | 1.85 [1.16, 2.79] | 0.00 [0.00, 0.00] |
 
 Review budget 5% (no deferral in the first column):
 
@@ -215,12 +215,12 @@ Review budget 5% (no deferral in the first column):
 | Tool coverage 75% | 1.95 [0.41, 4.75] | 0.52 [0.00, 1.50] | 1.77 [0.00, 4.63] | 0.30 [0.00, 0.97] | 0.65 [0.00, 2.40] | — | 0.96 [0.00, 3.75] | — | 0.00 [0.00, 0.00] |
 | Tool coverage 50% | 2.01 [0.00, 4.58] | 0.54 [0.00, 1.83] | 1.78 [0.00, 4.57] | 0.37 [0.00, 1.79] | 0.62 [0.00, 2.26] | — | 1.14 [0.00, 3.57] | — | 0.00 [0.00, 0.00] |
 | Tool coverage 25% | 1.94 [0.47, 3.58] | 0.63 [0.00, 1.64] | 1.62 [0.44, 3.30] | 0.50 [0.00, 1.63] | 0.76 [0.00, 2.26] | — | 1.16 [0.00, 2.69] | — | 0.00 [0.00, 0.00] |
-| Unseen domain: banking | 2.84 [1.96, 3.78] | 1.09 [0.45, 1.65] | 2.59 [1.65, 3.35] | 1.03 [0.45, 1.64] | 1.02 [0.54, 1.64] | 1.29 [0.57, 1.94] | 1.33 [0.76, 1.98] | 1.51 [0.77, 2.30] | 0.00 [0.00, 0.00] |
-| Unseen domain: coding | 3.47 [2.27, 4.56] | 1.01 [0.45, 1.60] | 2.91 [1.84, 4.11] | 0.79 [0.23, 1.34] | 1.30 [0.58, 2.06] | 1.19 [0.56, 1.80] | 1.68 [0.90, 2.49] | 1.44 [0.68, 2.27] | 0.00 [0.00, 0.00] |
-| Unseen domain: email | 0.84 [0.34, 1.76] | 0.47 [0.00, 1.13] | 0.83 [0.33, 1.69] | 0.39 [0.00, 1.01] | 0.63 [0.11, 1.37] | 0.66 [0.22, 1.46] | 0.67 [0.11, 1.48] | 0.75 [0.22, 1.58] | 0.00 [0.00, 0.00] |
-| Unseen domain: medical | 0.50 [0.11, 0.91] | 0.26 [0.00, 0.57] | 0.44 [0.11, 0.80] | 0.33 [0.00, 0.69] | 0.23 [0.00, 0.56] | 0.34 [0.00, 0.69] | 0.28 [0.00, 0.68] | 0.28 [0.00, 0.58] | 0.00 [0.00, 0.00] |
-| Unseen domain: web | 1.44 [0.70, 2.21] | 1.11 [0.46, 1.72] | 1.24 [0.46, 1.97] | 1.02 [0.46, 1.72] | 0.83 [0.23, 1.47] | 1.25 [0.46, 1.96] | 0.88 [0.35, 1.50] | 1.00 [0.35, 1.61] | 0.00 [0.00, 0.00] |
-| Unseen domains (mean) | 1.82 [1.42, 2.19] | 0.79 [0.59, 1.04] | 1.60 [1.27, 1.92] | 0.71 [0.50, 0.95] | 0.80 [0.59, 1.06] | 0.95 [0.72, 1.24] | 0.97 [0.75, 1.24] | 0.99 [0.73, 1.28] | 0.00 [0.00, 0.00] |
+| Unseen domain: banking | 3.48 [2.18, 4.72] | 0.96 [0.33, 1.64] | 3.14 [1.99, 4.33] | 1.00 [0.44, 1.56] | 0.90 [0.44, 1.56] | 1.35 [0.66, 2.22] | 1.66 [0.87, 2.82] | 1.59 [0.78, 2.69] | 0.00 [0.00, 0.00] |
+| Unseen domain: coding | 3.70 [2.04, 5.77] | 1.12 [0.45, 1.82] | 3.10 [1.60, 5.14] | 0.83 [0.34, 1.46] | 1.33 [0.58, 1.98] | 1.44 [0.57, 2.51] | 1.93 [0.80, 3.28] | 1.93 [0.79, 3.62] | 0.00 [0.00, 0.00] |
+| Unseen domain: email | 0.76 [0.11, 1.76] | 0.38 [0.00, 1.02] | 0.74 [0.11, 1.71] | 0.37 [0.00, 0.90] | 0.45 [0.00, 1.14] | 0.49 [0.00, 1.37] | 0.61 [0.00, 1.58] | 0.64 [0.11, 1.56] | 0.00 [0.00, 0.00] |
+| Unseen domain: medical | 1.87 [0.23, 3.52] | 0.54 [0.00, 1.38] | 1.73 [0.22, 3.29] | 0.40 [0.11, 0.80] | 0.50 [0.00, 1.36] | 0.66 [0.11, 1.48] | 1.00 [0.11, 2.23] | 0.89 [0.11, 2.03] | 0.00 [0.00, 0.00] |
+| Unseen domain: web | 2.87 [0.81, 4.90] | 1.65 [0.58, 2.97] | 2.54 [0.79, 4.32] | 1.32 [0.46, 2.29] | 1.60 [0.34, 2.92] | 1.90 [0.69, 3.69] | 1.74 [0.45, 3.21] | 1.90 [0.57, 3.55] | 0.00 [0.00, 0.00] |
+| Unseen domains (mean) | 2.54 [1.56, 3.67] | 0.93 [0.60, 1.22] | 2.25 [1.36, 3.28] | 0.78 [0.54, 1.03] | 0.95 [0.63, 1.31] | 1.17 [0.75, 1.75] | 1.39 [0.81, 2.17] | 1.39 [0.77, 2.30] | 0.00 [0.00, 0.00] |
 
 Learned policies vs. least confident at attack rate 5%: difference in missed attacks left per 1,000 calls (negative = the learned one leaves fewer), with the share of resamples where it is better.
 
@@ -241,36 +241,36 @@ Learned policies vs. least confident at attack rate 5%: difference in missed att
 | Tool coverage 25% | stronger monitor, least confident | 0.21 [-0.49, 0.98] | 16% | -0.13 [-0.98, 0.46] | 34% |
 | Tool coverage 25% | LightGBM deferrer (task folds) | 0.33 [-0.95, 1.34] | 12% | 0.13 [-0.81, 1.36] | 24% |
 | Tool coverage 25% | transformer deferrer (task folds) | 0.43 [-0.49, 1.75] | 9% | 0.53 [-0.48, 1.82] | 8% |
-| Unseen domain: banking | stronger monitor, least confident | 0.12 [-0.22, 0.55] | 24% | -0.06 [-0.44, 0.22] | 44% |
-| Unseen domain: banking | LightGBM deferrer (task folds) | 0.26 [-0.23, 0.87] | 12% | -0.07 [-0.55, 0.44] | 56% |
-| Unseen domain: banking | LightGBM deferrer (domain folds) | 0.73 [0.32, 1.11] | 0% | 0.20 [-0.22, 0.66] | 8% |
-| Unseen domain: banking | transformer deferrer (task folds) | 0.23 [-0.22, 0.67] | 12% | 0.24 [-0.22, 0.77] | 10% |
-| Unseen domain: banking | transformer deferrer (domain folds) | 0.46 [0.00, 0.97] | 2% | 0.42 [0.00, 0.88] | 2% |
-| Unseen domain: coding | stronger monitor, least confident | -0.24 [-0.70, 0.23] | 76% | -0.22 [-0.57, 0.11] | 84% |
-| Unseen domain: coding | LightGBM deferrer (task folds) | 0.51 [0.00, 1.04] | 2% | 0.29 [0.00, 0.79] | 0% |
-| Unseen domain: coding | LightGBM deferrer (domain folds) | 0.56 [0.00, 1.13] | 1% | 0.18 [-0.23, 0.68] | 13% |
-| Unseen domain: coding | transformer deferrer (task folds) | 0.42 [-0.23, 1.02] | 6% | 0.67 [0.00, 1.36] | 2% |
-| Unseen domain: coding | transformer deferrer (domain folds) | 0.43 [-0.12, 1.02] | 4% | 0.43 [-0.00, 1.02] | 2% |
-| Unseen domain: email | stronger monitor, least confident | -0.15 [-0.67, 0.22] | 62% | -0.08 [-0.66, 0.23] | 50% |
-| Unseen domain: email | LightGBM deferrer (task folds) | 0.08 [-0.11, 0.34] | 12% | 0.16 [-0.11, 0.45] | 4% |
-| Unseen domain: email | LightGBM deferrer (domain folds) | 0.19 [0.00, 0.45] | 2% | 0.19 [-0.11, 0.55] | 4% |
-| Unseen domain: email | transformer deferrer (task folds) | 0.12 [-0.11, 0.45] | 12% | 0.20 [-0.11, 0.56] | 4% |
-| Unseen domain: email | transformer deferrer (domain folds) | 0.19 [-0.11, 0.45] | 5% | 0.28 [0.00, 0.66] | 2% |
-| Unseen domain: medical | stronger monitor, least confident | 0.13 [-0.11, 0.45] | 6% | 0.07 [-0.22, 0.34] | 17% |
-| Unseen domain: medical | LightGBM deferrer (task folds) | -0.02 [-0.23, 0.23] | 34% | -0.04 [-0.34, 0.22] | 39% |
-| Unseen domain: medical | LightGBM deferrer (domain folds) | 0.16 [0.00, 0.45] | 0% | 0.08 [-0.11, 0.34] | 9% |
-| Unseen domain: medical | transformer deferrer (task folds) | 0.06 [-0.12, 0.34] | 13% | 0.02 [-0.23, 0.34] | 28% |
-| Unseen domain: medical | transformer deferrer (domain folds) | 0.03 [-0.22, 0.23] | 20% | 0.01 [-0.23, 0.23] | 28% |
-| Unseen domain: web | stronger monitor, least confident | 0.08 [-0.34, 0.46] | 25% | -0.09 [-0.57, 0.35] | 55% |
-| Unseen domain: web | LightGBM deferrer (task folds) | -0.10 [-0.46, 0.34] | 60% | -0.28 [-0.70, 0.12] | 84% |
-| Unseen domain: web | LightGBM deferrer (domain folds) | 0.12 [-0.11, 0.46] | 6% | 0.14 [-0.12, 0.46] | 8% |
-| Unseen domain: web | transformer deferrer (task folds) | -0.20 [-0.58, 0.12] | 78% | -0.23 [-0.69, 0.23] | 80% |
-| Unseen domain: web | transformer deferrer (domain folds) | -0.04 [-0.35, 0.34] | 44% | -0.11 [-0.45, 0.23] | 62% |
-| Unseen domains (mean) | stronger monitor, least confident | -0.01 [-0.20, 0.16] | 58% | -0.08 [-0.24, 0.07] | 82% |
-| Unseen domains (mean) | LightGBM deferrer (task folds) | 0.14 [-0.03, 0.34] | 5% | 0.01 [-0.16, 0.18] | 50% |
-| Unseen domains (mean) | LightGBM deferrer (domain folds) | 0.35 [0.18, 0.52] | 0% | 0.16 [0.02, 0.31] | 2% |
-| Unseen domains (mean) | transformer deferrer (task folds) | 0.13 [-0.05, 0.29] | 12% | 0.18 [0.00, 0.40] | 2% |
-| Unseen domains (mean) | transformer deferrer (domain folds) | 0.21 [0.02, 0.38] | 2% | 0.20 [0.04, 0.38] | 0% |
+| Unseen domain: banking | stronger monitor, least confident | -0.06 [-0.56, 0.34] | 52% | 0.05 [-0.33, 0.44] | 28% |
+| Unseen domain: banking | LightGBM deferrer (task folds) | 0.13 [-0.33, 0.65] | 22% | -0.06 [-0.45, 0.33] | 51% |
+| Unseen domain: banking | LightGBM deferrer (domain folds) | 0.71 [-0.22, 1.98] | 10% | 0.40 [-0.22, 1.55] | 16% |
+| Unseen domain: banking | transformer deferrer (task folds) | 0.48 [-0.22, 1.53] | 10% | 0.71 [-0.11, 2.08] | 4% |
+| Unseen domain: banking | transformer deferrer (domain folds) | 0.48 [-0.33, 1.54] | 8% | 0.63 [-0.11, 1.85] | 6% |
+| Unseen domain: coding | stronger monitor, least confident | -0.26 [-0.79, 0.23] | 80% | -0.29 [-0.79, 0.11] | 88% |
+| Unseen domain: coding | LightGBM deferrer (task folds) | 0.29 [-0.23, 0.91] | 11% | 0.21 [-0.22, 0.67] | 6% |
+| Unseen domain: coding | LightGBM deferrer (domain folds) | 0.45 [-0.23, 1.24] | 9% | 0.32 [-0.23, 1.26] | 12% |
+| Unseen domain: coding | transformer deferrer (task folds) | 0.61 [-0.23, 1.98] | 10% | 0.81 [-0.11, 2.18] | 4% |
+| Unseen domain: coding | transformer deferrer (domain folds) | 0.72 [-0.11, 2.09] | 3% | 0.81 [0.00, 2.16] | 0% |
+| Unseen domain: email | stronger monitor, least confident | -0.06 [-0.67, 0.46] | 44% | -0.02 [-0.56, 0.45] | 38% |
+| Unseen domain: email | LightGBM deferrer (task folds) | 0.05 [-0.11, 0.33] | 14% | 0.06 [-0.22, 0.34] | 15% |
+| Unseen domain: email | LightGBM deferrer (domain folds) | 0.15 [-0.11, 0.56] | 7% | 0.11 [-0.11, 0.45] | 16% |
+| Unseen domain: email | transformer deferrer (task folds) | 0.16 [-0.11, 0.68] | 3% | 0.23 [-0.11, 0.80] | 3% |
+| Unseen domain: email | transformer deferrer (domain folds) | 0.19 [0.00, 0.67] | 2% | 0.25 [0.00, 0.79] | 1% |
+| Unseen domain: medical | stronger monitor, least confident | -0.29 [-1.03, 0.34] | 68% | -0.13 [-0.80, 0.23] | 57% |
+| Unseen domain: medical | LightGBM deferrer (task folds) | -0.10 [-0.56, 0.23] | 52% | -0.04 [-0.34, 0.23] | 42% |
+| Unseen domain: medical | LightGBM deferrer (domain folds) | 0.24 [0.00, 0.67] | 2% | 0.12 [-0.23, 0.57] | 16% |
+| Unseen domain: medical | transformer deferrer (task folds) | 0.36 [-0.11, 1.04] | 7% | 0.46 [-0.22, 1.45] | 10% |
+| Unseen domain: medical | transformer deferrer (domain folds) | 0.23 [-0.12, 0.81] | 12% | 0.36 [-0.12, 1.15] | 12% |
+| Unseen domain: web | stronger monitor, least confident | -0.48 [-1.38, 0.35] | 74% | -0.34 [-1.13, 0.23] | 76% |
+| Unseen domain: web | LightGBM deferrer (task folds) | -0.11 [-0.68, 0.35] | 61% | -0.06 [-0.69, 0.59] | 54% |
+| Unseen domain: web | LightGBM deferrer (domain folds) | 0.29 [-0.34, 1.02] | 10% | 0.25 [-0.24, 0.92] | 13% |
+| Unseen domain: web | transformer deferrer (task folds) | -0.06 [-0.58, 0.57] | 55% | 0.08 [-0.47, 0.92] | 40% |
+| Unseen domain: web | transformer deferrer (domain folds) | 0.12 [-0.35, 0.69] | 27% | 0.25 [-0.35, 1.16] | 30% |
+| Unseen domains (mean) | stronger monitor, least confident | -0.23 [-0.59, 0.14] | 86% | -0.15 [-0.39, 0.04] | 93% |
+| Unseen domains (mean) | LightGBM deferrer (task folds) | 0.05 [-0.18, 0.27] | 36% | 0.02 [-0.14, 0.21] | 41% |
+| Unseen domains (mean) | LightGBM deferrer (domain folds) | 0.37 [-0.05, 0.83] | 6% | 0.24 [-0.09, 0.67] | 12% |
+| Unseen domains (mean) | transformer deferrer (task folds) | 0.31 [-0.00, 0.86] | 4% | 0.46 [0.05, 1.17] | 2% |
+| Unseen domains (mean) | transformer deferrer (domain folds) | 0.35 [0.00, 0.86] | 2% | 0.46 [0.05, 1.21] | 0% |
 
 ## Attack rate 1%: missed attacks left per 1,000 calls
 
@@ -283,12 +283,12 @@ Review budget 2% (no deferral in the first column):
 | Tool coverage 75% | 0.36 [0.00, 1.35] | 0.17 [0.00, 1.04] | 0.31 [0.00, 1.35] | 0.14 [0.00, 1.04] | 0.23 [0.00, 1.06] | — | 0.24 [0.00, 1.07] | — | 0.00 [0.00, 0.00] |
 | Tool coverage 50% | 0.40 [0.00, 1.49] | 0.19 [0.00, 0.98] | 0.38 [0.00, 1.47] | 0.20 [0.00, 0.98] | 0.27 [0.00, 1.35] | — | 0.29 [0.00, 1.44] | — | 0.00 [0.00, 0.00] |
 | Tool coverage 25% | 0.41 [0.00, 1.43] | 0.20 [0.00, 0.95] | 0.38 [0.00, 1.43] | 0.25 [0.00, 0.97] | 0.26 [0.00, 1.00] | — | 0.28 [0.00, 1.35] | — | 0.00 [0.00, 0.00] |
-| Unseen domain: banking | 0.58 [0.13, 1.17] | 0.32 [0.00, 0.90] | 0.56 [0.13, 1.16] | 0.35 [0.00, 0.90] | 0.39 [0.00, 1.03] | 0.45 [0.00, 1.03] | 0.39 [0.00, 0.91] | 0.38 [0.00, 0.91] | 0.00 [0.00, 0.00] |
-| Unseen domain: coding | 0.70 [0.13, 1.40] | 0.36 [0.00, 0.87] | 0.64 [0.13, 1.27] | 0.31 [0.00, 0.87] | 0.47 [0.12, 1.01] | 0.45 [0.00, 1.01] | 0.44 [0.00, 0.90] | 0.46 [0.00, 0.89] | 0.00 [0.00, 0.00] |
-| Unseen domain: email | 0.19 [0.00, 0.75] | 0.12 [0.00, 0.62] | 0.18 [0.00, 0.75] | 0.10 [0.00, 0.51] | 0.16 [0.00, 0.64] | 0.18 [0.00, 0.75] | 0.17 [0.00, 0.63] | 0.18 [0.00, 0.63] | 0.00 [0.00, 0.00] |
-| Unseen domain: medical | 0.09 [0.00, 0.38] | 0.05 [0.00, 0.25] | 0.09 [0.00, 0.38] | 0.08 [0.00, 0.38] | 0.06 [0.00, 0.26] | 0.09 [0.00, 0.38] | 0.07 [0.00, 0.38] | 0.06 [0.00, 0.26] | 0.00 [0.00, 0.00] |
-| Unseen domain: web | 0.30 [0.00, 0.76] | 0.27 [0.00, 0.65] | 0.29 [0.00, 0.76] | 0.28 [0.00, 0.64] | 0.24 [0.00, 0.64] | 0.29 [0.00, 0.76] | 0.22 [0.00, 0.64] | 0.25 [0.00, 0.65] | 0.00 [0.00, 0.00] |
-| Unseen domains (mean) | 0.37 [0.18, 0.59] | 0.23 [0.08, 0.41] | 0.35 [0.18, 0.56] | 0.23 [0.08, 0.39] | 0.26 [0.13, 0.45] | 0.29 [0.13, 0.48] | 0.26 [0.10, 0.43] | 0.27 [0.13, 0.44] | 0.00 [0.00, 0.00] |
+| Unseen domain: banking | 0.71 [0.13, 1.28] | 0.31 [0.00, 0.78] | 0.68 [0.13, 1.28] | 0.33 [0.00, 0.78] | 0.37 [0.00, 0.90] | 0.44 [0.00, 1.01] | 0.45 [0.00, 1.16] | 0.42 [0.00, 1.03] | 0.00 [0.00, 0.00] |
+| Unseen domain: coding | 0.77 [0.13, 1.53] | 0.36 [0.00, 0.89] | 0.70 [0.13, 1.40] | 0.31 [0.00, 0.87] | 0.42 [0.00, 1.02] | 0.44 [0.00, 1.02] | 0.52 [0.00, 1.15] | 0.53 [0.00, 1.15] | 0.00 [0.00, 0.00] |
+| Unseen domain: email | 0.16 [0.00, 0.74] | 0.11 [0.00, 0.51] | 0.16 [0.00, 0.74] | 0.10 [0.00, 0.50] | 0.12 [0.00, 0.61] | 0.14 [0.00, 0.63] | 0.14 [0.00, 0.63] | 0.15 [0.00, 0.62] | 0.00 [0.00, 0.00] |
+| Unseen domain: medical | 0.37 [0.00, 1.26] | 0.19 [0.00, 0.75] | 0.37 [0.00, 1.14] | 0.13 [0.00, 0.51] | 0.18 [0.00, 0.63] | 0.23 [0.00, 0.76] | 0.26 [0.00, 0.89] | 0.23 [0.00, 0.88] | 0.00 [0.00, 0.00] |
+| Unseen domain: web | 0.57 [0.00, 1.31] | 0.45 [0.00, 1.02] | 0.54 [0.00, 1.29] | 0.36 [0.00, 0.78] | 0.43 [0.00, 1.03] | 0.51 [0.00, 1.28] | 0.44 [0.00, 1.04] | 0.47 [0.00, 1.16] | 0.00 [0.00, 0.00] |
+| Unseen domains (mean) | 0.52 [0.23, 0.87] | 0.28 [0.13, 0.51] | 0.49 [0.23, 0.84] | 0.25 [0.08, 0.44] | 0.30 [0.15, 0.51] | 0.35 [0.13, 0.64] | 0.36 [0.13, 0.66] | 0.36 [0.13, 0.67] | 0.00 [0.00, 0.00] |
 
 Review budget 5% (no deferral in the first column):
 
@@ -299,12 +299,12 @@ Review budget 5% (no deferral in the first column):
 | Tool coverage 75% | 0.36 [0.00, 1.35] | 0.09 [0.00, 0.54] | 0.31 [0.00, 1.35] | 0.05 [0.00, 0.53] | 0.11 [0.00, 0.54] | — | 0.17 [0.00, 1.06] | — | 0.00 [0.00, 0.00] |
 | Tool coverage 50% | 0.40 [0.00, 1.49] | 0.08 [0.00, 0.50] | 0.35 [0.00, 1.47] | 0.08 [0.00, 0.50] | 0.12 [0.00, 0.90] | — | 0.22 [0.00, 1.02] | — | 0.00 [0.00, 0.00] |
 | Tool coverage 25% | 0.41 [0.00, 1.43] | 0.15 [0.00, 0.90] | 0.35 [0.00, 1.35] | 0.13 [0.00, 0.90] | 0.16 [0.00, 0.95] | — | 0.22 [0.00, 0.97] | — | 0.00 [0.00, 0.00] |
-| Unseen domain: banking | 0.58 [0.13, 1.17] | 0.20 [0.00, 0.65] | 0.53 [0.13, 1.16] | 0.17 [0.00, 0.52] | 0.18 [0.00, 0.52] | 0.24 [0.00, 0.77] | 0.25 [0.00, 0.76] | 0.25 [0.00, 0.78] | 0.00 [0.00, 0.00] |
-| Unseen domain: coding | 0.70 [0.13, 1.40] | 0.19 [0.00, 0.51] | 0.59 [0.13, 1.26] | 0.14 [0.00, 0.50] | 0.23 [0.00, 0.63] | 0.20 [0.00, 0.63] | 0.33 [0.00, 0.76] | 0.27 [0.00, 0.66] | 0.00 [0.00, 0.00] |
-| Unseen domain: email | 0.19 [0.00, 0.75] | 0.10 [0.00, 0.50] | 0.18 [0.00, 0.75] | 0.08 [0.00, 0.50] | 0.14 [0.00, 0.63] | 0.15 [0.00, 0.63] | 0.15 [0.00, 0.63] | 0.17 [0.00, 0.63] | 0.00 [0.00, 0.00] |
-| Unseen domain: medical | 0.09 [0.00, 0.38] | 0.04 [0.00, 0.25] | 0.08 [0.00, 0.26] | 0.06 [0.00, 0.26] | 0.04 [0.00, 0.25] | 0.07 [0.00, 0.25] | 0.05 [0.00, 0.25] | 0.04 [0.00, 0.25] | 0.00 [0.00, 0.00] |
-| Unseen domain: web | 0.30 [0.00, 0.76] | 0.25 [0.00, 0.64] | 0.26 [0.00, 0.65] | 0.21 [0.00, 0.52] | 0.18 [0.00, 0.51] | 0.28 [0.00, 0.76] | 0.19 [0.00, 0.52] | 0.22 [0.00, 0.64] | 0.00 [0.00, 0.00] |
-| Unseen domains (mean) | 0.37 [0.18, 0.59] | 0.16 [0.05, 0.29] | 0.33 [0.15, 0.54] | 0.13 [0.03, 0.26] | 0.15 [0.03, 0.28] | 0.19 [0.05, 0.33] | 0.19 [0.08, 0.38] | 0.19 [0.05, 0.36] | 0.00 [0.00, 0.00] |
+| Unseen domain: banking | 0.71 [0.13, 1.28] | 0.18 [0.00, 0.53] | 0.65 [0.13, 1.18] | 0.18 [0.00, 0.52] | 0.14 [0.00, 0.52] | 0.22 [0.00, 0.65] | 0.31 [0.00, 0.90] | 0.28 [0.00, 0.79] | 0.00 [0.00, 0.00] |
+| Unseen domain: coding | 0.77 [0.13, 1.53] | 0.21 [0.00, 0.52] | 0.64 [0.13, 1.38] | 0.14 [0.00, 0.51] | 0.25 [0.00, 0.64] | 0.26 [0.00, 0.76] | 0.39 [0.00, 1.01] | 0.38 [0.00, 1.01] | 0.00 [0.00, 0.00] |
+| Unseen domain: email | 0.16 [0.00, 0.74] | 0.09 [0.00, 0.50] | 0.16 [0.00, 0.74] | 0.08 [0.00, 0.38] | 0.10 [0.00, 0.50] | 0.10 [0.00, 0.51] | 0.13 [0.00, 0.62] | 0.14 [0.00, 0.62] | 0.00 [0.00, 0.00] |
+| Unseen domain: medical | 0.37 [0.00, 1.26] | 0.12 [0.00, 0.51] | 0.35 [0.00, 1.14] | 0.08 [0.00, 0.38] | 0.11 [0.00, 0.51] | 0.13 [0.00, 0.51] | 0.20 [0.00, 0.76] | 0.16 [0.00, 0.63] | 0.00 [0.00, 0.00] |
+| Unseen domain: web | 0.57 [0.00, 1.31] | 0.33 [0.00, 0.77] | 0.50 [0.00, 1.28] | 0.26 [0.00, 0.64] | 0.31 [0.00, 0.78] | 0.37 [0.00, 0.89] | 0.34 [0.00, 0.91] | 0.36 [0.00, 0.90] | 0.00 [0.00, 0.00] |
+| Unseen domains (mean) | 0.52 [0.23, 0.87] | 0.19 [0.05, 0.36] | 0.46 [0.21, 0.82] | 0.15 [0.03, 0.28] | 0.18 [0.05, 0.33] | 0.22 [0.08, 0.43] | 0.27 [0.10, 0.53] | 0.26 [0.08, 0.54] | 0.00 [0.00, 0.00] |
 
 Learned policies vs. least confident at attack rate 1%: difference in missed attacks left per 1,000 calls (negative = the learned one leaves fewer), with the share of resamples where it is better.
 
@@ -325,36 +325,36 @@ Learned policies vs. least confident at attack rate 1%: difference in missed att
 | Tool coverage 25% | stronger monitor, least confident | 0.05 [-0.50, 0.52] | 4% | -0.02 [-0.51, 0.48] | 7% |
 | Tool coverage 25% | LightGBM deferrer (task folds) | 0.06 [-0.49, 0.51] | 4% | 0.01 [-0.45, 0.48] | 5% |
 | Tool coverage 25% | transformer deferrer (task folds) | 0.08 [-0.49, 0.52] | 6% | 0.08 [-0.46, 0.51] | 6% |
-| Unseen domain: banking | stronger monitor, least confident | 0.03 [-0.26, 0.26] | 18% | -0.03 [-0.26, 0.13] | 30% |
-| Unseen domain: banking | LightGBM deferrer (task folds) | 0.07 [-0.13, 0.39] | 12% | -0.02 [-0.26, 0.13] | 30% |
-| Unseen domain: banking | LightGBM deferrer (domain folds) | 0.13 [0.00, 0.39] | 0% | 0.04 [-0.13, 0.26] | 15% |
-| Unseen domain: banking | transformer deferrer (task folds) | 0.07 [-0.13, 0.39] | 17% | 0.05 [-0.13, 0.39] | 20% |
-| Unseen domain: banking | transformer deferrer (domain folds) | 0.06 [-0.13, 0.26] | 8% | 0.05 [-0.13, 0.39] | 20% |
-| Unseen domain: coding | stronger monitor, least confident | -0.05 [-0.26, 0.25] | 40% | -0.05 [-0.25, 0.00] | 41% |
-| Unseen domain: coding | LightGBM deferrer (task folds) | 0.11 [-0.13, 0.51] | 10% | 0.04 [-0.13, 0.25] | 5% |
-| Unseen domain: coding | LightGBM deferrer (domain folds) | 0.09 [-0.13, 0.38] | 11% | 0.01 [-0.13, 0.25] | 18% |
-| Unseen domain: coding | transformer deferrer (task folds) | 0.08 [-0.13, 0.38] | 14% | 0.14 [-0.13, 0.51] | 3% |
-| Unseen domain: coding | transformer deferrer (domain folds) | 0.10 [-0.13, 0.38] | 10% | 0.08 [-0.13, 0.38] | 7% |
-| Unseen domain: email | stronger monitor, least confident | -0.02 [-0.25, 0.13] | 22% | -0.02 [-0.25, 0.13] | 20% |
-| Unseen domain: email | LightGBM deferrer (task folds) | 0.03 [-0.12, 0.25] | 3% | 0.04 [-0.12, 0.25] | 3% |
-| Unseen domain: email | LightGBM deferrer (domain folds) | 0.06 [0.00, 0.25] | 2% | 0.04 [-0.12, 0.26] | 4% |
-| Unseen domain: email | transformer deferrer (task folds) | 0.04 [-0.12, 0.25] | 4% | 0.05 [-0.12, 0.25] | 4% |
-| Unseen domain: email | transformer deferrer (domain folds) | 0.06 [-0.00, 0.25] | 2% | 0.07 [-0.00, 0.25] | 2% |
-| Unseen domain: medical | stronger monitor, least confident | 0.03 [0.00, 0.25] | 1% | 0.02 [-0.13, 0.25] | 4% |
-| Unseen domain: medical | LightGBM deferrer (task folds) | 0.01 [-0.13, 0.13] | 7% | -0.01 [-0.13, 0.13] | 10% |
-| Unseen domain: medical | LightGBM deferrer (domain folds) | 0.04 [0.00, 0.25] | 0% | 0.02 [0.00, 0.13] | 2% |
-| Unseen domain: medical | transformer deferrer (task folds) | 0.02 [-0.13, 0.13] | 4% | 0.00 [-0.13, 0.13] | 9% |
-| Unseen domain: medical | transformer deferrer (domain folds) | 0.01 [-0.13, 0.13] | 7% | -0.00 [-0.13, 0.13] | 8% |
-| Unseen domain: web | stronger monitor, least confident | 0.01 [-0.26, 0.26] | 22% | -0.04 [-0.39, 0.26] | 38% |
-| Unseen domain: web | LightGBM deferrer (task folds) | -0.03 [-0.13, 0.13] | 28% | -0.07 [-0.26, 0.13] | 47% |
-| Unseen domain: web | LightGBM deferrer (domain folds) | 0.02 [0.00, 0.13] | 2% | 0.03 [-0.13, 0.26] | 3% |
-| Unseen domain: web | transformer deferrer (task folds) | -0.06 [-0.26, 0.13] | 38% | -0.06 [-0.26, 0.13] | 44% |
-| Unseen domain: web | transformer deferrer (domain folds) | -0.02 [-0.25, 0.13] | 16% | -0.03 [-0.25, 0.13] | 25% |
-| Unseen domains (mean) | stronger monitor, least confident | 0.00 [-0.10, 0.10] | 44% | -0.02 [-0.13, 0.05] | 66% |
-| Unseen domains (mean) | LightGBM deferrer (task folds) | 0.04 [-0.05, 0.13] | 20% | -0.00 [-0.08, 0.08] | 52% |
-| Unseen domains (mean) | LightGBM deferrer (domain folds) | 0.07 [-0.00, 0.18] | 2% | 0.03 [-0.05, 0.13] | 19% |
-| Unseen domains (mean) | transformer deferrer (task folds) | 0.03 [-0.05, 0.13] | 30% | 0.04 [-0.05, 0.15] | 26% |
-| Unseen domains (mean) | transformer deferrer (domain folds) | 0.04 [-0.03, 0.15] | 18% | 0.04 [-0.05, 0.13] | 26% |
+| Unseen domain: banking | stronger monitor, least confident | 0.02 [-0.26, 0.26] | 16% | 0.00 [-0.26, 0.13] | 20% |
+| Unseen domain: banking | LightGBM deferrer (task folds) | 0.06 [-0.13, 0.26] | 15% | -0.04 [-0.26, 0.13] | 34% |
+| Unseen domain: banking | LightGBM deferrer (domain folds) | 0.13 [-0.13, 0.53] | 8% | 0.05 [-0.13, 0.39] | 16% |
+| Unseen domain: banking | transformer deferrer (task folds) | 0.14 [-0.13, 0.65] | 14% | 0.14 [-0.13, 0.64] | 12% |
+| Unseen domain: banking | transformer deferrer (domain folds) | 0.11 [-0.13, 0.64] | 10% | 0.10 [-0.13, 0.65] | 14% |
+| Unseen domain: coding | stronger monitor, least confident | -0.05 [-0.38, 0.25] | 40% | -0.07 [-0.26, 0.13] | 48% |
+| Unseen domain: coding | LightGBM deferrer (task folds) | 0.06 [-0.13, 0.38] | 14% | 0.04 [-0.13, 0.25] | 6% |
+| Unseen domain: coding | LightGBM deferrer (domain folds) | 0.08 [-0.25, 0.50] | 16% | 0.05 [-0.25, 0.39] | 17% |
+| Unseen domain: coding | transformer deferrer (task folds) | 0.16 [-0.13, 0.64] | 13% | 0.18 [-0.13, 0.76] | 10% |
+| Unseen domain: coding | transformer deferrer (domain folds) | 0.17 [-0.13, 0.76] | 7% | 0.17 [-0.13, 0.76] | 4% |
+| Unseen domain: email | stronger monitor, least confident | -0.01 [-0.25, 0.13] | 22% | -0.01 [-0.25, 0.13] | 17% |
+| Unseen domain: email | LightGBM deferrer (task folds) | 0.01 [-0.12, 0.13] | 4% | 0.01 [-0.12, 0.13] | 5% |
+| Unseen domain: email | LightGBM deferrer (domain folds) | 0.03 [-0.12, 0.25] | 4% | 0.02 [-0.13, 0.13] | 6% |
+| Unseen domain: email | transformer deferrer (task folds) | 0.03 [-0.12, 0.25] | 4% | 0.04 [-0.00, 0.25] | 2% |
+| Unseen domain: email | transformer deferrer (domain folds) | 0.04 [0.00, 0.25] | 2% | 0.05 [0.00, 0.25] | 2% |
+| Unseen domain: medical | stronger monitor, least confident | -0.06 [-0.38, 0.13] | 31% | -0.04 [-0.38, 0.13] | 26% |
+| Unseen domain: medical | LightGBM deferrer (task folds) | -0.01 [-0.25, 0.13] | 20% | -0.01 [-0.13, 0.13] | 16% |
+| Unseen domain: medical | LightGBM deferrer (domain folds) | 0.05 [-0.13, 0.25] | 4% | 0.01 [-0.13, 0.13] | 14% |
+| Unseen domain: medical | transformer deferrer (task folds) | 0.08 [-0.13, 0.38] | 6% | 0.08 [-0.13, 0.38] | 5% |
+| Unseen domain: medical | transformer deferrer (domain folds) | 0.04 [-0.13, 0.26] | 8% | 0.04 [-0.13, 0.26] | 6% |
+| Unseen domain: web | stronger monitor, least confident | -0.09 [-0.51, 0.13] | 46% | -0.08 [-0.51, 0.25] | 50% |
+| Unseen domain: web | LightGBM deferrer (task folds) | -0.01 [-0.26, 0.26] | 29% | -0.02 [-0.27, 0.26] | 32% |
+| Unseen domain: web | LightGBM deferrer (domain folds) | 0.06 [-0.13, 0.39] | 10% | 0.04 [-0.26, 0.38] | 14% |
+| Unseen domain: web | transformer deferrer (task folds) | -0.01 [-0.26, 0.38] | 30% | 0.01 [-0.26, 0.39] | 30% |
+| Unseen domain: web | transformer deferrer (domain folds) | 0.02 [-0.26, 0.26] | 18% | 0.03 [-0.26, 0.39] | 24% |
+| Unseen domains (mean) | stronger monitor, least confident | -0.04 [-0.15, 0.08] | 67% | -0.04 [-0.15, 0.05] | 76% |
+| Unseen domains (mean) | LightGBM deferrer (task folds) | 0.02 [-0.05, 0.13] | 32% | -0.00 [-0.08, 0.08] | 54% |
+| Unseen domains (mean) | LightGBM deferrer (domain folds) | 0.07 [-0.05, 0.23] | 14% | 0.03 [-0.05, 0.15] | 27% |
+| Unseen domains (mean) | transformer deferrer (task folds) | 0.08 [-0.05, 0.30] | 16% | 0.09 [-0.05, 0.28] | 13% |
+| Unseen domains (mean) | transformer deferrer (domain folds) | 0.08 [-0.03, 0.26] | 10% | 0.08 [-0.05, 0.28] | 16% |
 
 ## Review burden at attack rate 2%
 
@@ -367,11 +367,11 @@ Share of reviews spent on calls the monitor already had right (a 5% budget):
 | Tool coverage 75% | 87% | 96% | 89% | 89% | — | 91% | — | 86% |
 | Tool coverage 50% | 86% | 98% | 87% | 88% | — | 91% | — | 83% |
 | Tool coverage 25% | 86% | 96% | 86% | 89% | — | 90% | — | 82% |
-| Unseen domain: banking | 85% | 99% | 89% | 87% | 84% | 89% | 86% | 83% |
-| Unseen domain: coding | 86% | 99% | 86% | 86% | 86% | 89% | 87% | 85% |
-| Unseen domain: email | 64% | 95% | 67% | 88% | 50% | 77% | 64% | 38% |
-| Unseen domain: medical | 62% | 94% | 64% | 78% | 33% | 60% | 58% | 24% |
-| Unseen domain: web | 54% | 84% | 53% | 86% | 37% | 59% | 46% | 0% |
-| Unseen domains (mean) | 70% | 94% | 72% | 85% | 58% | 75% | 68% | 46% |
+| Unseen domain: banking | 88% | 99% | 90% | 89% | 88% | 90% | 89% | 87% |
+| Unseen domain: coding | 89% | 99% | 88% | 89% | 89% | 92% | 90% | 88% |
+| Unseen domain: email | 66% | 94% | 66% | 79% | 52% | 75% | 66% | 37% |
+| Unseen domain: medical | 79% | 97% | 74% | 85% | 69% | 80% | 78% | 66% |
+| Unseen domain: web | 63% | 91% | 56% | 86% | 51% | 71% | 61% | 36% |
+| Unseen domains (mean) | 77% | 96% | 75% | 86% | 70% | 82% | 77% | 63% |
 
 Figures: `results/figures/09_risk_vs_escalation.png`, `results/figures/10_domain_fold_labels.png`. Every budget: `reports/week3/03_deferral_eval_full.md`.
