@@ -25,8 +25,11 @@ bash scripts/get_data.sh       # downloads AgentDrift into data/raw/ (pinned com
 bash scripts/run_week1.sh      # anonymize -> leakage check -> decision points -> baseline -> splits -> tests
 bash scripts/run_week2.sh      # neural monitors -> ONNX + int8 -> out-of-fold labels -> domain-shift comparison
 bash scripts/finalize_monitor.sh  # main monitor (transformer + tool roles): 10 seeds, export, out-of-fold labels
-python -m l2e.deferrer           # learned deferrer v1 vs. confidence at equal review budgets
+bash scripts/run_week3.sh        # deferrer v2 + transformer deferrer + domain-fold labels -> full evaluation
 ```
+
+`run_week3.sh` takes about 1–1.5 hours on a laptop CPU; `EXTRA_SEEDS=1` adds two more monitor seeds on the
+unseen-domain splits. The Deliverable 2 deferrer is still there as `python -m l2e.deferrer --v1`.
 
 `WITH_ENCODERS=1 bash scripts/run_week2.sh` also builds the MiniLM and mpnet versions (downloads the models
 from Hugging Face once).
@@ -52,7 +55,10 @@ python ui/app.py               # open http://127.0.0.1:7860  (needs run_week1.sh
 Pick a held-out trace and step through it. The page shows what the monitor can see, its score and verdict,
 and whether the call is trusted or deferred. Reviewers can approve or reject deferred calls. The monitor is
 the main monitor from week 2 (a small transformer on hashed text + tool roles, calibrated); `L2E_MONITOR=lr python ui/app.py`
-switches back to the week 1 baseline. The deferrer is the learned deferrer v1 (`python -m l2e.deferrer`); without it the app falls back to a placeholder rule.
+switches back to the week 1 baseline. The deferrer is the learned deferrer v2 (with text novelty, from
+`run_week3.sh`), or v1 if v2 isn't trained; without either the app falls back to a placeholder rule. For each
+call the page lists up to three plain-language reasons that raised the deferrer's score (for example "the
+tool `fill_form` was never seen in training", "the tool result before this call is unlike training data").
 
 ## Current results (Deliverable 2)
 
@@ -72,16 +78,18 @@ Task-disjoint test set: 9,796 decision points (tool calls), 1,755 of them hijack
   confidence, but fewer errors overall (172 vs 307 of 975), because it focuses on missed attacks.
 
 Details: `docs/WEEK2.md`, `reports/week2/`, `reports/week3/01_deferrer_v1.md`, `results/figures/`.
+Week 3 results: `docs/WEEK3.md` and `reports/week3/03_deferral_eval.md` after `run_week3.sh`.
 
 ## Known issues
 
 - **LightGBM + PyTorch on macOS:** using both in one Python process can crash (segfault). The deferrer is
-  trained in its own process (`python -m l2e.deferrer`); the app and board run its trees with numpy.
+  trained in its own process (`python -m l2e.deferrer`), the transformer deferrer in another
+  (`python -m l2e.neural_deferrer`), and the evaluation needs neither; the app and board run the trees with numpy.
 - **Board timing for the trained models is not done yet** (the board is away until late November). Week 1 measured
   stand-in models on it; `board/time_monitor.py` is ready.
-- **Deferrer v1 is a first version:** one seed, the dataset's natural attack rate (about 18% of calls), no
-  confidence intervals, and a perfect reviewer is assumed. Week 3 adds 1–5% prevalence, several seeds, intervals
-  and a text-novelty signal.
+- **A perfect reviewer is assumed** in every deferral result, so the gains are an upper bound.
+- **The "stronger monitor" baseline is an average of the main transformer and the LSTM**, not yet the mpnet
+  monitor from the plan; mpnet is planned for Deliverable 4.
 - Results on unseen domains vary a lot between training seeds, so single runs there should not be trusted.
 - MiniLM and mpnet need a one-time Hugging Face download; MiniLM was tested and not adopted.
 
@@ -100,13 +108,14 @@ data/            raw and processed data (generated, not committed; see data/READ
 notebooks/       setup.ipynb (week 1), train_eval.ipynb (train + evaluate monitor and deferrer)
 l2e/             source code: anonymizer, decision points, features, baseline, splits,
                  step featurizer, neural monitors, calibration, ONNX export, out-of-fold labels,
-                 domain-shift comparison, learned deferrer, numpy tree runner
-ui/              Gradio trace replay console: monitor + learned deferrer + reviewer buttons
+                 domain-shift comparison, fold plans, text novelty, learned deferrer (LightGBM),
+                 transformer deferrer, deferral evaluation, numpy tree runner
+ui/              Gradio trace replay console: monitor + learned deferrer + reasons + reviewer buttons
 board/           Arduino UNO Q: environment check, monitor timing, results
 results/         figures from the notebook
 reports/         short reports written by each pipeline step (week1/, week2/, week3/)
-docs/            WEEK1.md and WEEK2.md checkpoints, D1.2 and D2 reports, figures and interface screenshots
-scripts/         get_data.sh, run_week1.sh, run_week2.sh, finalize_monitor.sh
+docs/            WEEK1–3.md checkpoints, D1.2 and D2 reports, figures and interface screenshots
+scripts/         get_data.sh, run_week1.sh, run_week2.sh, finalize_monitor.sh, run_week3.sh
 tests/           pytest
 ```
 
@@ -116,5 +125,7 @@ tests/           pytest
 - Week 2 (done on the laptop; board timing to run): compact neural monitor, int8 export, out-of-fold error
   labels on every shift split, hidden-thoughts ablation, domain-shift comparison over 10 seeds. See `docs/WEEK2.md`.
 - Deliverable 2 (Nov 18): learned deferrer v1 and the app wired to it, training/evaluation notebook.
-- Week 3: stronger deferrer (novelty signals, 1–5% prevalence, seeds and intervals), shift experiments
+- Week 3 / Deliverable 3 (Nov 25): deferrer v2 with text novelty, a transformer deferrer that reads the trace,
+  domain-grouped error labels, a stronger-monitor baseline, evaluation at 1–5% attack rates with intervals over
+  traces and seeds, and reasons for each deferral in the app. See `docs/WEEK3.md`.
 - Week 4: on-board demo, final report

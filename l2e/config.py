@@ -44,6 +44,21 @@ OOF_FOLDS = 5
 MAIN_ARCH, MAIN_FEATURES = "transformer", "hash-roles"
 MAIN_MONITOR = f"monitor_{MAIN_ARCH}_{MAIN_FEATURES}.pt"
 
+# Week 3: out-of-fold labels can be grouped by task (week 2, the default) or by domain, so the deferrer learns
+# from errors the monitor made on a domain it never trained on. Extra monitor seeds get their own folders.
+FOLD_BY = ("task", "domain")
+MONITOR_SEEDS = (SEED, 1, 2)
+
+
+def oof_tag(arch=MAIN_ARCH, features=MAIN_FEATURES, seed=SEED, fold_by="task"):
+    """Folder name for one out-of-fold run: transformer_hash-roles, transformer_hash-roles_s1_domfold, ..."""
+    tag = f"{arch}_{features}"
+    if seed != SEED:
+        tag += f"_s{seed}"
+    if fold_by == "domain":
+        tag += "_domfold"
+    return tag
+
 
 def ensure_dirs():
     for d in (PROCESSED, ANON, SPLITS_DIR, MODELS, REPORTS, REPORTS2, REPORTS3, FIGURES):

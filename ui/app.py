@@ -4,18 +4,20 @@ Pick a held-out agent trace and step through it. At each tool call the app shows
 (earlier steps + the proposed call, never its result), the monitor's score and verdict, and the
 trust/defer decision. Deferred calls wait for a reviewer to approve or reject.
 
-Prototype status (week 2):
+Status (week 3):
   monitor  = the main monitor (config.MAIN_MONITOR: transformer on hashed text + tool roles), calibrated.
              Falls back to the week 1 logistic regression if it isn't trained yet.
              Pick another with L2E_MONITOR=lr or L2E_MONITOR=monitor_lstm_hash.pt
-  deferrer = the learned deferrer v1 (models/deferrer/, from `python -m l2e.deferrer`): defers a call when its
-             P(monitor is wrong) is in the top 5% (threshold set on validation). Without it, or with the LR
-             monitor, a placeholder rule defers scores between 0.3 and 0.7.
+  deferrer = the learned deferrer (models/deferrer/, from `python -m l2e.deferrer`): version 2 with text novelty
+             when it exists, else version 1. Defers a call when its P(monitor is wrong) is in the top 5%
+             (threshold set on validation), and shows up to three plain-language reasons why (the features
+             that pushed that call's score up most, from the trees' path contributions).
+             Without it, or with the LR monitor, a placeholder rule defers scores between 0.3 and 0.7.
 
 The trace list starts with a few examples where deferral matters: the deferrer sends a missed attack or a
 false alarm to the reviewer, and one where the monitor is wrong and the deferrer misses it.
 
-Run (after scripts/run_week1.sh, scripts/finalize_monitor.sh, python -m l2e.deferrer):
+Run (after scripts/run_week1.sh, scripts/finalize_monitor.sh, scripts/run_week3.sh):
   python ui/app.py   ->  http://127.0.0.1:7860
 """
 import html
@@ -58,14 +60,14 @@ def load_monitor():
 
 
 MONITOR_NAME, SCORE_TRACE, VOCAB = load_monitor()
-_SCORES, _DEFER = {}, {}
+_SCORES, _DEFER, _WHY = {}, {}, {}
 
 DEFERRER = None
 if VOCAB is not None and os.environ.get("L2E_DEFERRER", "learned") != "rule":
     from l2e.deferrer import LiveDeferrer
     if LiveDeferrer.available():
         DEFERRER = LiveDeferrer()
-DEFERRER_NAME = (f"learned deferrer v1, defers the top {DEFERRER.meta['app_budget']:.0%} most likely monitor errors "
+DEFERRER_NAME = (f"learned deferrer v{DEFERRER.version}, defers the top {DEFERRER.meta['app_budget']:.0%} most likely monitor errors "
                  f"(P(wrong) ≥ {DEFERRER.meta['threshold']:.3f})" if DEFERRER else
                  f"placeholder rule: defer when the score is between {DEFER_BAND[0]} and {DEFER_BAND[1]}")
 
@@ -85,6 +87,15 @@ def defer_probs(trace_id):
     if trace_id not in _DEFER:
         _DEFER[trace_id] = [float(q) for q in DEFERRER.score_trace(TRACES[trace_id], scores(trace_id), VOCAB)]
     return _DEFER[trace_id]
+
+
+def why(trace_id):
+    """Up to three reasons per step for the learned deferrer's P(monitor is wrong), or None."""
+    if DEFERRER is None:
+        return None
+    if trace_id not in _WHY:
+        _WHY[trace_id] = DEFERRER.reasons(TRACES[trace_id], scores(trace_id), VOCAB)
+    return _WHY[trace_id]
 
 
 def decide(trace_id, i):
@@ -151,6 +162,7 @@ def render(trace_id, t, log):
                  f"<span style='opacity:.7'>(defer at ≥ {DEFERRER.meta['threshold']:.3f})</span><br>" if q else "")
               + f"Decision: <b>{decision}</b>"
               + ("" if q else " <span style='opacity:.7'>(placeholder rule)</span>") + "<br>"
+              + (reasons_html(trace_id, t) if q else "")
               + f"<span style='opacity:.7'>Ground truth for this call: {tr['steps'][t]['label']} "
               f"· trace type: {tr['category']} {tr.get('compliance') or ''}</span></div>")
 
@@ -160,6 +172,15 @@ def render(trace_id, t, log):
                              for i in range(t + 1)])
     slider = gr.Slider(minimum=1, maximum=len(tr["steps"]), value=t + 1, step=1, label="Step")
     return trace_md, status, timeline, slider
+
+
+def reasons_html(trace_id, t):
+    r = why(trace_id)[t]
+    if not r:
+        return ""
+    head = "Why deferred" if decide(trace_id, t) == "DEFER to human" else "What raised P(wrong) most"
+    items = "".join(f"<li>{html.escape(x)}</li>" for x in r)
+    return f"<div style='margin-top:6px'>{head}:<ul style='margin:2px 0 4px 18px'>{items}</ul></div>"
 
 
 def on_change(trace_id, step, log):
