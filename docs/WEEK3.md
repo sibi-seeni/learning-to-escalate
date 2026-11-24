@@ -240,10 +240,14 @@ These are exploratory findings from 15 policies compared on one synthetic datase
 
 ## 7. Interface
 
-The replay console now loads deferrer v2 and lists, under each decision, up to three reasons that raised
-P(monitor wrong) for that call, for example "the tool `fill_form` was never seen in training" or "the tool
-result before this call is unlike training data". The reasons come from the trees' path contributions
-(`TreeModel.contributions`, numpy only), so the board can show them too.
+The replay console now runs the week 3 result by default: the transformer + LSTM pair (`l2e/pair.py`), sending
+the 5% least sure calls to a human. It shows three bars (transformer, LSTM, pair), the verdict and the decision,
+and under each escalation up to three plain reasons, for example "the monitors disagree: transformer 0.56, LSTM
+0.01" or "this tool was never seen in training". It also has Previous / Next buttons, labelled showcase traces,
+a "Show the answer" toggle and a reviewer log that counts how many reviews were right. `L2E_APP_MODE=single`
+runs the Deliverable 2 setup (the transformer with LightGBM deferrer v2 and reasons from its trees'
+path contributions, `TreeModel.contributions`), and `L2E_APP_MODE=lr` the week 1 baseline. Screenshots:
+`docs/figures/ui_d3_*.jpg`.
 
 ## 8. Deviations from the plan
 

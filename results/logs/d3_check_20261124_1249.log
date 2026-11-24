@@ -1,0 +1,16 @@
+== Tue Nov 24 12:49:50 IST 2026 | Darwin arm64 | Python 3.13.7
+== 1. tests
+........................................................                 [100%]
+56 passed in 12.80s
+== 2. report figures (D2 vs D3, confusion matrices, ROC, examples)
+Unseen domains, 5% review: no review 8.49, D2 3.46, D3 2.71 missed attacks left per 1,000 calls
+Task-disjoint test transformer AUC 0.9997 LSTM AUC 0.9995 pair AUC 0.9997
+Unseen domains (pooled) transformer AUC 0.9953 LSTM AUC 0.9941 pair AUC 0.9959
+wrote results/figures/11_d2_vs_d3.png, 12_confusion.png, 13_roc.png and reports/week3/04_*
+== 3. notebook, executed in place (outputs saved in notebooks/train_eval.ipynb)
+[NbConvertApp] Converting notebook notebooks/train_eval.ipynb to notebook
+/Users/sibi/Downloads/Applied ML 2/learning-to-escalate/.venv/lib/python3.13/site-packages/nbformat/validator.py:434: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  _validate(nbdict, ref, version, version_minor, relax_add_props)
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+[NbConvertApp] Writing 1263274 bytes to notebooks/train_eval.ipynb
+== done Tue Nov 24 12:50:39 IST 2026

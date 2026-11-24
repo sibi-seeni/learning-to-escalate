@@ -8,6 +8,7 @@ board/models/
 docs/blueprint.html
 docs/d2_report.html
 docs/Arduino.md
+docs/d3_report.html
 
 # python
 __pycache__/

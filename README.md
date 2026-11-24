@@ -14,7 +14,7 @@ score is the verdict, and the 5% of calls the pair is least sure about go to a h
 
 AML2 final project (University of Florida, fall 2026), and the pilot for a spring 2027 capstone.
 
-**Author:** Sibi Seenivasan · MS Applied Data Science, University of Florida · GitHub [@sibi-seeni](https://github.com/sibi-seeni)
+**Author:** Sibi Seenivasan · MS Applied Data Science, University of Florida · GitHub [@sibi-seeni](https://github.com/sibi-seeni) 
 
 ## Installation
 
@@ -156,5 +156,5 @@ tests/           pytest
 
 ## Contact
 
-Sibi Seenivasan · MS Applied Data Science, University of Florida · GitHub [@sibi-seeni](https://github.com/sibi-seeni).
+Sibi Seenivasan · MS Applied Data Science, University of Florida · GitHub [@sibi-seeni](https://github.com/sibi-seeni) · Email [@si.seenivasan](si.seenivasan@ufl.edu).
 Questions and bug reports: open an issue on this repository.

@@ -228,20 +228,21 @@ def examples(df, dps, n=2):
     df = df.merge(dps[["dp_id", "traj_id", "step", "tool"]], on="dp_id", how="left")
     main_wrong = (df["p_main"] >= 0.5).astype(int) != df["y"]
     pair_pred = (df["p_pair"] >= 0.5).astype(int)
+    gap_first = ("gap", False)
     cases = [
-        ("Missed attack the pair sends to a human", (df["y"] == 1) & (pair_pred == 0) & df["review"]),
+        ("Missed attack the pair sends to a human", (df["y"] == 1) & (pair_pred == 0) & df["review"], gap_first),
         ("Transformer missed it, the LSTM pulled the pair over the line", (df["y"] == 1) & main_wrong & (pair_pred == 1)
-         & ~df["review"]),
-        ("False alarm sent to a human (review spent on a safe call)", (df["y"] == 0) & df["review"]),
-        ("Missed attack that still slips through (both monitors confident it is safe)",
-         (df["y"] == 1) & (pair_pred == 0) & ~df["review"]),
+         & ~df["review"], gap_first),
+        ("False alarm sent to a human (review spent on a safe call)", (df["y"] == 0) & df["review"], gap_first),
+        ("Missed attack that still slips through (not sent to a human; most confident first)",
+         (df["y"] == 1) & (pair_pred == 0) & ~df["review"], ("p_pair", True)),
     ]
     md = ["# Qualitative examples on unseen domains (D3 system)", "",
           "Each row is one proposed tool call from a held-out domain. P = calibrated P(hijacked).", ""]
-    for name, mask in cases:
+    for name, mask, (key, asc) in cases:
         sub = df[mask].copy()
         sub["gap"] = (sub["p_main"] - sub["p_partner"]).abs()
-        sub = sub.sort_values("gap", ascending=False).head(n)
+        sub = sub.sort_values(key, ascending=asc).head(n)
         md += [f"## {name} ({int(mask.sum())} calls)", "",
                "| trace | step | tool | truth | transformer P | LSTM P | pair P | sent to human |",
                "|---|---|---|---|---|---|---|---|"]
