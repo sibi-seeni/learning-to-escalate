@@ -22,7 +22,7 @@
 | deferrer inputs | monitor score, tool seen, tool roles, earlier scores | + text novelty of the call and of the tool result before it |
 | deferrer models | LightGBM | LightGBM (5 seeds) and a causal transformer that reads the trace (3 seeds) |
 | error labels | out of fold, folds grouped by task | + folds grouped by **domain** on the unseen-domain splits |
-| baselines | random, confidence | + novelty, + a stronger monitor with calibrated confidence |
+| baselines | random, confidence | + novelty, + a stronger monitor with calibrated confidence, + a 3-seed ensemble and seed disagreement |
 | attack rate | natural (about 18% of calls) | 1%, 2%, 5%, and natural |
 | test sets | task-disjoint, held-out web | task-disjoint, 4 tool-coverage levels × 3 seeds, all 5 held-out domains |
 | uncertainty | none | 95% intervals over 200 resamples of traces, monitor seeds and deferrer seeds |
@@ -76,7 +76,14 @@ attack detector. LightGBM stays the default unless the transformer clearly does 
 `l2e/evaluate_deferral.py`.
 
 - **Policies at the same review budget:** random, least confident, most novel, stronger monitor (least
-  confident), LightGBM deferrer (task / domain folds), transformer deferrer (task / domain folds), perfect.
+  confident), 3-seed ensemble, seed disagreement, ensemble + disagreement, LightGBM deferrer (task / domain
+  folds), transformer deferrer (task / domain folds), perfect.
+- **Seed ensemble and seed disagreement:** the main transformer trained with 3 seeds (42, 1, 2). The *ensemble*
+  averages their calibrated logits (temperature refit on val) and defers its own least confident calls.
+  *Disagreement* keeps the main monitor's verdicts but sends the calls where the seeds' P(hijacked) spreads most.
+  A third policy ranks the ensemble's calls by both (mean of the two ranks). Seeds 1 and 2 come from the
+  out-of-fold runs on the unseen-domain splits and from full-model-only runs elsewhere
+  (`python -m l2e.oof ... --full-only`, `scripts/run_ensemble.sh`).
 - **Raw vs. calibrated confidence:** temperature scaling divides every logit by one number. That never changes
   which calls are least confident, so the two are one policy.
 - **Stronger monitor:** the main transformer and the week 2 LSTM, logits averaged, temperature refit on val.

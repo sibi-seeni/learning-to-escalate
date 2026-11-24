@@ -241,3 +241,48 @@ print("ok")
         assert all(isinstance(x, str) and x for r in why for x in r)
     finally:
         config.MODELS = old
+
+
+# --------------------------------------------------------------------------- seed ensemble and disagreement
+
+def _member(logits, T=1.0, val_logits=(2.0, -2.0, 1.0, -1.0)):
+    rows = [dict(dp_id=f"v{i}", set="val", logit=z, temperature=T, y=int(z > 0)) for i, z in enumerate(val_logits)]
+    rows += [dict(dp_id=f"t{i}", set="test", logit=z, temperature=T, y=0) for i, z in enumerate(logits)]
+    return pd.DataFrame(rows)
+
+
+def test_seed_ensemble_agreeing_seeds_have_no_spread():
+    from l2e.evaluate_deferral import seed_ensemble
+    m = _member([3.0, -3.0, 0.2])
+    score, spread, T = seed_ensemble([m, m.copy(), m.copy()], "test", ["t0", "t1", "t2"])
+    assert np.allclose(spread, 0) and score[0] > 0.5 > score[1] and T > 0
+
+
+def test_seed_ensemble_spread_flags_disagreement_and_missing_rows():
+    from l2e.evaluate_deferral import seed_ensemble
+    a, b = _member([4.0, 4.0]), _member([4.0, -4.0])
+    score, spread, _ = seed_ensemble([a, b], "test", ["t0", "t1"])
+    assert spread[1] > 0.4 and spread[0] == pytest.approx(0)
+    assert abs(score[1] - 0.5) < abs(score[0] - 0.5)  # disagreeing seeds average to an unsure score
+    assert seed_ensemble([a, b.iloc[:-1]], "test", ["t0", "t1"]) is None  # a seed without that call
+
+
+def test_member_tags_prefer_out_of_fold_runs_then_full_only(tmp_path, monkeypatch):
+    from l2e.evaluate_deferral import member_tags
+    monkeypatch.setattr(config, "PROCESSED", tmp_path)
+    monkeypatch.setattr(config, "MONITOR_SEEDS", (config.SEED, 1, 2))
+    for tag in (config.oof_tag(), config.oof_tag(seed=1), config.oof_tag(seed=1, fold_by="full"),
+                config.oof_tag(seed=2, fold_by="full")):
+        (tmp_path / "oof" / tag).mkdir(parents=True)
+        (tmp_path / "oof" / tag / "taskdisjoint.csv").write_text("dp_id\n")
+    assert member_tags("taskdisjoint") == [config.oof_tag(), config.oof_tag(seed=1),
+                                           config.oof_tag(seed=2, fold_by="full")]
+    assert config.oof_tag(seed=2, fold_by="full").endswith("_s2_fullonly")
+
+
+def test_oof_report_skips_full_only_runs():
+    pytest.importorskip("torch")
+    from l2e.oof import write_report
+    c = {"decision_points": 10, "hijacked": 2, "monitor_errors": 1, "dangerous": 1, "costly": 0, "auroc": 0.9}
+    md = write_report({"taskdisjoint": {"val": c, "test": c}}, "x_fullonly", "full")
+    assert "Task-disjoint test" in md and "full model" in md

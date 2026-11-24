@@ -62,7 +62,7 @@ def world(tmp_path, monkeypatch):
                  "FIGURES": tmp_path / "fig", "REPORTS": tmp_path / "rep1", "REPORTS2": tmp_path / "rep2",
                  "ANON": tmp_path / "anon", "SPLITS_DIR": tmp_path / "splits"}.items():
         monkeypatch.setattr(config, k, v)
-    monkeypatch.setattr(config, "MONITOR_SEEDS", (config.SEED,))
+    monkeypatch.setattr(config, "MONITOR_SEEDS", (config.SEED, 1, 2))
     dps, ev = make_world(tmp_path, rng)
     ids = lambda m: dps.loc[m, "dp_id"].tolist()
     splits = {
@@ -85,6 +85,13 @@ def world(tmp_path, monkeypatch):
             rest = df[df.set != "oof"][["dp_id", "set"]]
             lg = pd.concat([rest.assign(seed=config.SEED + k, p=rng.random(len(rest))) for k in range(2)])
             lg.to_csv(tmp_path / "defer_preds" / tag / f"{split}_lgbm.csv", index=False)
+        for seed in (1, 2):  # full-only seeds: ensemble members, no deferrer runs
+            ftag = config.oof_tag(seed=seed, fold_by="full")
+            (tmp_path / "oof" / ftag).mkdir(parents=True, exist_ok=True)
+            base = pd.read_csv(tmp_path / "oof" / config.oof_tag() / f"{split}.csv")
+            full = base[base.set != "oof"].copy()
+            full["logit"] = full["logit"] + rng.normal(0, 1.5, len(full))
+            full.to_csv(tmp_path / "oof" / ftag / f"{split}.csv", index=False)
         (tmp_path / "oof" / "lstm_hash").mkdir(exist_ok=True)
         oof_table(dps, split, "task", rng, sets).to_csv(tmp_path / "oof" / "lstm_hash" / f"{split}.csv", index=False)
 
@@ -116,10 +123,13 @@ def test_neural_then_evaluation(world, monkeypatch):
     res = json.loads((config.REPORTS3 / "03_deferral_eval.json").read_text())
     web = res["settings"]["Unseen domain: web"]["policies"]
     assert {"confidence", "stronger", "novelty", "lgbm_task", "lgbm_domain", "neural_task", "neural_domain"} <= set(web)
+    assert {"seed_ensemble", "disagreement", "ens_disagree"} <= set(web)
+    assert res["settings"]["Task-disjoint test"]["ensemble_seeds"] == 3
+    assert res["settings"]["Task-disjoint test"]["variants"] == 1  # full-only seeds add no deferrer variants
     assert "Unseen domains (mean)" in res["results"]
     t = res["results"]["Task-disjoint test"]["2%"]["table"]
     assert t["oracle"][-1]["dangerous_left_per_1k"]["mean"] <= t["random"][-1]["dangerous_left_per_1k"]["mean"]
     md = (config.REPORTS3 / "03_deferral_eval.md").read_text()
-    assert "Attack rate 2%" in md and "LightGBM deferrer (domain folds)" in md
+    assert "Attack rate 2%" in md and "LightGBM deferrer (domain folds)" in md and "3-seed ensemble" in md
     assert (config.FIGURES / "09_risk_vs_escalation.png").exists()
     assert (config.FIGURES / "10_domain_fold_labels.png").exists()

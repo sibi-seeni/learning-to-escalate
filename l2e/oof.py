@@ -23,6 +23,8 @@ Run:  python -m l2e.oof                                    (best hash monitor, a
       python -m l2e.oof --encoder hash-roles --arch transformer --seed 1     (another monitor seed)
       python -m l2e.oof --encoder hash-roles --arch transformer --context-only --splits tool_seed0
                                                            (add context rows to an existing run, no training)
+      python -m l2e.oof --encoder hash-roles --arch transformer --seed 1 --full-only --splits taskdisjoint
+                                                           (only the full model: a seed-ensemble member)
 Out:  data/processed/oof/<tag>/<split>.csv  one row per (set, decision point), tag = config.oof_tag(...):
         dp_id, split, set (oof | val | test | cov100 ... | context), fold, logit, temperature, score, pred, y,
         tool_seen (tool in that model's training vocabulary), monitor_error, dangerous, costly, weight
@@ -94,7 +96,8 @@ def run_split(data, name, sp, arch, folds, hp, out_dir, model_dir, feature_set, 
     y = data.y
     task_of = {t: tr["task"] for t, tr in data.trajs.items()}
     rows = []
-    for k, tr_ids, ho_ids, va_ids in fold_plan(data.dps, sp["train"], sp["val"], fold_by, folds, task_of):
+    plan = [] if fold_by == "full" else fold_plan(data.dps, sp["train"], sp["val"], fold_by, folds, task_of)
+    for k, tr_ids, ho_ids, va_ids in plan:
         t0 = time.time()
         model, vocab, _ = train(data, tr_ids, va_ids, arch=arch, seed=seed, hp=hp, verbose=False)
         val = score(model, vocab, data, va_ids)
@@ -151,8 +154,9 @@ def summary(df):
 
 
 def write_report(all_sum, tag, folds):
-    how = ("one fold per training domain (each fold model scores a domain it never saw)" if folds == "domain" else
-           f"{folds} folds grouped by task")
+    how = {"domain": "one fold per training domain (each fold model scores a domain it never saw)",
+           "full": "none here: this run trains only the full model, as a seed-ensemble member"}.get(
+        folds, f"{folds} folds grouped by task")
     md = [f"# Out-of-fold errors and held-out error counts ({tag})", "",
           f"Out-of-fold predictions on each split's training DPs ({how}), and a full "
           "model on all training DPs for val and test. Each model is temperature-scaled on the split's val set; "
@@ -187,6 +191,8 @@ def write_report(all_sum, tag, folds):
            "| split | training DPs | hijacked | OOF errors | dangerous | costly | OOF AUROC | val AUROC |",
            "|---|---|---|---|---|---|---|---|"]
     for name, s in all_sum.items():
+        if "oof" not in s:  # a full-only run has no out-of-fold rows
+            continue
         o, v = s["oof"], s["val"]
         md.append(f"| {name} | {o['decision_points']} | {o['hijacked']} | {o['monitor_errors']} | {o['dangerous']} | "
                   f"{o['costly']} | {o['auroc']:.3f} | {v['auroc']:.3f} |")
@@ -203,9 +209,13 @@ def main():
     ap.add_argument("--fold-by", choices=config.FOLD_BY, default="task")
     ap.add_argument("--seed", type=int, default=config.SEED, help="monitor training seed")
     ap.add_argument("--context-only", action="store_true", help="only add context rows to an existing run")
+    ap.add_argument("--full-only", action="store_true",
+                    help="train only the full model (an extra seed for the seed-ensemble policies, no folds)")
     ap.add_argument("--quick", action="store_true", help="3 epochs per model, smoke test")
     args = ap.parse_args()
     arch = args.arch or json.loads((config.MODELS / f"monitor_best_{args.encoder}.json").read_text())["arch"]
+    if args.full_only:
+        args.fold_by = "full"
     tag = config.oof_tag(arch, args.encoder, args.seed, args.fold_by)
     base_tag = config.oof_tag(arch, args.encoder, args.seed, "task")
     hp = {"max_epochs": 3} if args.quick else {}
@@ -233,7 +243,7 @@ def main():
         all_sum[name] = summary(df)
         sum_path.write_text(json.dumps(all_sum, indent=2))  # save as we go
     ordered = {k: all_sum[k] for k in defs if k in all_sum}
-    md = write_report(ordered, tag, args.folds if args.fold_by == "task" else "domain")
+    md = write_report(ordered, tag, args.folds if args.fold_by == "task" else args.fold_by)
     if args.quick:
         md = md.replace("\n\n", "\n\n> QUICK RUN (3 epochs). Do not report these numbers.\n\n", 1)
     (rep_dir / f"03_errors_{tag}.md").write_text(md)

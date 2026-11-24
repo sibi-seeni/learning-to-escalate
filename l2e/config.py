@@ -46,6 +46,7 @@ MAIN_MONITOR = f"monitor_{MAIN_ARCH}_{MAIN_FEATURES}.pt"
 
 # Week 3: out-of-fold labels can be grouped by task (week 2, the default) or by domain, so the deferrer learns
 # from errors the monitor made on a domain it never trained on. Extra monitor seeds get their own folders.
+# A "full-only" run trains just the full model: an extra seed for the seed ensemble / disagreement policies.
 FOLD_BY = ("task", "domain")
 MONITOR_SEEDS = (SEED, 1, 2)
 
@@ -57,6 +58,8 @@ def oof_tag(arch=MAIN_ARCH, features=MAIN_FEATURES, seed=SEED, fold_by="task"):
         tag += f"_s{seed}"
     if fold_by == "domain":
         tag += "_domfold"
+    elif fold_by == "full":  # only the full model (val, test, context): an ensemble member, no deferrer labels
+        tag += "_fullonly"
     return tag
 
 

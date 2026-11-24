@@ -3,7 +3,9 @@
 # full evaluation (1-5% attack rates, review budgets 0-30%, intervals). Run after scripts/finalize_monitor.sh.
 #
 #   bash scripts/run_week3.sh                  about 1-1.5 hours on a laptop CPU
-#   EXTRA_SEEDS=1 bash scripts/run_week3.sh    + monitor seeds 1 and 2 on the unseen-domain splits (about 2 hours more)
+#   EXTRA_SEEDS=1 bash scripts/run_week3.sh    + monitor seeds 1 and 2 (about 2 hours more): out-of-fold runs on the
+#                                              unseen-domain splits, full model only elsewhere, which also turns on
+#                                              the seed-ensemble and seed-disagreement policies in step 7
 #   NEURAL_SEEDS=1 bash scripts/run_week3.sh   one transformer-deferrer seed per run instead of 3 (faster)
 #
 # Every step writes to its own folder and can be rerun on its own. Steps 5 and 6 run LightGBM and PyTorch in
@@ -28,6 +30,8 @@ python -m l2e.oof $M --fold-by domain --splits $LODO
 for s in $SEEDS; do
   python -m l2e.oof $M --seed "$s" --splits $LODO
   python -m l2e.oof $M --seed "$s" --fold-by domain --splits $LODO
+  # the other splits: full model only, for the seed-ensemble and seed-disagreement policies (~3 min per seed)
+  python -m l2e.oof $M --seed "$s" --full-only --splits taskdisjoint tool_seed0 tool_seed1 tool_seed2
 done
 
 # 4. Text novelty (distance to the nearest training call / tool result), out of fold, for every run (~5 min).

@@ -29,7 +29,8 @@ bash scripts/run_week3.sh        # deferrer v2 + transformer deferrer + domain-f
 ```
 
 `run_week3.sh` takes about 1–1.5 hours on a laptop CPU; `EXTRA_SEEDS=1` adds two more monitor seeds on the
-unseen-domain splits. The Deliverable 2 deferrer is still there as `python -m l2e.deferrer --v1`.
+unseen-domain splits. After that run, `bash scripts/run_ensemble.sh` (~10 min) adds the 3-seed ensemble and
+seed-disagreement policies everywhere. The Deliverable 2 deferrer is still there as `python -m l2e.deferrer --v1`.
 
 `WITH_ENCODERS=1 bash scripts/run_week2.sh` also builds the MiniLM and mpnet versions (downloads the models
 from Hugging Face once).
@@ -115,7 +116,7 @@ board/           Arduino UNO Q: environment check, monitor timing, results
 results/         figures from the notebook
 reports/         short reports written by each pipeline step (week1/, week2/, week3/)
 docs/            WEEK1–3.md checkpoints, D1.2 and D2 reports, figures and interface screenshots
-scripts/         get_data.sh, run_week1.sh, run_week2.sh, finalize_monitor.sh, run_week3.sh
+scripts/         get_data.sh, run_week1.sh, run_week2.sh, finalize_monitor.sh, run_week3.sh, run_ensemble.sh
 tests/           pytest
 ```
 
