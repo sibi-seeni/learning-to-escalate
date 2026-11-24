@@ -12,7 +12,7 @@
   week 2 LSTM leaves 2.7 missed attacks per 1,000 calls on unseen domains at a 5% review budget, against 3.5
   for the main monitor's least confident calls. It is better in 100% of resamples.
 - **Learned deferrers only tie "least confident".** LightGBM leaves 3.5 (better in 42% of resamples). The
-  transformer deferrer that reads the trace leaves 4.7 (worse in every resample).
+  transformer deferrer that reads the trace leaves 4.7 (never better in any resample).
 - **Learning from cross-domain errors taught the wrong lesson.** Domain-fold labels are mostly false alarms,
   so the domain-fold deferrer finds more mistakes overall but fewer missed attacks (4.5 left).
 - **Seed diversity helps a little; model diversity helps more.** A 3-seed ensemble leaves 2.9 (better in 67%).
@@ -204,7 +204,7 @@ Share of gain, mean over the five unseen-domain splits:
 | score and calibrated logit | 18% | 20% |
 | text novelty of the call | 8% | 7% |
 | text novelty of the result before it | 7% | 5% |
-| earlier scores in the trace | 6% | 11% |
+| earlier scores in the trace | 12% | 12% |
 
 Half of what it uses is the monitor's own confidence, which is why it ends up close to "least confident".
 Text novelty is the next most used input, but on its own ("most novel") it is worse than random on familiar

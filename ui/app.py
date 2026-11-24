@@ -53,8 +53,9 @@ class PairMode:
         m = self.pm.meta
         self.name = ("**Monitors:** transformer (hashed text + tool roles) and LSTM (hashed text), averaged and "
                      f"recalibrated (T = {m['temperature']:.2f})  \n**Escalation:** a call goes to the human when "
-                     f"the pair is among the {m['budget']:.0%} least sure calls (|P − 0.5| ≤ "
-                     f"{m['margin_threshold']:.3f}, set on validation)")
+                     f"the pair is less than {0.5 + m['margin_threshold']:.1%} sure either way, i.e. P(hijacked) "
+                     f"between {0.5 - m['margin_threshold']:.3f} and {0.5 + m['margin_threshold']:.3f}. That sends the "
+                     f"{m['budget']:.0%} least sure calls to review on validation.")
 
     def analyze(self, tr):
         rows = self.pm.score_trace(tr["steps"])
@@ -273,7 +274,8 @@ with gr.Blocks(title="Learning When to Escalate · trace replay") as demo:
                 reject = gr.Button("Reject call", variant="stop")
             timeline_view = gr.Dataframe(label="Decisions so far", interactive=False)
     review_count = gr.Markdown("0 reviews")
-    review_view = gr.Dataframe(label="Reviewer log", interactive=False)
+    review_view = gr.Dataframe(pd.DataFrame(columns=["trace", "step", "tool", "reviewer", "answer", "review was"]),
+                               label="Reviewer log", interactive=False)
 
     outs = [trace_view, status_view, timeline_view, step_sl]
     trace_dd.change(lambda tid, st: render(tid, 0, st), [trace_dd, show_truth], outs)
