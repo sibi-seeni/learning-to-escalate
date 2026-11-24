@@ -1,0 +1,190 @@
+{
+  "taskdisjoint": {
+    "val": {
+      "decision_points": 9721,
+      "monitor_errors": 62,
+      "dangerous": 43,
+      "costly": 19,
+      "hijacked": 1647,
+      "auroc": 0.9994,
+      "tool_seen_rate": 1.0
+    },
+    "test": {
+      "decision_points": 9796,
+      "monitor_errors": 67,
+      "dangerous": 44,
+      "costly": 23,
+      "hijacked": 1755,
+      "auroc": 0.9996,
+      "tool_seen_rate": 1.0
+    }
+  },
+  "tool_seed0": {
+    "val": {
+      "decision_points": 2493,
+      "monitor_errors": 37,
+      "dangerous": 14,
+      "costly": 23,
+      "hijacked": 246,
+      "auroc": 0.9969,
+      "tool_seen_rate": 1.0
+    },
+    "cov100": {
+      "decision_points": 2818,
+      "monitor_errors": 32,
+      "dangerous": 21,
+      "costly": 11,
+      "hijacked": 437,
+      "auroc": 0.9982,
+      "tool_seen_rate": 1.0
+    },
+    "cov75": {
+      "decision_points": 2818,
+      "monitor_errors": 35,
+      "dangerous": 27,
+      "costly": 8,
+      "hijacked": 437,
+      "auroc": 0.9976,
+      "tool_seen_rate": 0.75
+    },
+    "cov50": {
+      "decision_points": 2818,
+      "monitor_errors": 34,
+      "dangerous": 23,
+      "costly": 11,
+      "hijacked": 436,
+      "auroc": 0.9977,
+      "tool_seen_rate": 0.5
+    },
+    "cov25": {
+      "decision_points": 2818,
+      "monitor_errors": 28,
+      "dangerous": 21,
+      "costly": 7,
+      "hijacked": 437,
+      "auroc": 0.9985,
+      "tool_seen_rate": 0.25
+    },
+    "context": {
+      "decision_points": 4140,
+      "monitor_errors": 77,
+      "dangerous": 54,
+      "costly": 23,
+      "hijacked": 907,
+      "auroc": 0.9942,
+      "tool_seen_rate": 0.955
+    }
+  },
+  "tool_seed1": {
+    "val": {
+      "decision_points": 4877,
+      "monitor_errors": 37,
+      "dangerous": 28,
+      "costly": 9,
+      "hijacked": 650,
+      "auroc": 0.9993,
+      "tool_seen_rate": 1.0
+    },
+    "cov100": {
+      "decision_points": 2560,
+      "monitor_errors": 23,
+      "dangerous": 15,
+      "costly": 8,
+      "hijacked": 367,
+      "auroc": 0.9987,
+      "tool_seen_rate": 0.999
+    },
+    "cov75": {
+      "decision_points": 2560,
+      "monitor_errors": 31,
+      "dangerous": 17,
+      "costly": 14,
+      "hijacked": 367,
+      "auroc": 0.9976,
+      "tool_seen_rate": 0.748
+    },
+    "cov50": {
+      "decision_points": 2560,
+      "monitor_errors": 26,
+      "dangerous": 15,
+      "costly": 11,
+      "hijacked": 368,
+      "auroc": 0.998,
+      "tool_seen_rate": 0.5
+    },
+    "cov25": {
+      "decision_points": 2560,
+      "monitor_errors": 32,
+      "dangerous": 22,
+      "costly": 10,
+      "hijacked": 367,
+      "auroc": 0.9954,
+      "tool_seen_rate": 0.25
+    },
+    "context": {
+      "decision_points": 3855,
+      "monitor_errors": 92,
+      "dangerous": 62,
+      "costly": 30,
+      "hijacked": 900,
+      "auroc": 0.9954,
+      "tool_seen_rate": 0.989
+    }
+  },
+  "tool_seed2": {
+    "val": {
+      "decision_points": 4952,
+      "monitor_errors": 40,
+      "dangerous": 22,
+      "costly": 18,
+      "hijacked": 695,
+      "auroc": 0.9988,
+      "tool_seen_rate": 1.0
+    },
+    "cov100": {
+      "decision_points": 2923,
+      "monitor_errors": 18,
+      "dangerous": 11,
+      "costly": 7,
+      "hijacked": 360,
+      "auroc": 0.9993,
+      "tool_seen_rate": 1.0
+    },
+    "cov75": {
+      "decision_points": 2923,
+      "monitor_errors": 25,
+      "dangerous": 11,
+      "costly": 14,
+      "hijacked": 360,
+      "auroc": 0.9982,
+      "tool_seen_rate": 0.75
+    },
+    "cov50": {
+      "decision_points": 2924,
+      "monitor_errors": 33,
+      "dangerous": 17,
+      "costly": 16,
+      "hijacked": 360,
+      "auroc": 0.9972,
+      "tool_seen_rate": 0.5
+    },
+    "cov25": {
+      "decision_points": 2923,
+      "monitor_errors": 44,
+      "dangerous": 19,
+      "costly": 25,
+      "hijacked": 360,
+      "auroc": 0.9957,
+      "tool_seen_rate": 0.25
+    },
+    "context": {
+      "decision_points": 3718,
+      "monitor_errors": 78,
+      "dangerous": 46,
+      "costly": 32,
+      "hijacked": 1011,
+      "auroc": 0.9957,
+      "tool_seen_rate": 0.998
+    }
+  }
+}
