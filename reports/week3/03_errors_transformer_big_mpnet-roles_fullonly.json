@@ -1,0 +1,290 @@
+{
+  "taskdisjoint": {
+    "val": {
+      "decision_points": 9721,
+      "monitor_errors": 108,
+      "dangerous": 66,
+      "costly": 42,
+      "hijacked": 1647,
+      "auroc": 0.9985,
+      "tool_seen_rate": 1.0
+    },
+    "test": {
+      "decision_points": 9796,
+      "monitor_errors": 93,
+      "dangerous": 62,
+      "costly": 31,
+      "hijacked": 1755,
+      "auroc": 0.9986,
+      "tool_seen_rate": 1.0
+    }
+  },
+  "tool_seed0": {
+    "val": {
+      "decision_points": 2493,
+      "monitor_errors": 66,
+      "dangerous": 20,
+      "costly": 46,
+      "hijacked": 246,
+      "auroc": 0.9943,
+      "tool_seen_rate": 1.0
+    },
+    "cov100": {
+      "decision_points": 2818,
+      "monitor_errors": 49,
+      "dangerous": 34,
+      "costly": 15,
+      "hijacked": 437,
+      "auroc": 0.9971,
+      "tool_seen_rate": 1.0
+    },
+    "cov75": {
+      "decision_points": 2818,
+      "monitor_errors": 61,
+      "dangerous": 40,
+      "costly": 21,
+      "hijacked": 437,
+      "auroc": 0.9955,
+      "tool_seen_rate": 0.75
+    },
+    "cov50": {
+      "decision_points": 2818,
+      "monitor_errors": 67,
+      "dangerous": 34,
+      "costly": 33,
+      "hijacked": 436,
+      "auroc": 0.9947,
+      "tool_seen_rate": 0.5
+    },
+    "cov25": {
+      "decision_points": 2818,
+      "monitor_errors": 70,
+      "dangerous": 33,
+      "costly": 37,
+      "hijacked": 437,
+      "auroc": 0.9921,
+      "tool_seen_rate": 0.25
+    },
+    "context": {
+      "decision_points": 4140,
+      "monitor_errors": 162,
+      "dangerous": 76,
+      "costly": 86,
+      "hijacked": 907,
+      "auroc": 0.9882,
+      "tool_seen_rate": 0.955
+    }
+  },
+  "tool_seed1": {
+    "val": {
+      "decision_points": 4877,
+      "monitor_errors": 61,
+      "dangerous": 48,
+      "costly": 13,
+      "hijacked": 650,
+      "auroc": 0.997,
+      "tool_seen_rate": 1.0
+    },
+    "cov100": {
+      "decision_points": 2560,
+      "monitor_errors": 31,
+      "dangerous": 26,
+      "costly": 5,
+      "hijacked": 367,
+      "auroc": 0.9973,
+      "tool_seen_rate": 0.999
+    },
+    "cov75": {
+      "decision_points": 2560,
+      "monitor_errors": 57,
+      "dangerous": 30,
+      "costly": 27,
+      "hijacked": 367,
+      "auroc": 0.9943,
+      "tool_seen_rate": 0.748
+    },
+    "cov50": {
+      "decision_points": 2560,
+      "monitor_errors": 47,
+      "dangerous": 21,
+      "costly": 26,
+      "hijacked": 368,
+      "auroc": 0.9946,
+      "tool_seen_rate": 0.5
+    },
+    "cov25": {
+      "decision_points": 2560,
+      "monitor_errors": 76,
+      "dangerous": 33,
+      "costly": 43,
+      "hijacked": 367,
+      "auroc": 0.9917,
+      "tool_seen_rate": 0.25
+    },
+    "context": {
+      "decision_points": 3855,
+      "monitor_errors": 104,
+      "dangerous": 85,
+      "costly": 19,
+      "hijacked": 900,
+      "auroc": 0.9913,
+      "tool_seen_rate": 0.989
+    }
+  },
+  "tool_seed2": {
+    "val": {
+      "decision_points": 4952,
+      "monitor_errors": 180,
+      "dangerous": 12,
+      "costly": 168,
+      "hijacked": 695,
+      "auroc": 0.9972,
+      "tool_seen_rate": 1.0
+    },
+    "cov100": {
+      "decision_points": 2923,
+      "monitor_errors": 61,
+      "dangerous": 6,
+      "costly": 55,
+      "hijacked": 360,
+      "auroc": 0.9985,
+      "tool_seen_rate": 1.0
+    },
+    "cov75": {
+      "decision_points": 2923,
+      "monitor_errors": 91,
+      "dangerous": 5,
+      "costly": 86,
+      "hijacked": 360,
+      "auroc": 0.9975,
+      "tool_seen_rate": 0.75
+    },
+    "cov50": {
+      "decision_points": 2924,
+      "monitor_errors": 115,
+      "dangerous": 4,
+      "costly": 111,
+      "hijacked": 360,
+      "auroc": 0.9965,
+      "tool_seen_rate": 0.5
+    },
+    "cov25": {
+      "decision_points": 2923,
+      "monitor_errors": 145,
+      "dangerous": 8,
+      "costly": 137,
+      "hijacked": 360,
+      "auroc": 0.9947,
+      "tool_seen_rate": 0.25
+    },
+    "context": {
+      "decision_points": 3718,
+      "monitor_errors": 180,
+      "dangerous": 27,
+      "costly": 153,
+      "hijacked": 1011,
+      "auroc": 0.9944,
+      "tool_seen_rate": 0.998
+    }
+  },
+  "lodo_banking": {
+    "val": {
+      "decision_points": 8238,
+      "monitor_errors": 79,
+      "dangerous": 30,
+      "costly": 49,
+      "hijacked": 1528,
+      "auroc": 0.9993,
+      "tool_seen_rate": 1.0
+    },
+    "test": {
+      "decision_points": 11634,
+      "monitor_errors": 210,
+      "dangerous": 88,
+      "costly": 122,
+      "hijacked": 1170,
+      "auroc": 0.9945,
+      "tool_seen_rate": 0.0
+    }
+  },
+  "lodo_coding": {
+    "val": {
+      "decision_points": 7682,
+      "monitor_errors": 64,
+      "dangerous": 48,
+      "costly": 16,
+      "hijacked": 1275,
+      "auroc": 0.9991,
+      "tool_seen_rate": 1.0
+    },
+    "test": {
+      "decision_points": 14817,
+      "monitor_errors": 597,
+      "dangerous": 227,
+      "costly": 370,
+      "hijacked": 2808,
+      "auroc": 0.9891,
+      "tool_seen_rate": 0.0
+    }
+  },
+  "lodo_email": {
+    "val": {
+      "decision_points": 7591,
+      "monitor_errors": 78,
+      "dangerous": 45,
+      "costly": 33,
+      "hijacked": 1293,
+      "auroc": 0.9983,
+      "tool_seen_rate": 1.0
+    },
+    "test": {
+      "decision_points": 14986,
+      "monitor_errors": 505,
+      "dangerous": 113,
+      "costly": 392,
+      "hijacked": 2862,
+      "auroc": 0.9951,
+      "tool_seen_rate": 0.0
+    }
+  },
+  "lodo_medical": {
+    "val": {
+      "decision_points": 7668,
+      "monitor_errors": 105,
+      "dangerous": 69,
+      "costly": 36,
+      "hijacked": 1240,
+      "auroc": 0.9977,
+      "tool_seen_rate": 1.0
+    },
+    "test": {
+      "decision_points": 14795,
+      "monitor_errors": 421,
+      "dangerous": 409,
+      "costly": 12,
+      "hijacked": 2758,
+      "auroc": 0.9961,
+      "tool_seen_rate": 0.0
+    }
+  },
+  "lodo_web": {
+    "val": {
+      "decision_points": 7705,
+      "monitor_errors": 90,
+      "dangerous": 47,
+      "costly": 43,
+      "hijacked": 1252,
+      "auroc": 0.9984,
+      "tool_seen_rate": 1.0
+    },
+    "test": {
+      "decision_points": 14792,
+      "monitor_errors": 766,
+      "dangerous": 190,
+      "costly": 576,
+      "hijacked": 2751,
+      "auroc": 0.9876,
+      "tool_seen_rate": 0.0
+    }
+  }
+}
