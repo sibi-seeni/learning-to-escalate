@@ -43,7 +43,7 @@ from . import config
 from .calibrate import fit_temperature, sigmoid
 from .folds import context_ids, fold_plan, oof_path, split_defs
 from .labels import error_counts, error_labels
-from .monitor import EventData, load, metrics, predict, save, train
+from .monitor import EventData, load, metrics, predict, save, train, train_device
 from .step_features import default_cfg
 
 COLS = ["dp_id", "split", "set", "fold", "logit", "temperature", "score", "pred", "y", "tool_seen",
@@ -226,6 +226,7 @@ def main():
     config.ensure_dirs()
 
     data = EventData(args.encoder)
+    print(f"monitor training device: {train_device()} (set L2E_DEVICE=auto to use a GPU)", flush=True)
     defs = split_defs(data.dps.reset_index())
     names = args.splits or list(defs)
     if args.context_only:

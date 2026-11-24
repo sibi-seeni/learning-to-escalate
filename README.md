@@ -30,7 +30,8 @@ bash scripts/run_week3.sh        # deferrer v2 + transformer deferrer + domain-f
 
 `run_week3.sh` takes about 1–1.5 hours on a laptop CPU; `EXTRA_SEEDS=1` adds two more monitor seeds on the
 unseen-domain splits. After that run, `bash scripts/run_ensemble.sh` (~10 min) adds the 3-seed ensemble and
-seed-disagreement policies everywhere. The Deliverable 2 deferrer is still there as `python -m l2e.deferrer --v1`.
+seed-disagreement policies everywhere, and `bash scripts/run_mpnet.sh` (~1 hour) adds the plan's "better
+monitor": a bigger transformer on mpnet text, laptop only. The Deliverable 2 deferrer is still there as `python -m l2e.deferrer --v1`.
 
 `WITH_ENCODERS=1 bash scripts/run_week2.sh` also builds the MiniLM and mpnet versions (downloads the models
 from Hugging Face once).
@@ -89,8 +90,8 @@ Week 3 results: `docs/WEEK3.md` and `reports/week3/03_deferral_eval.md` after `r
 - **Board timing for the trained models is not done yet** (the board is away until late November). Week 1 measured
   stand-in models on it; `board/time_monitor.py` is ready.
 - **A perfect reviewer is assumed** in every deferral result, so the gains are an upper bound.
-- **The "stronger monitor" baseline is an average of the main transformer and the LSTM**, not yet the mpnet
-  monitor from the plan; mpnet is planned for Deliverable 4.
+- **Two "stronger monitor" baselines:** the main transformer averaged with the LSTM, and the plan's bigger
+  transformer on mpnet text (`scripts/run_mpnet.sh`). Neither is meant for the board.
 - Results on unseen domains vary a lot between training seeds, so single runs there should not be trusted.
 - MiniLM and mpnet need a one-time Hugging Face download; MiniLM was tested and not adopted.
 
@@ -116,7 +117,7 @@ board/           Arduino UNO Q: environment check, monitor timing, results
 results/         figures from the notebook
 reports/         short reports written by each pipeline step (week1/, week2/, week3/)
 docs/            WEEK1–3.md checkpoints, D1.2 and D2 reports, figures and interface screenshots
-scripts/         get_data.sh, run_week1.sh, run_week2.sh, finalize_monitor.sh, run_week3.sh, run_ensemble.sh
+scripts/         get_data.sh, run_week1.sh, run_week2.sh, finalize_monitor.sh, run_week3.sh, run_ensemble.sh, run_mpnet.sh
 tests/           pytest
 ```
 

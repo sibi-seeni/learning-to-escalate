@@ -86,9 +86,10 @@ attack detector. LightGBM stays the default unless the transformer clearly does 
   (`python -m l2e.oof ... --full-only`, `scripts/run_ensemble.sh`).
 - **Raw vs. calibrated confidence:** temperature scaling divides every logit by one number. That never changes
   which calls are least confident, so the two are one policy.
-- **Stronger monitor:** the main transformer and the week 2 LSTM, logits averaged, temperature refit on val.
-  It defers its own least confident calls, and its remaining errors are its own. The mpnet monitor from the
-  plan is planned for Deliverable 4.
+- **Stronger monitors:** (1) the main transformer and the week 2 LSTM, logits averaged, temperature refit on
+  val; (2) the plan's "better monitor", a 4-layer, width-256 causal transformer on mpnet sentence embeddings +
+  tool roles (`scripts/run_mpnet.sh`; laptop only). Each defers its own least confident calls, and its
+  remaining errors are its own.
 - **Attack rate:** each test set is resampled to 1%, 2% and 5% hijacked calls. Whole traces are kept: traces
   without a hijacked call (benign, hard negatives, failed attacks) are bootstrapped, and traces with one are
   added in random order until the rate is reached.
@@ -122,7 +123,7 @@ result before this call is unlike training data". The reasons come from the tree
 
 ## 8. Deviations from the plan
 
-1. **Stronger monitor = transformer + LSTM average**, not the mpnet monitor (Deliverable 4).
+1. **Two stronger-monitor baselines:** the transformer + LSTM average, and the planned mpnet monitor.
 2. **Domain-grouped error labels** are new: not in the plan, added because week 2 showed that unseen domains
    are where confidence fails.
 3. **A transformer deferrer** next to LightGBM, to test whether reading the trace helps more than numbers

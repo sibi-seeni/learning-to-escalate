@@ -294,3 +294,60 @@ def test_transformer_lstm_gap():
     score, T, gap = stronger_monitor(a, b, "test")
     assert gap["t0"] == pytest.approx(0) and gap["t1"] > 0.9 and gap["t2"] == pytest.approx(0)
     assert abs(score["t1"] - 0.5) < abs(score["t0"] - 0.5) and T > 0
+
+
+# --------------------------------------------------------------------------- the mpnet "better monitor"
+
+def test_big_transformer_is_causal_and_trains_a_step():
+    torch = pytest.importorskip("torch")
+    from l2e.monitor import ARCHS, Monitor
+    torch.manual_seed(0)
+    m = Monitor(7, 790, arch="transformer_big", **ARCHS["transformer_big"]).eval()
+    tool = torch.randint(0, 7, (2, 9))
+    X = torch.randn(2, 9, 790)
+    out = m(tool, X)
+    assert out.shape == (2, 9)
+    X2 = X.clone()
+    X2[:, 6:] = torch.randn(2, 3, 790)  # change the future: earlier outputs must not move
+    assert torch.allclose(m(tool, X2)[:, :6], out[:, :6], atol=1e-5)
+    m.train()
+    loss = m(tool, X).sum()
+    loss.backward()
+    assert all(p.grad is not None for p in m.parameters() if p.requires_grad)
+
+
+def test_train_device_defaults_to_cpu(monkeypatch):
+    pytest.importorskip("torch")
+    from l2e.monitor import train_device
+    monkeypatch.delenv("L2E_DEVICE", raising=False)
+    assert train_device() == "cpu"
+    monkeypatch.setenv("L2E_DEVICE", "auto")
+    assert train_device() in ("cpu", "mps", "cuda")
+    monkeypatch.setenv("L2E_DEVICE", "tpu")
+    with pytest.raises(ValueError):
+        train_device()
+
+
+def test_full_only_run_writes_val_test_and_context(tmp_path):
+    pytest.importorskip("torch")
+    from l2e import oof
+    from l2e.monitor import EventData
+    rng = np.random.default_rng(0)
+    data = EventData.__new__(EventData)  # a tiny fake dataset, no files
+    rows, data.ev, data.trajs = [], {}, {}
+    for t in range(40):
+        tid = f"email_{t}"
+        data.trajs[tid] = {"task": f"task {t % 10}"}
+        for s in range(3):
+            rows.append(dict(dp_id=f"{tid}:{s}", traj_id=tid, step=s, tool=f"tool{s}", domain="email",
+                             y=int(t % 4 == 0 and s == 2)))
+        data.ev[tid] = ([f"tool{i // 2}" for i in range(5)], rng.normal(size=(5, 12)).astype(np.float32), [0, 2, 4])
+    data.dps = pd.DataFrame(rows).set_index("dp_id")
+    data.y, data.dim, data.encoder = data.dps["y"].to_dict(), 12, "hash-roles"
+    ids = list(data.dps.index)
+    sp = {"train": ids[:72], "val": ids[72:96], "test": {"cov100": ids[96::3], "cov50": ids[97::3]}}
+    df = oof.run_split(data, "tool_seedX", sp, "transformer_big", 5, {"max_epochs": 1}, tmp_path, tmp_path,
+                       "hash-roles", fold_by="full")
+    assert set(df["set"]) == {"val", "cov100", "cov50", "context"}  # no out-of-fold rows, context for partial traces
+    assert (df["fold"] == -1).all() and df["score"].between(0, 1).all()
+    assert (tmp_path / "tool_seedX_full.pt").exists() and (tmp_path / "tool_seedX.csv").exists()

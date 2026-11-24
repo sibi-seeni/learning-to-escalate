@@ -92,6 +92,12 @@ def world(tmp_path, monkeypatch):
             full = base[base.set != "oof"].copy()
             full["logit"] = full["logit"] + rng.normal(0, 1.5, len(full))
             full.to_csv(tmp_path / "oof" / ftag / f"{split}.csv", index=False)
+        mtag = config.oof_tag("transformer_big", "mpnet-roles", fold_by="full")  # the big mpnet monitor
+        (tmp_path / "oof" / mtag).mkdir(parents=True, exist_ok=True)
+        big = pd.read_csv(tmp_path / "oof" / config.oof_tag() / f"{split}.csv")
+        big = big[big.set != "oof"].copy()
+        big["score"] = np.clip(big["score"] + rng.normal(0, 0.2, len(big)), 0.001, 0.999)
+        big.to_csv(tmp_path / "oof" / mtag / f"{split}.csv", index=False)
         (tmp_path / "oof" / "lstm_hash").mkdir(exist_ok=True)
         oof_table(dps, split, "task", rng, sets).to_csv(tmp_path / "oof" / "lstm_hash" / f"{split}.csv", index=False)
 
@@ -123,7 +129,7 @@ def test_neural_then_evaluation(world, monkeypatch):
     res = json.loads((config.REPORTS3 / "03_deferral_eval.json").read_text())
     web = res["settings"]["Unseen domain: web"]["policies"]
     assert {"confidence", "stronger", "novelty", "lgbm_task", "lgbm_domain", "neural_task", "neural_domain"} <= set(web)
-    assert {"seed_ensemble", "disagreement", "ens_disagree", "arch_disagree", "pair_disagree"} <= set(web)
+    assert {"seed_ensemble", "disagreement", "ens_disagree", "arch_disagree", "pair_disagree", "mpnet"} <= set(web)
     assert res["settings"]["Task-disjoint test"]["ensemble_seeds"] == 3
     assert res["settings"]["Task-disjoint test"]["variants"] == 1  # full-only seeds add no deferrer variants
     assert "Unseen domains (mean)" in res["results"]

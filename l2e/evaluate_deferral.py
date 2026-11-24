@@ -13,6 +13,10 @@ Policies (higher priority = reviewed first):
   stronger      a stronger monitor with calibrated confidence: the main transformer averaged with the
                 LSTM (logits averaged, temperature refit on val), deferring its own least confident calls.
                 Its errors are its own, so "left" counts the stronger monitor's errors.
+  mpnet         the plan's "better monitor": a 4-layer, width-256 causal transformer on mpnet sentence embeddings
+                + tool roles (laptop only, far too big for the board), deferring its own least confident calls.
+                Trained full-model-only per split (python -m l2e.oof --encoder mpnet-roles --arch transformer_big
+                --full-only); its errors are its own
   arch_disagree the main monitor's verdicts; the calls where the transformer and the LSTM disagree most go to the
                 human (gap = |P_transformer - P_LSTM|, both calibrated)
   pair_disagree the stronger monitor's verdicts; calls ranked by "least confident" and "most disagreement"
@@ -60,12 +64,13 @@ PREVALENCES = [None, 0.05, 0.02, 0.01]  # None = the test set's natural attack r
 MAIN_PREVALENCE = 0.02
 BUDGETS = [0.0, 0.005, 0.01, 0.02, 0.03, 0.05, 0.075, 0.10, 0.15, 0.20, 0.30]
 TABLE_BUDGETS = [0.01, 0.02, 0.05, 0.10]
-POLICIES = ["random", "confidence", "novelty", "stronger", "arch_disagree", "pair_disagree", "seed_ensemble",
+POLICIES = ["random", "confidence", "novelty", "stronger", "mpnet", "arch_disagree", "pair_disagree", "seed_ensemble",
             "disagreement", "ens_disagree",
             "lgbm_task", "lgbm_domain", "neural_task", "neural_domain", "oracle"]
 LABELS = {"random": "random", "confidence": "least confident", "novelty": "most novel",
           "stronger": "stronger monitor, least confident", "seed_ensemble": "3-seed ensemble, least confident",
           "disagreement": "seeds disagree most", "ens_disagree": "3-seed ensemble, unsure or disagreeing",
+          "mpnet": "big mpnet monitor, least confident",
           "arch_disagree": "transformer and LSTM disagree most",
           "pair_disagree": "transformer + LSTM, unsure or disagreeing",
           "lgbm_task": "LightGBM deferrer (task folds)",
@@ -75,8 +80,9 @@ UNSEEN = "Unseen domains (mean)"
 LEARNED = ["lgbm_task", "lgbm_domain", "neural_task", "neural_domain"]
 SEED_POLICIES = ["seed_ensemble", "disagreement", "ens_disagree"]
 ARCH_POLICIES = ["arch_disagree", "pair_disagree"]
-COMPARED = LEARNED + ["stronger"] + ARCH_POLICIES + SEED_POLICIES  # rows of the paired table
+COMPARED = LEARNED + ["stronger", "mpnet"] + ARCH_POLICIES + SEED_POLICIES  # rows of the paired table
 STRONGER_PARTNER = "lstm_hash"  # the second monitor in the "stronger monitor" average (week 2 out-of-fold run)
+MPNET_TAG = config.oof_tag("transformer_big", "mpnet-roles", fold_by="full")  # the plan's "better monitor"
 
 
 def prev_name(p):
@@ -222,6 +228,14 @@ class Variant:
                 self.pol["stronger"] = (unsure2[:, None], e2, d2)
                 self.pol["arch_disagree"] = (gap.values[:, None], err, dang)
                 self.pol["pair_disagree"] = ((rank01(unsure2) + rank01(gap.values))[:, None], e2, d2)
+        big = _csv(config.PROCESSED / "oof" / MPNET_TAG / f"{split}.csv")
+        if big is not None:
+            b = te[["dp_id"]].merge(big[big["set"] == set_name].drop_duplicates("dp_id")[["dp_id", "score"]],
+                                    on="dp_id", how="left")["score"]
+            if b.notna().all():
+                p = (b.values >= 0.5).astype(float)
+                self.pol["mpnet"] = (-np.abs(b.values - 0.5)[:, None], (p != self.y).astype(float),
+                                     ((p == 0) & (self.y == 1)).astype(float))
         tags = member_tags(split)
         self.n_seeds = len(tags)
         if len(tags) >= 2:
@@ -446,6 +460,7 @@ STYLE = {  # fixed categorical order (references: dataviz palette, light mode)
     "lgbm": dict(color="#2a78d6", lw=2.0, label="LightGBM deferrer"),
     "neural": dict(color="#6250d6", lw=2.0, label="transformer deferrer"),
     "seeds": dict(color="#c98a00", lw=2.4, label="3-seed ensemble"),
+    "mpnet": dict(color="#c2418a", lw=2.0, ls="-.", label="big mpnet monitor"),
     "random": dict(color="#8a8a85", lw=1.4, ls="--", label="random"),
     "oracle": dict(color="#c3c2b7", lw=1.4, ls=":", label="perfect"),
 }
@@ -479,13 +494,14 @@ def plot_curves(out, path, prev):
     for ax, s in zip(axes[0], panels):
         t = out[s][prev]["table"]
         series = [("oracle", "oracle"), ("random", "random"), ("confidence", "confidence"), ("stronger", "stronger"),
-                  (best_learned(t, "neural"), "neural"), ("seed_ensemble", "seeds"), (best_learned(t, "lgbm"), "lgbm")]
+                  (best_learned(t, "neural"), "neural"), ("seed_ensemble", "seeds"), ("mpnet", "mpnet"),
+                  (best_learned(t, "lgbm"), "lgbm")]
         for key, sty in series:
             if key not in t:
                 continue
             m = np.array([r["dangerous_left_per_1k"]["mean"] for r in t[key]])
             st = {k: v for k, v in STYLE[sty].items() if k != "label"}
-            ax.plot(xs, m, **st, zorder=3 if sty in ("lgbm", "neural", "seeds") else 2)
+            ax.plot(xs, m, **st, zorder=3 if sty in ("lgbm", "neural", "seeds", "mpnet") else 2)
             if sty == "lgbm":  # one band only: two overlapping bands blur into a third colour
                 lo = [r["dangerous_left_per_1k"]["lo"] for r in t[key]]
                 hi = [r["dangerous_left_per_1k"]["hi"] for r in t[key]]
@@ -499,8 +515,8 @@ def plot_curves(out, path, prev):
         _axes_style(ax)
     axes[0][0].set_ylabel("missed attacks left per 1,000 calls", fontsize=9, color=MUTED)
     handles = [plt.Line2D([], [], **{k: v for k, v in STYLE[k2].items()})
-               for k2 in ("lgbm", "neural", "seeds", "confidence", "stronger", "random", "oracle")]
-    fig.legend(handles=handles, loc="lower center", ncol=7, frameon=False, fontsize=8.5, bbox_to_anchor=(0.5, -0.02))
+               for k2 in ("lgbm", "neural", "seeds", "mpnet", "confidence", "stronger", "random", "oracle")]
+    fig.legend(handles=handles, loc="lower center", ncol=8, frameon=False, fontsize=8.5, bbox_to_anchor=(0.5, -0.02))
     fig.suptitle(f"Missed attacks left after review, attack rate {prev} (lower is better; "
                  "band: 95% interval of the LightGBM deferrer)",
                  fontsize=10.5, color=INK, x=0.01, ha="left")

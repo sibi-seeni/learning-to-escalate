@@ -36,6 +36,20 @@ ARCHS = {
     "transformer_big": dict(d=256, layers=4, heads=8),
 }
 TRAIN = dict(batch=64, lr=2e-3, weight_decay=1e-4, max_epochs=25, patience=4, tool_dropout=0.1, dropout=0.1)
+
+
+def train_device():
+    """Where train() runs: L2E_DEVICE=cpu (default, so every earlier result is unchanged), mps, cuda or auto
+    (the first available of cuda, mps, cpu). Trained models always come back on the CPU."""
+    import os
+    want = os.environ.get("L2E_DEVICE", "cpu").lower()
+    if want == "auto":
+        if torch.cuda.is_available():
+            return "cuda"
+        return "mps" if torch.backends.mps.is_available() else "cpu"
+    if want not in ("cpu", "mps", "cuda"):
+        raise ValueError(f"L2E_DEVICE must be cpu, mps, cuda or auto, not {want!r}")
+    return want
 TOOL_DIM = 16
 
 
@@ -192,12 +206,13 @@ def collate(batch, tool_dropout=0.0, rng=None):
 def predict(model, items, batch=256):
     """-> (dp_ids, raw logits)"""
     model.eval()
+    dev = next(model.parameters()).device
     ids, out = [], []
     with torch.no_grad():
         for i in range(0, len(items), batch):
             b = items[i:i + batch]
             tool, X, _, _ = collate(b)
-            lg = model(tool, X)
+            lg = model(tool.to(dev), X.to(dev)).cpu()
             for j, it in enumerate(b):
                 ids += it[4]
                 out += lg[j, it[2]].tolist()
@@ -220,7 +235,8 @@ def train(data, train_ids, val_ids, arch="lstm", seed=config.SEED, hp=None, verb
     tr_items = data.items(train_ids, vocab)
     va_items = data.items(val_ids, vocab)
     va_y = np.concatenate([it[3] for it in va_items])
-    model = Monitor(len(vocab) + 2, data.dim, arch=arch, dropout=hp["dropout"], **ARCHS[arch])
+    dev = train_device()
+    model = Monitor(len(vocab) + 2, data.dim, arch=arch, dropout=hp["dropout"], **ARCHS[arch]).to(dev)
     opt = torch.optim.AdamW(model.parameters(), lr=hp["lr"], weight_decay=hp["weight_decay"])
     lossf = nn.BCEWithLogitsLoss(reduction="sum")
     best, best_state, bad, hist = -1.0, None, 0, []
@@ -230,6 +246,7 @@ def train(data, train_ids, val_ids, arch="lstm", seed=config.SEED, hp=None, verb
         order = rng.permutation(len(tr_items))
         for i in range(0, len(order), hp["batch"]):
             tool, X, mask, y = collate([tr_items[j] for j in order[i:i + hp["batch"]]], hp["tool_dropout"], rng)
+            tool, X, mask, y = tool.to(dev), X.to(dev), mask.to(dev), y.to(dev)
             k = mask.sum()
             loss = lossf(model(tool, X)[mask], y[mask]) / k
             opt.zero_grad()
@@ -249,7 +266,7 @@ def train(data, train_ids, val_ids, arch="lstm", seed=config.SEED, hp=None, verb
             if bad >= hp["patience"]:
                 break
     model.load_state_dict(best_state)
-    model.eval()
+    model.to("cpu").eval()
     return model, vocab, hist
 
 
