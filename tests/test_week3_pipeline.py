@@ -123,7 +123,7 @@ def test_neural_then_evaluation(world, monkeypatch):
     res = json.loads((config.REPORTS3 / "03_deferral_eval.json").read_text())
     web = res["settings"]["Unseen domain: web"]["policies"]
     assert {"confidence", "stronger", "novelty", "lgbm_task", "lgbm_domain", "neural_task", "neural_domain"} <= set(web)
-    assert {"seed_ensemble", "disagreement", "ens_disagree"} <= set(web)
+    assert {"seed_ensemble", "disagreement", "ens_disagree", "arch_disagree", "pair_disagree"} <= set(web)
     assert res["settings"]["Task-disjoint test"]["ensemble_seeds"] == 3
     assert res["settings"]["Task-disjoint test"]["variants"] == 1  # full-only seeds add no deferrer variants
     assert "Unseen domains (mean)" in res["results"]

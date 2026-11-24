@@ -13,6 +13,10 @@ Policies (higher priority = reviewed first):
   stronger      a stronger monitor with calibrated confidence: the main transformer averaged with the
                 LSTM (logits averaged, temperature refit on val), deferring its own least confident calls.
                 Its errors are its own, so "left" counts the stronger monitor's errors.
+  arch_disagree the main monitor's verdicts; the calls where the transformer and the LSTM disagree most go to the
+                human (gap = |P_transformer - P_LSTM|, both calibrated)
+  pair_disagree the stronger monitor's verdicts; calls ranked by "least confident" and "most disagreement"
+                together (the mean of the two ranks)
   seed_ensemble the main transformer trained with 3 seeds, calibrated logits averaged, temperature refit on
                 val; defers its own least confident calls (its errors are its own)
   disagreement  the main monitor's verdicts, but the calls where the 3 seeds disagree most go to the human
@@ -56,18 +60,22 @@ PREVALENCES = [None, 0.05, 0.02, 0.01]  # None = the test set's natural attack r
 MAIN_PREVALENCE = 0.02
 BUDGETS = [0.0, 0.005, 0.01, 0.02, 0.03, 0.05, 0.075, 0.10, 0.15, 0.20, 0.30]
 TABLE_BUDGETS = [0.01, 0.02, 0.05, 0.10]
-POLICIES = ["random", "confidence", "novelty", "stronger", "seed_ensemble", "disagreement", "ens_disagree",
+POLICIES = ["random", "confidence", "novelty", "stronger", "arch_disagree", "pair_disagree", "seed_ensemble",
+            "disagreement", "ens_disagree",
             "lgbm_task", "lgbm_domain", "neural_task", "neural_domain", "oracle"]
 LABELS = {"random": "random", "confidence": "least confident", "novelty": "most novel",
           "stronger": "stronger monitor, least confident", "seed_ensemble": "3-seed ensemble, least confident",
           "disagreement": "seeds disagree most", "ens_disagree": "3-seed ensemble, unsure or disagreeing",
+          "arch_disagree": "transformer and LSTM disagree most",
+          "pair_disagree": "transformer + LSTM, unsure or disagreeing",
           "lgbm_task": "LightGBM deferrer (task folds)",
           "lgbm_domain": "LightGBM deferrer (domain folds)", "neural_task": "transformer deferrer (task folds)",
           "neural_domain": "transformer deferrer (domain folds)", "oracle": "perfect (upper bound)"}
 UNSEEN = "Unseen domains (mean)"
 LEARNED = ["lgbm_task", "lgbm_domain", "neural_task", "neural_domain"]
 SEED_POLICIES = ["seed_ensemble", "disagreement", "ens_disagree"]
-COMPARED = LEARNED + ["stronger"] + SEED_POLICIES  # rows of the paired table
+ARCH_POLICIES = ["arch_disagree", "pair_disagree"]
+COMPARED = LEARNED + ["stronger"] + ARCH_POLICIES + SEED_POLICIES  # rows of the paired table
 STRONGER_PARTNER = "lstm_hash"  # the second monitor in the "stronger monitor" average (week 2 out-of-fold run)
 
 
@@ -130,7 +138,8 @@ def _csv(path):
 
 
 def stronger_monitor(main, partner, set_name):
-    """Average the two monitors' calibrated logits, refit one temperature on val. -> score per dp_id of the set."""
+    """Average the two monitors' calibrated logits, refit one temperature on val.
+    -> (score per dp_id of the set, temperature, gap between the two monitors' calibrated P(hijacked))."""
     def cal(df):
         return df.assign(z=df["logit"] / df["temperature"])[["dp_id", "set", "z", "y"]]
     m = cal(main).merge(cal(partner)[["dp_id", "set", "z"]], on=["dp_id", "set"], suffixes=("", "_2"))
@@ -138,7 +147,9 @@ def stronger_monitor(main, partner, set_name):
     val = m[m["set"] == "val"]
     T = fit_temperature(val["z_avg"], val["y"])
     te = m[m["set"] == set_name]
-    return pd.Series(sigmoid(te["z_avg"].values / T), index=te["dp_id"].values), T
+    gap = np.abs(sigmoid(te["z"].values) - sigmoid(te["z_2"].values))  # how far apart the two monitors are
+    return (pd.Series(sigmoid(te["z_avg"].values / T), index=te["dp_id"].values), T,
+            pd.Series(gap, index=te["dp_id"].values))
 
 
 def member_tags(split):
@@ -201,13 +212,16 @@ class Variant:
             self.pol["novelty"] = (pr[:, None], err, dang)
         partner = _csv(config.PROCESSED / "oof" / STRONGER_PARTNER / f"{split}.csv")
         if partner is not None:
-            s, self.stronger_T = stronger_monitor(oof, partner, set_name)
-            s = te["dp_id"].map(s)
+            s, self.stronger_T, gap = stronger_monitor(oof, partner, set_name)
+            s, gap = te["dp_id"].map(s), te["dp_id"].map(gap)
             if s.notna().all():
                 p = (s.values >= 0.5).astype(float)
                 e2 = (p != self.y).astype(float)
                 d2 = ((p == 0) & (self.y == 1)).astype(float)
-                self.pol["stronger"] = (-np.abs(s.values - 0.5)[:, None], e2, d2)
+                unsure2 = -np.abs(s.values - 0.5)
+                self.pol["stronger"] = (unsure2[:, None], e2, d2)
+                self.pol["arch_disagree"] = (gap.values[:, None], err, dang)
+                self.pol["pair_disagree"] = ((rank01(unsure2) + rank01(gap.values))[:, None], e2, d2)
         tags = member_tags(split)
         self.n_seeds = len(tags)
         if len(tags) >= 2:

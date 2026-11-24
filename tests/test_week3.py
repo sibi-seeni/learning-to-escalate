@@ -286,3 +286,11 @@ def test_oof_report_skips_full_only_runs():
     c = {"decision_points": 10, "hijacked": 2, "monitor_errors": 1, "dangerous": 1, "costly": 0, "auroc": 0.9}
     md = write_report({"taskdisjoint": {"val": c, "test": c}}, "x_fullonly", "full")
     assert "Task-disjoint test" in md and "full model" in md
+
+
+def test_transformer_lstm_gap():
+    from l2e.evaluate_deferral import stronger_monitor
+    a, b = _member([4.0, 4.0, 0.0]), _member([4.0, -4.0, 0.0])
+    score, T, gap = stronger_monitor(a, b, "test")
+    assert gap["t0"] == pytest.approx(0) and gap["t1"] > 0.9 and gap["t2"] == pytest.approx(0)
+    assert abs(score["t1"] - 0.5) < abs(score["t0"] - 0.5) and T > 0
